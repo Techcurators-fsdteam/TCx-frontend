@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useSubmit } from "react-router-dom";
+import { Link, useSubmit,useNavigate } from "react-router-dom";
 import Header from "./Header";
 import pt from "../assets/pt.svg";
 import arrow from "../assets/arrow.svg";
@@ -8,16 +8,17 @@ import arrow from "../assets/arrow.svg";
 const Domains=["web development","machine learning","data science","networking","blockchain","cybersecurity"]
 
 function Practicetest1() {
-  const [fname, setFname] = useState(null);
-  const [lname, setLname] = useState(null);
-  const [domain, setDomain] = useState(null);
-  const [exp, setexp] = useState(null);
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [domain, setDomain] = useState('');
+  const [exp, setexp] = useState('');
   const [name, setName] = useState(false);
   const [conf, setConf] = useState(false);
 
-  function handleSubmit(){
-
-  }
+  const navigate=useNavigate()
+    function handleLinkClick(){
+        navigate("/test",{state:{fName:`${fname}`,lName:`${lname}`,domain:`${domain}`,experience:`${exp}`}})
+    }
 
   function handleSubmitModal() {
     setName(false);
@@ -139,12 +140,13 @@ function Practicetest1() {
 
               {/* Proceed Button */}
               <div className="flex justify-center items-center mt-6 w-full">
-                <Link
-                  to={"/test?fName:"+fname+"&lName:"+lname+"&domain:"+domain+"&experience:"+exp}
+                <button
+                onClick={handleLinkClick}
+                  
                   className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 text-xs sm:text-sm md:text-base"
                 >
                   Proceed
-                </Link>
+                </button>
               </div>
             </>
           ) : (

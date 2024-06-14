@@ -17,9 +17,10 @@ function Login() {
   function handleSignIn() {
       const data = { email, username, password };
       login(data).then(res => {
-        console.log(data)
-          document.cookie = `token=${res.accessToken};  path=/`;
-          console.log(res.accessToken);
+        
+
+          document.cookie = `token=${res.token};  path=/`;
+          console.log(res.token);
           navigate("/")
            // Use navigate for redirection
       }).catch(err => {

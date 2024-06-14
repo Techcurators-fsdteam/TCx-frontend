@@ -5,3 +5,18 @@
   background-color: #0D0D0E;
   font-family: nunito, sans-serif;
 }
+.tooltip {
+  position: absolute;
+  background-color: #000; /* Black background */
+  color: #fff;           /* White text */
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 6px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-visible {
+  opacity: 0.9;
+}

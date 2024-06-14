@@ -132,9 +132,9 @@ function Practicetest1() {
                   <option value="" disabled>
                     Experience Level
                   </option>
-                  <option value="beginner">Beginner</option>
-                  <option value="intermediate">Intermediate</option>
-                  <option value="advanced">Advanced</option>
+                  <option value="beginner (0-2 yrs)">Beginner &#40;0-2 yrs&#41;</option>
+                  <option value="intermediate (3-5 yrs)">Intermediate &#40;3-5 yrs&#41;</option>
+                  <option value="advanced (5+ yrs)">Advanced &#40;5+ yrs&#41;</option>
                 </select>
               </div>
 

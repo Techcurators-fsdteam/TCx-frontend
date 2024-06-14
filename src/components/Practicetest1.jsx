@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Link, useSubmit,useNavigate } from "react-router-dom";
-import Header from "./Header";
-import pt from "../assets/pt.svg";
+import { useNavigate } from "react-router-dom";
 import arrow from "../assets/arrow.svg";
+import pt from "../assets/pt.svg";
+import Header from "./Header";
 
 
 const Domains=["web development","machine learning","data science","networking","blockchain","cybersecurity"]
@@ -110,7 +110,7 @@ function Practicetest1() {
                   className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
                 >
                   <option value="" disabled>
-                    Experience Level
+                    Domain
                   </option>
                   {Domains.map((domain)=>{
                     return(

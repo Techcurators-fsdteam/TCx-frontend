@@ -30,10 +30,10 @@ function App() {
         <Route path="/Practicetest1" element={<Practicetest1 />} />
         <Route path='/result' element={<Result/>} />
         <Route path='/Editwork' element={<Editwork />} />
-          <Route path='/Editeducation' element={<Editeducation />} />
-          <Route path='/Editlink' element={<Editlink />} />
-          <Route path='/Editprofile' element={<Editprofile />} />
-          <Route path='/Editresume' element={<Editresume />} />
+        <Route path='/Editeducation' element={<Editeducation />} />
+        <Route path='/Editlink' element={<Editlink />} />
+        <Route path='/Editprofile' element={<Editprofile />} />
+        <Route path='/Editresume' element={<Editresume />} />
       </Routes>
       </Router>
     </>

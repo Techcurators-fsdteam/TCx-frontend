@@ -1,6 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
+import { UserProvider } from "./store/UserContext.jsx";
 
 const container = document.getElementById("root");
 const root = createRoot(container);

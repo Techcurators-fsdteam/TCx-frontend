@@ -7,7 +7,9 @@ import work from '../assets/work.svg';
 import cert1 from '../assets/cert1.svg';
 import cert2 from '../assets/cert2.svg';
 
+
 function Profile() {
+  
   return (
     <>
       <div className='flex justify-center text-center py-8'>

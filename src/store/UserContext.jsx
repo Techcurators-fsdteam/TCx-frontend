@@ -1,4 +1,15 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
+
+// Utility function to get a cookie by name
+const getCookie = (name) => {
+  const cookieValue = document.cookie
+    .split('; ')
+    .find(row => row.startsWith(name + '='))
+    ?.split('=')[1];
+
+  return cookieValue ? decodeURIComponent(cookieValue) : null;
+};
 
 // Create a context object
 const UserContext = createContext();
@@ -14,23 +25,24 @@ export const UserProvider = ({ children }) => {
   // Function to fetch user details from API
   const fetchUserDetails = async () => {
     try {
-      const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
+      const token = getCookie('token'); // Get the token from the cookie
+      console.log(token)
       if (!token) {
         throw new Error('No token found');
       }
 
-      const response = await fetch('https://api.example.com/user-details', {
+      const response = await axios.get('http://localhost:5000/api/auth/verify', {
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `${token}`
         }
       });
 
-      if (!response.ok) {
+      if (!response.data) {
         throw new Error('Failed to fetch user details');
       }
 
-      const userData = await response.json();
-      setUser(userData); // Update the user state with fetched data
+      setUser(response.data);
+      // console.log(response.data) // Update the user state with fetched data
     } catch (error) {
       console.error('Error fetching user details:', error);
     } finally {
@@ -41,7 +53,7 @@ export const UserProvider = ({ children }) => {
   // Fetch user details on component mount
   useEffect(() => {
     fetchUserDetails();
-  }, []);
+  }, [document.cookie]);
 
   if (loading) {
     return <p>Loading...</p>;

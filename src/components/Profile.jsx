@@ -1,15 +1,13 @@
-import '../index.css';
-import { Link } from 'react-router-dom';
-import certificate from '../assets/certificate.svg';
-import education from '../assets/education.svg';
-import links from '../assets/links.svg';
-import work from '../assets/work.svg';
-import cert1 from '../assets/cert1.svg';
-import cert2 from '../assets/cert2.svg';
+// Profile.js
+import React from 'react';
+import certificate from './assets/certificate.svg';
+import education from './assets/education.svg';
+import links from './assets/links.svg';
+import work from './assets/work.svg';
+import cert1 from './assets/cert1.svg';
+import cert2 from './assets/cert2.svg';
 
-
-function Profile() {
-  
+function Profile({ onOpenModal }) {
   return (
     <>
       <div className='flex justify-center text-center py-8'>
@@ -29,7 +27,7 @@ function Profile() {
             <div className='bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6'>
               <div className='flex justify-between items-center mb-2'>
                 <p className='text-lg md:text-xl text-[#FF7C1D]'>Personal Information</p>
-                <p className='text-[#1859F1] cursor-pointer'><Link to="/Editprofile">+ Edit</Link></p>
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => onOpenModal('Editprofile')}>+ Edit</p>
               </div>
             </div>
 
@@ -38,7 +36,7 @@ function Profile() {
                 <div className='flex items-center'>
                   <p className='ml-2 text-lg md:text-xl text-[#FF7C1D]'>My Resume</p>
                 </div>
-                <p className='text-[#1859F1] cursor-pointer'><Link to="/Editresume">+ Add Resume</Link></p>
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => onOpenModal('Editresume')}>+ Add Resume</p>
               </div>
             </div>
           </div>
@@ -62,7 +60,7 @@ function Profile() {
                   <img src={work} alt='Work Experience' className='h-8 w-8' />
                   <p className='ml-2 text-lg md:text-xl text-[#FF7C1D]'>Work Experience</p>
                 </div>
-                <p className='text-[#1859F1] cursor-pointer'> <Link to="/Editwork">+ Add Work Experience</Link></p>
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => onOpenModal('Editwork')}>+ Add Work Experience</p>
               </div>
             </div>
 
@@ -72,7 +70,7 @@ function Profile() {
                   <img src={education} alt='Education' className='h-8 w-8' />
                   <p className='ml-2 text-lg md:text-xl text-[#FF7C1D]'>Education</p>
                 </div>
-                <p className='text-[#1859F1] cursor-pointer'><Link to="/Editeducation">+ Add Education</Link></p>
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => onOpenModal('Editeducation')}>+ Add Education</p>
               </div>
             </div>
 
@@ -82,7 +80,7 @@ function Profile() {
                   <img src={links} alt='Links' className='h-8 w-8' />
                   <p className='ml-2 text-lg md:text-xl text-[#FF7C1D]'>Links</p>
                 </div>
-                <p className='text-[#1859F1] cursor-pointer'><Link to="/Editlink">+ Add Links</Link></p>
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => onOpenModal('Editlink')}>+ Add Links</p>
               </div>
             </div>
 

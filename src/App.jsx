@@ -9,12 +9,12 @@ import Practicetest1 from './components/Practicetest1';
 import SignUp from './components/Signup';
 import Test from './components/Test';
 import Result from './components/Result';
-import Profile from './Profile'
-import Editwork from './Editwork';
-import Editeducation from './Editeducation';
-import Editlink from './Editlink';
-import Editprofile from './Editprofile';
-import Editresume from './Editresume';
+import Profile from './components/Profile.jsx'
+import Editwork from './components/Editwork';
+import Editeducation from './components/Editeducation';
+import Editlink from './components/Editlink';
+import Editprofile from './components/Editprofile';
+import Editresume from './components/Editresume';
 
 function App() {
   return (

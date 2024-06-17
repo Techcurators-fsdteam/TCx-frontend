@@ -1,11 +1,11 @@
-import './index.css';
+import '../index.css';
 import { Link } from 'react-router-dom';
-import certificate from './assets/certificate.svg';
-import education from './assets/education.svg';
-import links from './assets/links.svg';
-import work from './assets/work.svg';
-import cert1 from './assets/cert1.svg';
-import cert2 from './assets/cert2.svg';
+import certificate from '../assets/certificate.svg';
+import education from '../assets/education.svg';
+import links from '../assets/links.svg';
+import work from '../assets/work.svg';
+import cert1 from '../assets/cert1.svg';
+import cert2 from '../assets/cert2.svg';
 
 function Profile() {
   return (

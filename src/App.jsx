@@ -15,8 +15,13 @@ import Editeducation from './components/Editeducation';
 import Editlink from './components/Editlink';
 import Editprofile from './components/Editprofile';
 import Editresume from './components/Editresume';
+import Modal from './components/Modal';
 
 function App() {
+  const [modalOpen, setModalOpen] = useState(null);
+
+  const closeModal = () => setModalOpen(null);
+  
   return (
     <>
     <Router>
@@ -30,11 +35,30 @@ function App() {
         <Route path="/test" element={<Test/>}/>
         <Route path="/Practicetest1" element={<Practicetest1 />} />
         <Route path='/result' element={<Result/>} />
-        <Route path='/Editwork' element={<Editwork />} />
-        <Route path='/Editeducation' element={<Editeducation />} />
-        <Route path='/Editlink' element={<Editlink />} />
-        <Route path='/Editprofile' element={<Editprofile />} />
-        <Route path='/Editresume' element={<Editresume />} />
+        <div className="relative">
+        <Profile onOpenModal={setModalOpen} />
+        
+        <Modal isOpen={modalOpen === 'Editwork'} onClose={closeModal}>
+          <Editwork />
+        </Modal>
+        
+        <Modal isOpen={modalOpen === 'Editeducation'} onClose={closeModal}>
+          <Editeducation />
+        </Modal>
+        
+        <Modal isOpen={modalOpen === 'Editlink'} onClose={closeModal}>
+          <Editlink />
+        </Modal>
+        
+        <Modal isOpen={modalOpen === 'Editprofile'} onClose={closeModal}>
+          <Editprofile />
+        </Modal>
+        
+        <Modal isOpen={modalOpen === 'Editresume'} onClose={closeModal}>
+          <Editresume />
+        </Modal>
+      </div>
+        
       </Routes>
       </Router>
     </>

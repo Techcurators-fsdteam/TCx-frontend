@@ -18,9 +18,10 @@ const Header = () => {
       const cookies = document.cookie.split(";").reduce((acc, cookie) => {
         const [name, value] = cookie.split("=").map((c) => c.trim());
         acc[name] = value;
+        if(user){
         if (user.picture) {
           setImageUrl(user.picture);
-        }
+        }}
         return acc;
       }, {});
       setLogged(!!cookies.token); // Set logged state based on token existence

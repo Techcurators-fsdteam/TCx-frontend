@@ -22,7 +22,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Hero />} />
-        <Route path='/' element={<Profile />} />
+        <Route path='/Profile' element={<Profile />} />
         <Route path="/learn" element={<Learn />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp/>} />

@@ -1,4 +1,5 @@
 import '../index.css';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import certificate from '../assets/certificate.svg';
 import education from '../assets/education.svg';
@@ -8,6 +9,22 @@ import cert1 from '../assets/cert1.svg';
 import cert2 from '../assets/cert2.svg';
 
 function Profile() {
+  const [showWorkForm, setShowWorkForm] = useState(false);
+  const [workExperience, setWorkExperience] = useState([]);
+
+  const handleAddWorkExperience = (e) => {
+    e.preventDefault();
+    const { company, position, startDate, endDate } = e.target.elements;
+    const newWorkExperience = {
+      company: company.value,
+      position: position.value,
+      startDate: startDate.value,
+      endDate: endDate.value,
+    };
+    setWorkExperience([...workExperience, newWorkExperience]);
+    setShowWorkForm(false);
+  };
+
   return (
     <>
       <div className='flex justify-center text-center py-8'>
@@ -60,7 +77,90 @@ function Profile() {
                   <img src={work} alt='Work Experience' className='h-8 w-8' />
                   <p className='ml-2 text-lg md:text-xl text-[#FF7C1D]'>Work Experience</p>
                 </div>
-                <p className='text-[#1859F1] cursor-pointer'> <Link to="/Editwork">+ Add Work Experience</Link></p>
+                <p
+                  className='text-[#1859F1] cursor-pointer'
+                  onClick={() => setShowWorkForm(true)}
+                >
+                  + Add Work Experience
+                </p>
+              </div>
+              {showWorkForm && (
+                <form onSubmit={handleAddWorkExperience}>
+                  <div className='mb-4'>
+                    <label htmlFor='company' className='block text-white'>
+                      Company
+                    </label>
+                    <input
+                      type='text'
+                      id='company'
+                      name='company'
+                      className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border'
+                      required
+                    />
+                  </div>
+                  <div className='mb-4'>
+                    <label htmlFor='position' className='block text-white'>
+                      Position
+                    </label>
+                    <input
+                      type='text'
+                      id='position'
+                      name='position'
+                      className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border'
+                      required
+                    />
+                  </div>
+                  <div className='mb-4'>
+                    <label htmlFor='startDate' className='block text-white'>
+                      Start Date
+                    </label>
+                    <input
+                      type='date'
+                      id='startDate'
+                      name='startDate'
+                      className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border'
+                      required
+                    />
+                  </div>
+                  <div className='mb-4'>
+                    <label htmlFor='endDate' className='block text-white'>
+                      End Date
+                    </label>
+                    <input
+                      type='date'
+                      id='endDate'
+                      name='endDate'
+                      className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border'
+                      required
+                    />
+                  </div>
+                  <div className='flex justify-end'>
+                    <button
+                      type='button'
+                      onClick={() => setShowWorkForm(false)}
+                      className='mr-2 px-4 py-2 rounded-md bg-red-500 text-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50'
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type='submit'
+                      className='px-4 py-2 rounded-md bg-orange-500 text-white focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50'
+                    >
+                      Save
+                    </button>
+                  </div>
+                </form>
+              )}
+              <div>
+                {workExperience.map((work, index) => (
+                  <div key={index} className='mt-4'>
+                    <p className='text-lg text-[#FF7C1D]'>{work.company}</p>
+                    <p>{work.position}</p>
+                    <p>
+                      {work.startDate} - {work.endDate}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -70,7 +170,9 @@ function Profile() {
                   <img src={education} alt='Education' className='h-8 w-8' />
                   <p className='ml-2 text-lg md:text-xl text-[#FF7C1D]'>Education</p>
                 </div>
-                <p className='text-[#1859F1] cursor-pointer'><Link to="/Editeducation">+ Add Education</Link></p>
+                <p className='text-[#1859F1] cursor-pointer'>
+                  <Link to="/Editeducation">+ Add Education</Link>
+                </p>
               </div>
             </div>
 
@@ -80,7 +182,9 @@ function Profile() {
                   <img src={links} alt='Links' className='h-8 w-8' />
                   <p className='ml-2 text-lg md:text-xl text-[#FF7C1D]'>Links</p>
                 </div>
-                <p className='text-[#1859F1] cursor-pointer'><Link to="/Editlink">+ Add Links</Link></p>
+                <p className='text-[#1859F1] cursor-pointer'>
+                  <Link to="/Editlink">+ Add Links</Link>
+                </p>
               </div>
             </div>
 

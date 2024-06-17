@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import ldin from "../assets/ldin.svg";
-import google from "../assets/google.svg";
-import foto from "../assets/robot.svg";
-import bgi from "../assets/bgimg.svg";
-import coi from "../assets/logo.svg";
+import { useNavigate } from 'react-router-dom';
 import { login } from "../api/axios";
+import bgi from "../assets/bgimg.svg";
+import google from "../assets/google.svg";
+import ldin from "../assets/ldin.svg";
+import coi from "../assets/logo.svg";
+import foto from "../assets/robot.svg";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -59,8 +58,8 @@ function Login() {
           <div className="w-3/6 p-8 bg-gray-800 rounded-lg">
             <div>
               <h3 className="text-orange-500 mb-0 text-lg">
-                BEGIN YOUR JOURNEY TO AI EXCELLENCE
-              </h3>
+                Begin Your Journey To AI Excellence
+              </h3><br />
               <div className="flex">
                 <p className="text-white pb-3 text-xs">
                   Don't have an account.&nbsp;

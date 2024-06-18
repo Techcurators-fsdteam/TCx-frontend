@@ -1,20 +1,21 @@
 import { useState } from "react";
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import ldin from "../assets/ldin.svg";
+import google from "../assets/google.svg";
+import foto from "../assets/robot.svg";
+import bgi from "../assets/bgimg.svg";
+import coi from "../assets/logo.svg";
 import { login } from "../api/axios";
 import eye from '../assets/eyePasswordShow.svg';
 import eyeStash from '../assets/eyePasswordHide.svg';
-import bgi from "../assets/bgimg.svg";
-import google from "../assets/google.svg";
-import ldin from "../assets/ldin.svg";
-import coi from "../assets/logo.svg";
-import foto from "../assets/robot.svg";
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
   const [username, setUser] = useState("");
   const [password, setPass] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Use useNavigate hook
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -22,15 +23,15 @@ function Login() {
 
   function handleSignIn() {
     const data = { email, username, password };
-    login(data)
-      .then(res => {
-        document.cookie = `token=${res.token}; path=/`;
-        navigate("/");
-      })
-      .catch(err => {
-        alert("Invalid Credentials");
-      });
-  }
+    login(data).then(res => {
+        document.cookie = `token=${res.token};  path=/`;
+        console.log(res.token);
+        navigate("/")
+         // Use navigate for redirection
+    }).catch(err => {
+        alert("Invalid Credentials") // Handle errors appropriately
+    });
+}
 
   return (
     <>
@@ -65,29 +66,29 @@ function Login() {
               </div>
             </div>
             <div className="mb-4">
-              <label htmlFor="username" className="block text-white">Username</label>
+              <label htmlFor="username" className="block text-white"></label>
               <input
                 type="text"
                 required
-                placeholder="Enter Your Username"
+                placeholder="Username"
                 value={username}
                 onChange={(e) => setUser(e.target.value)}
                 className="w-full px-4 py-4 rounded-full bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border"
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="email" className="block text-white">Email</label>
+              <label htmlFor="email" className="block text-white"></label>
               <input
                 type="email"
                 required
-                placeholder="Enter Your Email"
+                placeholder="E-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-4 rounded-full bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border"
               />
             </div>
             <div className="mb-4 relative">
-              <label htmlFor="password" className="block text-white">Password</label>
+              <label htmlFor="password" className="block text-white"></label>
               <input
                 type={passwordVisible ? "text" : "password"}
                 required
@@ -151,3 +152,4 @@ function Login() {
 }
 
 export default Login;
+

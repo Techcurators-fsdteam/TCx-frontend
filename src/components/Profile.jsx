@@ -241,7 +241,7 @@ function WXP({ work }) {
 }
 
 function EDU({ edu }) {
-  console.log(work);
+  // console.log(work);
   return (
     <>
       {work && (
@@ -283,6 +283,13 @@ function EDU({ edu }) {
       )}
     </>
   );
+}
+
+function Links(){
+  return(
+<>
+</>
+  )
 }
 
 export default Profile;

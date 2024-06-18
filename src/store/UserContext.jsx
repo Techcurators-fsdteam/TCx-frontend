@@ -26,10 +26,11 @@ export const UserProvider = ({ children }) => {
   const fetchUserDetails = async () => {
     try {
       const token = getCookie('token'); // Get the token from the cookie
-      console.log(token)
+      // console.log(token)
       if (!token) {
         throw new Error('No token found');
       }
+      else{
 
       const response = await axios.get('http://localhost:5000/api/auth/verify', {
         headers: {
@@ -42,6 +43,7 @@ export const UserProvider = ({ children }) => {
       }
 
       setUser(response.data);
+    }
       // console.log(response.data) // Update the user state with fetched data
     } catch (error) {
       console.error('Error fetching user details:', error);

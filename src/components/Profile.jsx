@@ -12,6 +12,11 @@ import { FaCloudDownloadAlt } from "react-icons/fa";
 import Profil from "../assets/profile.jpg";
 import { CiPhone } from "react-icons/ci";
 import { IoLocationOutline } from "react-icons/io5";
+import Editeducation from "./Editeducation";
+import EditProfileForm from "./Editprofile";
+import Editlink from "./Editlink";
+import WorkExperienceForm from "./Editwork";
+import ResumeUploadPage from "./Editresume";
 
 function Profile() {
   const { user } = useUser();

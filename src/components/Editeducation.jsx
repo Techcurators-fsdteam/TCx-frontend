@@ -7,7 +7,7 @@ const months = [
 
 const years = Array.from({ length: 51 }, (_, i) => new Date().getFullYear() - i); // Last 50 years
 
-function Editeducation({ edu }) {
+function Editeducation({username, edu }) {
   const [eduId, setEduId] = useState('');
   const [institution, setInstitution] = useState('');
   const [degree, setDegree] = useState('');
@@ -77,6 +77,7 @@ function Editeducation({ edu }) {
   };
 
   const handleSubmit = async (event) => {
+    setEduId(eduId=>{institution+degree})
     event.preventDefault();
     const education = {
       eduId,
@@ -89,6 +90,11 @@ function Editeducation({ edu }) {
       description,
       currentlyStudying,
     };
+    const data={
+      username,education
+    }
+    console.log(data)
+    // console.log(education)
 
     try {
       const url = edu ? `https://localhost:5000/api/profile/education/` : 'http://localhost:5000/api/profile/education';
@@ -98,14 +104,14 @@ function Editeducation({ edu }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(education),
+        body: data,
       });
       
       if (response.ok) {
         console.log('Education data saved successfully');
         // Handle success (e.g., show a notification, redirect, etc.)
       } else {
-        console.error('Failed to save education data');
+        console.error('Failed to save education data',response);
         // Handle error (e.g., show a notification, etc.)
       }
     } catch (error) {

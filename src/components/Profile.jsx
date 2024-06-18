@@ -220,7 +220,7 @@ function Profile() {
       </div>
 
       <Modal isOpen={isEducationModalOpen} onClose={() => setEducationModalOpen(false)}>
-        <Editeducation />
+        <Editeducation username={user.username} edu={user.education} />
       </Modal>
 
       <Modal isOpen={isWorkModalOpen} onClose={() => setWorkModalOpen(false)}>

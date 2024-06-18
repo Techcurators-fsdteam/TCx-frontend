@@ -2,8 +2,8 @@ import React from 'react';
 
 function Editlink() {
   return (
-    <div className='flex justify-center text-center px-4'>
-      <div className='w-full md:w-[80%] lg:w-[60%] xl:w-[50%] bg-[#1F202A] mt-10 rounded-xl p-6'>
+    <div className='flex justify-center text-center px-16'>
+      <div className='w-full md:w-[100%] lg:w-[100%] xl:w-[100%] bg-[#1F202A] mt-10 rounded-xl p-6'>
         <div className='w-full'>
           <div className='flex justify-between items-center mb-6'>
             <p className='text-lg sm:text-xl md:text-2xl font-extralight text-[#FF7C1D]'>

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import "../index.css";
 import { Link } from "react-router-dom";
 import certificate from "../assets/certificate.svg";
@@ -17,10 +18,17 @@ import EditProfileForm from "./Editprofile";
 import Editlink from "./Editlink";
 import WorkExperienceForm from "./Editwork";
 import ResumeUploadPage from "./Editresume";
+import Modal from "./Modal";
 
 function Profile() {
   const { user } = useUser();
-  // console.log(user);
+
+  const [isEducationModalOpen, setEducationModalOpen] = useState(false);
+  const [isWorkModalOpen, setWorkModalOpen] = useState(false);
+  const [isLinkModalOpen, setLinkModalOpen] = useState(false);
+  const [isResumeModalOpen, setResumeModalOpen] = useState(false);
+  const [isProfileModalOpen, setProfileModalOpen] = useState(false);
+
   return (
     <>
       <div className="flex justify-center text-center py-8">
@@ -62,8 +70,11 @@ function Profile() {
                 <p className="text-lg md:text-xl text-[#FF7C1D]">
                   Personal Information
                 </p>
-                <p className="text-[#1859F1] cursor-pointer">
-                  <Link to="/Editprofile">+ Edit</Link>
+                <p
+                  className="text-[#1859F1] cursor-pointer"
+                  onClick={() => setProfileModalOpen(true)}
+                >
+                  + Edit
                 </p>
               </div>
               {user.email && (
@@ -91,8 +102,11 @@ function Profile() {
                     My Resume
                   </p>
                 </div>
-                <p className="text-[#1859F1] cursor-pointer">
-                  <Link to="/Editresume">+ Add Resume</Link>
+                <p
+                  className="text-[#1859F1] cursor-pointer"
+                  onClick={() => setResumeModalOpen(true)}
+                >
+                  + Add Resume
                 </p>
               </div>
               <Link
@@ -141,13 +155,15 @@ function Profile() {
                     Work Experience
                   </p>
                 </div>
-                <p className="text-[#1859F1] cursor-pointer">
-                  {" "}
-                  <Link to="/Editwork">+ Add Work Experience</Link>
+                <p
+                  className="text-[#1859F1] cursor-pointer"
+                  onClick={() => setWorkModalOpen(true)}
+                >
+                  + Add Work Experience
                 </p>
               </div>
               {user.workExp.map((work) => {
-                return <WXP work={work} />;
+                return <WXP key={work.id} work={work} />;
               })}
             </div>
 
@@ -159,12 +175,15 @@ function Profile() {
                     Education
                   </p>
                 </div>
-                <p className="text-[#1859F1] cursor-pointer">
-                  <Link to="/Editeducation">+ Add Education</Link>
+                <p
+                  className="text-[#1859F1] cursor-pointer"
+                  onClick={() => setEducationModalOpen(true)}
+                >
+                  + Add Education
                 </p>
               </div>
-              {user.education.map((edu)=>{
-                return <EDU edu={edu}/>
+              {user.education.map((edu) => {
+                return <EDU key={edu.id} edu={edu} />;
               })}
             </div>
 
@@ -176,8 +195,11 @@ function Profile() {
                     Links
                   </p>
                 </div>
-                <p className="text-[#1859F1] cursor-pointer">
-                  <Link to="/Editlink">+ Add Links</Link>
+                <p
+                  className="text-[#1859F1] cursor-pointer"
+                  onClick={() => setLinkModalOpen(true)}
+                >
+                  + Add Links
                 </p>
               </div>
             </div>
@@ -196,12 +218,31 @@ function Profile() {
           </div>
         </div>
       </div>
+
+      <Modal isOpen={isEducationModalOpen} onClose={() => setEducationModalOpen(false)}>
+        <Editeducation />
+      </Modal>
+
+      <Modal isOpen={isWorkModalOpen} onClose={() => setWorkModalOpen(false)}>
+        <WorkExperienceForm />
+      </Modal>
+
+      <Modal isOpen={isLinkModalOpen} onClose={() => setLinkModalOpen(false)}>
+        <Editlink />
+      </Modal>
+
+      <Modal isOpen={isResumeModalOpen} onClose={() => setResumeModalOpen(false)}>
+        <ResumeUploadPage />
+      </Modal>
+
+      <Modal isOpen={isProfileModalOpen} onClose={() => setProfileModalOpen(false)}>
+        <EditProfileForm />
+      </Modal>
     </>
   );
 }
 
 function WXP({ work }) {
-  console.log(work);
   return (
     <>
       {work && (
@@ -246,10 +287,9 @@ function WXP({ work }) {
 }
 
 function EDU({ edu }) {
-  // console.log(work);
   return (
     <>
-      {work && (
+      {edu && (
         <div className="flex-col w-[95%] ml-2 mt-5">
           <div className="flex">
             <svg
@@ -274,7 +314,7 @@ function EDU({ edu }) {
             <div className="ml-5 flex flex-col">
               <h1 className="text-white text-xl font-bold">{edu.institution}</h1>
               <div className="flex  text-[10px] ">
-                <p>{edu.course},{edu.degree}</p>
+                <p>{edu.course}, {edu.degree}</p>
                 <p className="ml-5">
                   {edu.startDate} - {edu.endDate}
                 </p>
@@ -288,13 +328,6 @@ function EDU({ edu }) {
       )}
     </>
   );
-}
-
-function Links(){
-  return(
-<>
-</>
-  )
 }
 
 export default Profile;

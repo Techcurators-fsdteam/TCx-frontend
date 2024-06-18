@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const months = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -8,16 +8,33 @@ const months = [
 const years = Array.from({ length: 51 }, (_, i) => new Date().getFullYear() - i); // Last 50 years
 
 function Editeducation({ edu }) {
-  const [eduId, setEduId] = useState(edu?.eduId || '');
-  const [institution, setInstitution] = useState(edu?.institution || '');
-  const [degree, setDegree] = useState(edu?.degree || '');
-  const [course, setCourse] = useState(edu?.course || '');
+  const [eduId, setEduId] = useState('');
+  const [institution, setInstitution] = useState('');
+  const [degree, setDegree] = useState('');
+  const [course, setCourse] = useState('');
   const [startMonth, setStartMonth] = useState('');
   const [startYear, setStartYear] = useState('');
   const [endMonth, setEndMonth] = useState('');
   const [endYear, setEndYear] = useState('');
-  const [grade, setGrade] = useState(edu?.grade || '');
-  const [currentlyStudying, setCurrentlyStudying] = useState(edu?.currentlyStudying || false);
+  const [grade, setGrade] = useState('');
+  const [description, setDescription] = useState('');
+  const [currentlyStudying, setCurrentlyStudying] = useState(false);
+
+  useEffect(() => {
+    if (edu) {
+      setEduId(edu.eduId || '');
+      setInstitution(edu.institution || '');
+      setDegree(edu.degree || '');
+      setCourse(edu.course || '');
+      setStartMonth(edu.startDate?.split(' ')[0] || '');
+      setStartYear(edu.startDate?.split(' ')[1] || '');
+      setEndMonth(edu.endDate?.split(' ')[0] || '');
+      setEndYear(edu.endDate?.split(' ')[1] || '');
+      setGrade(edu.grade || '');
+      setDescription(edu.description || '');
+      setCurrentlyStudying(edu.currentlyStudying || false);
+    }
+  }, [edu]);
 
   const handleCheckboxChange = () => {
     setCurrentlyStudying(!currentlyStudying);
@@ -55,7 +72,11 @@ function Editeducation({ edu }) {
     setGrade(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const educationData = {
       eduId,
@@ -65,18 +86,41 @@ function Editeducation({ edu }) {
       startDate: `${startMonth} ${startYear}`,
       endDate: currentlyStudying ? '' : `${endMonth} ${endYear}`,
       grade,
+      description,
       currentlyStudying,
     };
-    console.log('Education Data:', educationData);
+
+    try {
+      const url = edu ? `https://localhost:5000/api/profile/education/${edu.eduId}` : 'http://localhost:5000/api/profile/education';
+      const method = edu ? 'PATCH' : 'POST';
+      const response = await fetch(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(educationData),
+      });
+      
+      if (response.ok) {
+        console.log('Education data saved successfully');
+        // Handle success (e.g., show a notification, redirect, etc.)
+      } else {
+        console.error('Failed to save education data');
+        // Handle error (e.g., show a notification, etc.)
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle error (e.g., show a notification, etc.)
+    }
   };
 
   return (
-    <div className='flex justify-center text-center px-4'>
-      <div className='w-full md:w-[80%] lg:w-[60%] xl:w-[50%] bg-[#1F202A] mt-10 rounded-xl p-6'>
+    <div className='flex justify-center text-center w-full'>
+      <div className='w-full md:w-[100%] lg:w-[100%] xl:w-[100%] bg-[#1F202A]  rounded-xl p-6 '>
         <div className='w-full'>
           <div className='flex justify-between items-center mb-6'>
             <p className='text-lg sm:text-xl md:text-2xl font-extralight text-[#FF7C1D]'>
-              Add Education
+              {edu ? 'Edit Education' : 'Add Education'}
             </p>
           </div>
           
@@ -216,9 +260,9 @@ function Editeducation({ edu }) {
                 id='description'
                 rows='4'
                 className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
-                value={edu?.description || ''}
+                value={description}
                 placeholder='Enter description'
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={handleDescriptionChange}
               ></textarea>
             </div>
 

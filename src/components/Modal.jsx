@@ -1,25 +1,47 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+import { FaTimes } from 'react-icons/fa';
+import './Modal.css'; // Import the custom CSS
 
 const Modal = ({ isOpen, onClose, children }) => {
+  const modalRef = useRef();
+
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      onClose();
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
-  return (
-    <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-      <div className="relative bg-[#1F202A] w-full max-w-3xl rounded-md p-6 shadow-lg">
-        
-        {/* Close button styled as requested */}
-        <button
-          className="absolute top-4 right-4 text-black bg-white rounded-full w-8 h-8 flex items-center justify-center focus:outline-none"
-          onClick={onClose}
-        >
-          &times;
-        </button>
-
-        <div className="overflow-y-auto max-h-[80vh]">
-          {children}
+  return ReactDOM.createPortal(
+    <div className="fixed inset-0 flex  items-center justify-center bg-black bg-opacity-50 z-50 overflow-auto">
+      <div
+        ref={modalRef}
+        className="modal-content bg-[#1F202A] text-white rounded-xl p-4 sm:p-6 max-h-[80%] max-w-[90%] overflow-y-auto"
+        style={{ width: 'max-content', maxWidth: '100%' }}
+      >
+        <div className="flex justify-end">
+          <button onClick={onClose} className="close-button">
+            <FaTimes className="text-white text-2xl" />
+          </button>
         </div>
+        <div className="mt-4">{children}</div>
       </div>
-    </div>
+    </div>,
+    document.getElementById('portal')
   );
 };
 

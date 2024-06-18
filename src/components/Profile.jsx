@@ -1,5 +1,5 @@
-import '../index.css';
-import { useState } from 'react';
+// Profile.js
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import certificate from '../assets/certificate.svg';
 import education from '../assets/education.svg';
@@ -7,8 +7,9 @@ import links from '../assets/links.svg';
 import work from '../assets/work.svg';
 import cert1 from '../assets/cert1.svg';
 import cert2 from '../assets/cert2.svg';
+import '../index.css'; // Correcting the import path for your CSS file
 
-function Profile() {
+function Profile({ onOpenModal }) {
   const [showWorkForm, setShowWorkForm] = useState(false);
   const [workExperience, setWorkExperience] = useState([]);
 
@@ -44,7 +45,7 @@ function Profile() {
             <div className='bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6'>
               <div className='flex justify-between items-center mb-2'>
                 <p className='text-lg md:text-xl text-[#FF7C1D]'>Personal Information</p>
-                <p className='text-[#1859F1] cursor-pointer'><Link to="/Editprofile">+ Edit</Link></p>
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => onOpenModal('Editprofile')}>+ Edit</p>
               </div>
             </div>
 
@@ -53,7 +54,7 @@ function Profile() {
                 <div className='flex items-center'>
                   <p className='ml-2 text-lg md:text-xl text-[#FF7C1D]'>My Resume</p>
                 </div>
-                <p className='text-[#1859F1] cursor-pointer'><Link to="/Editresume">+ Add Resume</Link></p>
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => onOpenModal('Editresume')}>+ Add Resume</p>
               </div>
             </div>
           </div>
@@ -77,77 +78,31 @@ function Profile() {
                   <img src={work} alt='Work Experience' className='h-8 w-8' />
                   <p className='ml-2 text-lg md:text-xl text-[#FF7C1D]'>Work Experience</p>
                 </div>
-                <p
-                  className='text-[#1859F1] cursor-pointer'
-                  onClick={() => setShowWorkForm(true)}
-                >
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => setShowWorkForm(true)}>
                   + Add Work Experience
                 </p>
               </div>
               {showWorkForm && (
                 <form onSubmit={handleAddWorkExperience}>
                   <div className='mb-4'>
-                    <label htmlFor='company' className='block text-white'>
-                      Company
-                    </label>
-                    <input
-                      type='text'
-                      id='company'
-                      name='company'
-                      className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border'
-                      required
-                    />
+                    <label htmlFor='company' className='block text-white'>Company</label>
+                    <input type='text' id='company' name='company' className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border' required />
                   </div>
                   <div className='mb-4'>
-                    <label htmlFor='position' className='block text-white'>
-                      Position
-                    </label>
-                    <input
-                      type='text'
-                      id='position'
-                      name='position'
-                      className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border'
-                      required
-                    />
+                    <label htmlFor='position' className='block text-white'>Position</label>
+                    <input type='text' id='position' name='position' className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border' required />
                   </div>
                   <div className='mb-4'>
-                    <label htmlFor='startDate' className='block text-white'>
-                      Start Date
-                    </label>
-                    <input
-                      type='date'
-                      id='startDate'
-                      name='startDate'
-                      className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border'
-                      required
-                    />
+                    <label htmlFor='startDate' className='block text-white'>Start Date</label>
+                    <input type='date' id='startDate' name='startDate' className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border' required />
                   </div>
                   <div className='mb-4'>
-                    <label htmlFor='endDate' className='block text-white'>
-                      End Date
-                    </label>
-                    <input
-                      type='date'
-                      id='endDate'
-                      name='endDate'
-                      className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border'
-                      required
-                    />
+                    <label htmlFor='endDate' className='block text-white'>End Date</label>
+                    <input type='date' id='endDate' name='endDate' className='w-full px-4 py-2 rounded-md bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border' required />
                   </div>
                   <div className='flex justify-end'>
-                    <button
-                      type='button'
-                      onClick={() => setShowWorkForm(false)}
-                      className='mr-2 px-4 py-2 rounded-md bg-red-500 text-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50'
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type='submit'
-                      className='px-4 py-2 rounded-md bg-orange-500 text-white focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50'
-                    >
-                      Save
-                    </button>
+                    <button type='button' onClick={() => setShowWorkForm(false)} className='mr-2 px-4 py-2 rounded-md bg-red-500 text-white focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-50'>Cancel</button>
+                    <button type='submit' className='px-4 py-2 rounded-md bg-orange-500 text-white focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50'>Save</button>
                   </div>
                 </form>
               )}
@@ -156,11 +111,10 @@ function Profile() {
                   <div key={index} className='mt-4'>
                     <p className='text-lg text-[#FF7C1D]'>{work.company}</p>
                     <p>{work.position}</p>
-                    <p>
-                      {work.startDate} - {work.endDate}
-                    </p>
+                    <p>{work.startDate} - {work.endDate}</p>
                   </div>
                 ))}
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => onOpenModal('Editwork')}>+ Add Work Experience</p>
               </div>
             </div>
 
@@ -173,6 +127,7 @@ function Profile() {
                 <p className='text-[#1859F1] cursor-pointer'>
                   <Link to="/Editeducation">+ Add Education</Link>
                 </p>
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => onOpenModal('Editeducation')}>+ Add Education</p>
               </div>
             </div>
 
@@ -185,6 +140,7 @@ function Profile() {
                 <p className='text-[#1859F1] cursor-pointer'>
                   <Link to="/Editlink">+ Add Links</Link>
                 </p>
+                <p className='text-[#1859F1] cursor-pointer' onClick={() => onOpenModal('Editlink')}>+ Add Links</p>
               </div>
             </div>
 

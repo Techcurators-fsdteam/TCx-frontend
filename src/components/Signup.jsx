@@ -11,7 +11,7 @@ import eyeStash from "../assets/eyePasswordHide.svg";
 
 function SignUp() {
   const [passwordVisible, setPasswordVisible] = useState(false);
-
+  
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };

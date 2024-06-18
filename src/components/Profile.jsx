@@ -9,6 +9,9 @@ import cert2 from "../assets/cert2.svg";
 import { useUser } from "../store/UserContext";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { FaCloudDownloadAlt } from "react-icons/fa";
+import Profil from "../assets/profile.jpg";
+import { CiPhone } from "react-icons/ci";
+import { IoLocationOutline } from "react-icons/io5";
 
 function Profile() {
   const { user } = useUser();
@@ -21,7 +24,7 @@ function Profile() {
           <div className="w-full md:w-[45%] lg:w-[30%] mt-6 flex flex-col gap-4">
             <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6">
               <div className="flex items-center mb-2">
-                {user.picture ? (
+                {user.picture.length > 0 ? (
                   <>
                     <img
                       src={user.picture}
@@ -32,21 +35,21 @@ function Profile() {
                 ) : (
                   <>
                     <img
-                      src="https://i.pinimg.com/236x/7a/2d/59/7a2d59b45f3221b020ed465f92e8d44e.jpg"
+                      src={Profil}
                       alt=""
                       className="w-16 h-16 rounded-full cursor-pointer"
                     />
                   </>
                 )}
                 <div className="flex flex-col ml-2">
-                <p className="ml-2 text-xl md:text-2xl text-[#FF7C1D]">
-                  {user.firstName} {user.lasName}
-                </p>
-                <p className="text-sm md:text-base mb-1 ml-2">@{user.username}</p>
+                  <p className="ml-2 text-xl md:text-2xl text-[#FF7C1D]">
+                    {user.firstName} {user.lasName}
+                  </p>
+                  <p className="text-sm md:text-base mb-1 ml-2">
+                    @{user.username}
+                  </p>
                 </div>
-                
               </div>
-              
             </div>
 
             <div className="bg-[#303031] flex-col text-white text-left rounded-xl p-4 sm:p-6">
@@ -64,10 +67,15 @@ function Profile() {
                 </p>
               )}
               {user.phone && (
-                <p className="text-sm md:text-base mb-1">{user.phone}</p>
+                <p className="text-sm md:text-base mb-1 flex">
+                  <CiPhone className="mt-[3px] mr-3" /> {user.phone}
+                </p>
               )}
               {user.location && (
-                <p className="text-sm md:text-base mb-1">{user.location}</p>
+                <p className="text-sm md:text-base mb-1 flex">
+                  <IoLocationOutline className="mt-[3px] mr-3" />{" "}
+                  {user.location}
+                </p>
               )}
             </div>
 
@@ -133,7 +141,9 @@ function Profile() {
                   <Link to="/Editwork">+ Add Work Experience</Link>
                 </p>
               </div>
-              <WXP />
+              {user.workExp.map((work) => {
+                return <WXP work={work} />;
+              })}
             </div>
 
             <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6 mb-4">
@@ -148,7 +158,9 @@ function Profile() {
                   <Link to="/Editeducation">+ Add Education</Link>
                 </p>
               </div>
-              <WXP />
+              {user.education.map((edu)=>{
+                return <EDU edu={edu}/>
+              })}
             </div>
 
             <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6 mb-4">
@@ -183,45 +195,93 @@ function Profile() {
   );
 }
 
-function WXP(props) {
+function WXP({ work }) {
+  console.log(work);
   return (
-    <div className="flex-col w-[95%] ml-2 mt-5">
-      <div className="flex">
-        <svg
-          width="40"
-          height="40"
-          viewBox="0 0 25 25"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ marginTop: "2px" }}
-        >
-          <rect width="25" height="25" rx="4" fill="white" />
-          <path
-            d="M5 20H6.5M19.5 20H17.5M17.5 20V9.5L13.5 8M17.5 20H13.5M13.5 8V6H6.5V20M13.5 8V20M6.5 20H13.5M10.5 8.5H12M8 8.5H9.5"
-            stroke="#FF7C1D"
-          />
-          <path d="M9.5 20V17.5H11V20" stroke="#FF7C1D" />
-          <path
-            d="M8 15.5H9.5M10.5 15.5H12M10.5 13H12M10.5 10.5H12M8 10.5H9.5M8 13H9.5M16 10.5H14.5M14.5 13H16M14.5 15.5H16M14.5 17.5H16"
-            stroke="#FF7C1D"
-          />
-        </svg>
-        <div className="ml-5 flex flex-col">
-          <h1 className="text-white text-xl font-bold">SDE Intern</h1>
-          <div className="flex  text-[10px] ">
-            <p>CDK GLOBAL INDIA PVT. LTD.</p>
-            <p className="ml-5">October 2023 - Present</p>
+    <>
+      {work && (
+        <div className="flex-col w-[95%] ml-2 mt-5">
+          <div className="flex">
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 25 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ marginTop: "2px" }}
+            >
+              <rect width="25" height="25" rx="4" fill="white" />
+              <path
+                d="M5 20H6.5M19.5 20H17.5M17.5 20V9.5L13.5 8M17.5 20H13.5M13.5 8V6H6.5V20M13.5 8V20M6.5 20H13.5M10.5 8.5H12M8 8.5H9.5"
+                stroke="#FF7C1D"
+              />
+              <path d="M9.5 20V17.5H11V20" stroke="#FF7C1D" />
+              <path
+                d="M8 15.5H9.5M10.5 15.5H12M10.5 13H12M10.5 10.5H12M8 10.5H9.5M8 13H9.5M16 10.5H14.5M14.5 13H16M14.5 15.5H16M14.5 17.5H16"
+                stroke="#FF7C1D"
+              />
+            </svg>
+            <div className="ml-5 flex flex-col">
+              <h1 className="text-white text-xl font-bold">{work.role}</h1>
+              <div className="flex  text-[10px] ">
+                <p>{work.company}</p>
+                <p className="ml-5">
+                  {work.startDate} - {work.endDate}
+                </p>
+              </div>
+            </div>
           </div>
+          {work.description && (
+            <p className="mt-3 text-white text-sm">{work.description}</p>
+          )}
         </div>
-      </div>
-      <p className="mt-3 text-white text-sm">
-        As a dedicated Software Development Intern specializing in Android App
-        Development, I am actively contributing to the dynamic and innovative
-        environment of CDK GLOBAL. Working under the guidance of seasoned
-        professionals, my role involves gaining hands on experience in the
-        complete software development lifecycle.
-      </p>
-    </div>
+      )}
+    </>
+  );
+}
+
+function EDU({ edu }) {
+  console.log(work);
+  return (
+    <>
+      {work && (
+        <div className="flex-col w-[95%] ml-2 mt-5">
+          <div className="flex">
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 25 25"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              style={{ marginTop: "2px" }}
+            >
+              <rect width="25" height="25" rx="4" fill="white" />
+              <path
+                d="M5 20H6.5M19.5 20H17.5M17.5 20V9.5L13.5 8M17.5 20H13.5M13.5 8V6H6.5V20M13.5 8V20M6.5 20H13.5M10.5 8.5H12M8 8.5H9.5"
+                stroke="#FF7C1D"
+              />
+              <path d="M9.5 20V17.5H11V20" stroke="#FF7C1D" />
+              <path
+                d="M8 15.5H9.5M10.5 15.5H12M10.5 13H12M10.5 10.5H12M8 10.5H9.5M8 13H9.5M16 10.5H14.5M14.5 13H16M14.5 15.5H16M14.5 17.5H16"
+                stroke="#FF7C1D"
+              />
+            </svg>
+            <div className="ml-5 flex flex-col">
+              <h1 className="text-white text-xl font-bold">{edu.institution}</h1>
+              <div className="flex  text-[10px] ">
+                <p>{edu.course},{edu.degree}</p>
+                <p className="ml-5">
+                  {edu.startDate} - {edu.endDate}
+                </p>
+              </div>
+            </div>
+          </div>
+          {edu.description && (
+            <p className="mt-3 text-white text-sm">{edu.description}</p>
+          )}
+        </div>
+      )}
+    </>
   );
 }
 

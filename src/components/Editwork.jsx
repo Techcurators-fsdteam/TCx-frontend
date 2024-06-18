@@ -16,15 +16,18 @@ function WorkExperienceForm() {
 
   return (
     <div className='flex justify-center text-center px-4'>
-      <div className='w-full md:w-[80%] lg:w-[60%] xl:w-[50%] bg-[#1F202A] mt-10 rounded-xl p-6'>
+      <div className='w-full max-w-2xl bg-[#1F202A] rounded-xl p-8 relative'>
+        {/* Close button */}
+       
+
         <div className='w-full'>
-          <div className='flex justify-between items-center mb-6'>
-            <p className='text-lg sm:text-xl md:text-2xl font-extralight text-[#FF7C1D]'>
+          <div className='flex justify-center mb-6'>
+            <p className='text-lg sm:text-xl md:text-2xl font-light text-[#FF7C1D]'>
               Add Work Experience
             </p>
           </div>
           
-          <form className='space-y-4'>
+          <form className='space-y-6'>
             {/* Company Name */}
             <div className='flex flex-col text-left'>
               <label className='text-white mb-2 text-xl' htmlFor='company'>Company</label>
@@ -32,7 +35,7 @@ function WorkExperienceForm() {
                 type='text'
                 required
                 id='company'
-                className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
+                className='p-3 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-500'
                 placeholder='Enter company name'
               />
             </div>
@@ -44,7 +47,7 @@ function WorkExperienceForm() {
                 type='text'
                 required
                 id='role'
-                className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
+                className='p-3 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-500'
                 placeholder='Enter role'
               />
             </div>
@@ -56,7 +59,7 @@ function WorkExperienceForm() {
                 type='text'
                 required
                 id='location'
-                className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
+                className='p-3 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-500'
                 placeholder='Enter location'
               />
             </div>
@@ -75,11 +78,11 @@ function WorkExperienceForm() {
 
             {/* Starting From */}
             <div className='flex flex-col md:flex-row md:items-center text-left space-y-2 md:space-y-0 md:space-x-4'>
-              <label className='text-gray-500 mb-2 md:mb-0' htmlFor='start-date'>Starting From</label>
+              <label className='text-white mb-2 md:mb-0' htmlFor='start-date'>Starting From</label>
               <div className='flex space-x-4'>
                 <select
                   id='start-month'
-                  className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
+                  className='p-3 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
                 >
                   {months.map((month, index) => (
                     <option key={index} value={month}>{month}</option>
@@ -87,7 +90,7 @@ function WorkExperienceForm() {
                 </select>
                 <select
                   id='start-year'
-                  className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
+                  className='p-3 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
                 >
                   {years.map((year) => (
                     <option key={year} value={year}>{year}</option>
@@ -98,11 +101,11 @@ function WorkExperienceForm() {
 
             {/* Ending On */}
             <div className={`flex flex-col md:flex-row md:items-center text-left space-y-2 md:space-y-0 md:space-x-4 ${isCurrent ? 'opacity-50' : ''}`}>
-              <label className='text-gray-500 mb-2 md:mb-0' htmlFor='end-date'>Ending In</label>
+              <label className='text-white mb-2 md:mb-0' htmlFor='end-date'>Ending In</label>
               <div className='flex space-x-4'>
                 <select
                   id='end-month'
-                  className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
+                  className='p-3 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
                   disabled={isCurrent}
                 >
                   {months.map((month, index) => (
@@ -111,7 +114,7 @@ function WorkExperienceForm() {
                 </select>
                 <select
                   id='end-year'
-                  className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
+                  className='p-3 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
                   disabled={isCurrent}
                 >
                   {years.map((year) => (
@@ -127,16 +130,16 @@ function WorkExperienceForm() {
               <textarea
                 id='description'
                 rows='4'
-                className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
+                className='p-3 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-500'
                 placeholder='Enter description of your role'
               ></textarea>
             </div>
 
             {/* Submit Button */}
-            <div className='flex justify-center mt-6'>
+            <div className='flex justify-center mt-8'>
               <button
                 type='submit'
-                className='px-6 py-2 rounded-md bg-[#FF7C1D] text-white text-lg focus:outline-none hover:bg-[#FF6818] transition duration-200'
+                className='px-8 py-3 rounded-md bg-[#FF7C1D] text-white text-lg focus:outline-none hover:bg-[#FF6818] transition duration-200'
               >
                 Save
               </button>
@@ -145,7 +148,7 @@ function WorkExperienceForm() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default WorkExperienceForm
+export default WorkExperienceForm;

@@ -15,7 +15,7 @@ import { IoLocationOutline } from "react-icons/io5";
 
 function Profile() {
   const { user } = useUser();
-  console.log(user);
+  // console.log(user);
   return (
     <>
       <div className="flex justify-center text-center py-8">

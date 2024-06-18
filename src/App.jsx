@@ -18,9 +18,9 @@ import Editresume from './components/Editresume';
 import Modal from './components/Modal';
 
 function App() {
-  const [modalOpen, setModalOpen] = useState(null);
+  // const [modalOpen, setModalOpen] = useState(null);
 
-  const closeModal = () => setModalOpen(null);
+  // const closeModal = () => setModalOpen(null);
   
   return (
     <>
@@ -36,7 +36,7 @@ function App() {
         <Route path="/test" element={<Test/>}/>
         <Route path="/Practicetest1" element={<Practicetest1 />} />
         <Route path='/result' element={<Result/>} />
-        <div className="relative">
+        {/* <div className="relative">
         <Profile onOpenModal={setModalOpen} />
         
         <Modal isOpen={modalOpen === 'Editwork'} onClose={closeModal}>
@@ -58,7 +58,7 @@ function App() {
         <Modal isOpen={modalOpen === 'Editresume'} onClose={closeModal}>
           <Editresume />
         </Modal>
-      </div>
+      </div> */}
         
       </Routes>
       </Router>

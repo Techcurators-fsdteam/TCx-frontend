@@ -78,7 +78,7 @@ function Editeducation({ edu }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const educationData = {
+    const education = {
       eduId,
       institution,
       degree,
@@ -91,14 +91,14 @@ function Editeducation({ edu }) {
     };
 
     try {
-      const url = edu ? `https://localhost:5000/api/profile/education/${edu.eduId}` : 'http://localhost:5000/api/profile/education';
+      const url = edu ? `https://localhost:5000/api/profile/education/` : 'http://localhost:5000/api/profile/education';
       const method = edu ? 'PATCH' : 'POST';
       const response = await fetch(url, {
         method: method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(educationData),
+        body: JSON.stringify(education),
       });
       
       if (response.ok) {

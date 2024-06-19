@@ -36,6 +36,7 @@ const Header = () => {
   const handleLogout = () => {
     // Delete the token cookie by setting its expiration date to a past date
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    console.log(document.cookie)
     setLogged(false); // Update logged state to false
     // navigate('/login'); // Redirect to login page after logout
   };

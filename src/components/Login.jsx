@@ -22,7 +22,11 @@ function Login() {
   };
 
   function handleSignIn() {
+
     const data = { email, username, password };
+    // console.log("Hello")
+
+    // console.log(res.token)
     login(data).then(res => {
         document.cookie = `token=${res.token};  path=/`;
         console.log(res.token);
@@ -68,10 +72,9 @@ function Login() {
                 <p className="text-white pb-3 text-sm">
                   Don't have an account.&nbsp;
                 </p>
-                <a href="#" className="text-blue-500 text-sm hover:underline">
-                  {" "}
-                  <Link to="/SignUp">Sign up</Link>{" "}
-                </a>
+                
+                  <Link className="text-blue-500 text-sm hover:underline" to="/SignUp">Sign up</Link>{" "}
+                
               </div>
             </div>
             <div className="mb-4">
@@ -131,7 +134,7 @@ function Login() {
             <div className="p-2">
             <button onClick={handleSignIn} className="w-full py-3 px-4 bg-orange-500 text-white rounded-full text-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50">
                 Sign In
-              </button>
+            </button>
             </div>
             <div>
             <div className="text-center pt-4 md:pt-6">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "../index.css";
 import { Link } from "react-router-dom";
 import certificate from "../assets/certificate.svg";
@@ -21,13 +21,21 @@ import ResumeUploadPage from "./Editresume";
 import Modal from "./Modal";
 
 function Profile() {
-  const { user } = useUser();
+  const { user, fetchUserDetails } = useUser();
 
   const [isEducationModalOpen, setEducationModalOpen] = useState(false);
   const [isWorkModalOpen, setWorkModalOpen] = useState(false);
   const [isLinkModalOpen, setLinkModalOpen] = useState(false);
   const [isResumeModalOpen, setResumeModalOpen] = useState(false);
   const [isProfileModalOpen, setProfileModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchUserDetails();
+  }, []);
+
+  if (!user) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <>
@@ -37,7 +45,7 @@ function Profile() {
           <div className="w-full md:w-[45%] lg:w-[30%] mt-6 flex flex-col gap-4">
             <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6">
               <div className="flex items-center mb-2">
-                {user.picture.length > 0 ? (
+                { user.picture ? (
                   <>
                     <img
                       src={user.picture}
@@ -162,7 +170,7 @@ function Profile() {
                   + Add Work Experience
                 </p>
               </div>
-              {user.workExp.map((work) => {
+              {user.workExp?.map((work) => {
                 return <WXP key={work.id} work={work} />;
               })}
             </div>
@@ -182,7 +190,7 @@ function Profile() {
                   + Add Education
                 </p>
               </div>
-              {user.education.map((edu) => {
+              {user.education?.map((edu) => {
                 return <EDU key={edu.id} edu={edu} />;
               })}
             </div>

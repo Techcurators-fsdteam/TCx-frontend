@@ -1,6 +1,7 @@
 import { Link, animateScroll as scroll } from "react-scroll"
 import { Link as Li } from "react-router-dom"
 import React, { useState } from "react"
+import courseImage from "../assets/courseImage.svg"
 import Header from "./Header"
 import rect from "../assets/rect.svg"
 import Footer from "./Footer"
@@ -284,9 +285,9 @@ function Learn() {
               >
                 <div className="flex items-center gap-4 text-white">
                   <img
-                    src={rect}
+                    src={courseImage}
                     alt="Generative AI"
-                    className="h-10 w-10 md:h-12 md:w-12"
+                    className="h-8 w-8 md:h-10 md:w-10"
                   />
                   <h2 className="text-sm lg:text-md text-left">
                     {course.title}
@@ -348,9 +349,9 @@ function Learn() {
               >
                 <div className="flex items-center gap-4 text-white">
                   <img
-                    src={rect}
+                    src={courseImage}
                     alt="Generative AI"
-                    className="h-10 w-10 md:h-12 md:w-12"
+                    className="h-8 w-8 md:h-10 md:w-10"
                   />
                   <h2 className="text-sm lg:text-md text-left">
                     {course.title}

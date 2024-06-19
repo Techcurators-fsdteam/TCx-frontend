@@ -1,9 +1,10 @@
 import React, { useState } from "react"
 import { Link as Li } from "react-router-dom"
 import { Link } from "react-scroll"
-import rect from "../assets/rect.svg"
+import courseImage from "../assets/courseImage.svg"
 import Footer from "./Footer"
 import Header from "./Header"
+import Navbar from "./Navbar"
 
 const courses = [
   {
@@ -199,6 +200,9 @@ function Learn() {
   return (
     <>
       <Header />
+      <div className="flex items-center justify-center w-full mt-12">
+        <Navbar />
+      </div>
       <div className="flex justify-center w-full mt-8 md:mt-12 lg:mt-16">
         <div className="w-[95%] sm:w-[90%] lg:w-[80%] flex justify-center text-center">
           <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white">
@@ -276,11 +280,11 @@ function Learn() {
               >
                 <div className="flex items-center gap-4 text-white">
                   <img
-                    src={rect}
+                    src={courseImage}
                     alt="Generative AI"
-                    className="h-10 w-10 md:h-12 md:w-12"
+                    className="h-8 w-8 md:h-10 md:w-10"
                   />
-                  <h2 className="text-sm sm:text-lg md:text-xl text-left">
+                  <h2 className="text-sm lg:text-md text-left">
                     {course.title}
                   </h2>
                 </div>
@@ -340,11 +344,11 @@ function Learn() {
               >
                 <div className="flex items-center gap-4 text-white">
                   <img
-                    src={rect}
+                    src={courseImage}
                     alt="Generative AI"
-                    className="h-10 w-10 md:h-12 md:w-12"
+                    className="h-8 w-8 md:h-10 md:w-10"
                   />
-                  <h2 className="text-sm sm:text-lg md:text-xl text-left">
+                  <h2 className="text-sm lg:text-md text-left">
                     {course.title}
                   </h2>
                 </div>

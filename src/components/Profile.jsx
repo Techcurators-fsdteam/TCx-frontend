@@ -244,7 +244,7 @@ function Profile() {
       </Modal>
 
       <Modal isOpen={isProfileModalOpen} onClose={() => setProfileModalOpen(false)}>
-        <EditProfileForm />
+        <EditProfileForm onClose={function(){setProfileModalOpen(false)}}/>
       </Modal>
     </>
   );

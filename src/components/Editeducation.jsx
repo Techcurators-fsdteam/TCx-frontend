@@ -79,10 +79,11 @@
     };
 
     const handleSubmit = async (event) => {
-      setEduId(eduId=>{institution+degree})
+      setEduId(setEduId(`${institution}-${degree}`))
+      console.log(eduId)
       event.preventDefault();
       const education = {
-        eduId,
+        eduId:`${institution}-${degree}`,
         institution,
         degree,
         course,

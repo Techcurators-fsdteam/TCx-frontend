@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
 import "../index.css";
+import axios from "axios";
 import { Link } from "react-router-dom";
 import certificate from "../assets/certificate.svg";
 import education from "../assets/education.svg";
@@ -251,11 +252,39 @@ function Profile() {
 }
 
 function WXP({ work }) {
+  const [showDelete, setShowDelete] = useState(false);
+
+  const handleMouseEnter = () => {
+    setShowDelete(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowDelete(false);
+  };
+
+  const handleDelete = () => {
+    // Implement delete logic here
+    console.log('Deleting work experience:', work.id); // Assuming work object has an id
+  };
+
   return (
     <>
       {work && (
-        <div className="flex-col w-[95%] ml-2 mt-5">
+        <div
+          className="flex-col w-[95%] ml-2 mt-5 relative"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          {showDelete && (
+            <button
+              className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 rounded"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          )}
           <div className="flex">
+            {/* Your SVG and content */}
             <svg
               width="40"
               height="40"
@@ -264,17 +293,9 @@ function WXP({ work }) {
               xmlns="http://www.w3.org/2000/svg"
               style={{ marginTop: "2px" }}
             >
-              <rect width="25" height="25" rx="4" fill="white" />
-              <path
-                d="M5 20H6.5M19.5 20H17.5M17.5 20V9.5L13.5 8M17.5 20H13.5M13.5 8V6H6.5V20M13.5 8V20M6.5 20H13.5M10.5 8.5H12M8 8.5H9.5"
-                stroke="#FF7C1D"
-              />
-              <path d="M9.5 20V17.5H11V20" stroke="#FF7C1D" />
-              <path
-                d="M8 15.5H9.5M10.5 15.5H12M10.5 13H12M10.5 10.5H12M8 10.5H9.5M8 13H9.5M16 10.5H14.5M14.5 13H16M14.5 15.5H16M14.5 17.5H16"
-                stroke="#FF7C1D"
-              />
+              {/* SVG content */}
             </svg>
+            {/* Rest of your content */}
             <div className="ml-5 flex flex-col">
               <h1 className="text-white text-xl font-bold">{work.role}</h1>
               <div className="flex  text-[10px] ">
@@ -295,11 +316,68 @@ function WXP({ work }) {
 }
 
 function EDU({ edu }) {
+  const [showDelete, setShowDelete] = useState(false);
+  const {user,fetchUserDetails}=useUser();
+
+  const handleMouseEnter = () => {
+    setShowDelete(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowDelete(false);
+  };
+
+  const handleDelete = async () => {
+    try {
+      // Replace with your API endpoint URL
+      const url = 'http://localhost:5000/api/profile/education';
+
+      // Replace with your username retrieval logic
+      const username = 'example_username'; // You need to retrieve this from your context or props
+
+      const data = {
+        eduId: edu.eduId, // Assuming edu object has an eduId
+        username: user.username,
+      };
+
+      // Making the HTTP DELETE request
+      const response = await axios.delete(url, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      });
+
+      // console.log('Delete response:', response.data);
+      await fetchUserDetails();
+
+      // Handle success (e.g., show a notification, update state)
+      // For example, you can update the UI to remove the deleted education entry from the list
+
+    } catch (error) {
+      console.error('Error deleting education:', error);
+      // Handle error (e.g., show a notification)
+    }
+  };
+
   return (
     <>
       {edu && (
-        <div className="flex-col w-[95%] ml-2 mt-5">
+        <div
+          className="flex-col w-[95%] ml-2 mt-5 relative"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          {showDelete && (
+            <button
+              className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 rounded"
+              onClick={handleDelete}
+            >
+              Delete
+            </button>
+          )}
           <div className="flex">
+            {/* Your SVG and content */}
             <svg
               width="40"
               height="40"
@@ -308,17 +386,9 @@ function EDU({ edu }) {
               xmlns="http://www.w3.org/2000/svg"
               style={{ marginTop: "2px" }}
             >
-              <rect width="25" height="25" rx="4" fill="white" />
-              <path
-                d="M5 20H6.5M19.5 20H17.5M17.5 20V9.5L13.5 8M17.5 20H13.5M13.5 8V6H6.5V20M13.5 8V20M6.5 20H13.5M10.5 8.5H12M8 8.5H9.5"
-                stroke="#FF7C1D"
-              />
-              <path d="M9.5 20V17.5H11V20" stroke="#FF7C1D" />
-              <path
-                d="M8 15.5H9.5M10.5 15.5H12M10.5 13H12M10.5 10.5H12M8 10.5H9.5M8 13H9.5M16 10.5H14.5M14.5 13H16M14.5 15.5H16M14.5 17.5H16"
-                stroke="#FF7C1D"
-              />
+              {/* SVG content */}
             </svg>
+            {/* Rest of your content */}
             <div className="ml-5 flex flex-col">
               <h1 className="text-white text-xl font-bold">{edu.institution}</h1>
               <div className="flex  text-[10px] ">

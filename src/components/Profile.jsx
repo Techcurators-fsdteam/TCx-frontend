@@ -1,6 +1,9 @@
-import React, { useState,useEffect } from "react";
-import "../index.css";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { CiPhone } from "react-icons/ci";
+import { FaCloudDownloadAlt } from "react-icons/fa";
+import { IoLocationOutline } from "react-icons/io5";
+import { MdOutlineMailOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 import cert1 from "../assets/cert1.svg";
 import cert2 from "../assets/cert2.svg";

@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useUser } from '../store/UserContext';
 
 const ResumeUploadPage = () => {
   const [dragging, setDragging] = useState(false);
   const [file, setFile] = useState(null);
+  const [resumeUrl, setResumeUrl] = useState('');
+  const [loading, setLoading] = useState(false); // State for loading indicator
+  const { user,fetchUserDetails } = useUser();
 
   const handleDragEnter = (e) => {
     e.preventDefault();
@@ -30,12 +35,43 @@ const ResumeUploadPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle file upload logic here
-    if (file) {
-      console.log('File:', file);
-      // Add your upload logic here
+
+    // Check if file is selected
+    if (!file) {
+      alert('Please select a file to upload');
+      return;
+    }
+
+    setLoading(true); // Start loading indicator
+
+    // Prepare form data
+    const formData = new FormData();
+    formData.append('resume', file);
+    formData.append('username', user.username);
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/profile/resume', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.data && response.data.resumeUrl) {
+        setResumeUrl(response.data.resumeUrl);
+        console.log('Resume uploaded successfully:');
+        await fetchUserDetails()
+        // Handle success (e.g., display link, show confirmation)
+      } else {
+        console.error('Failed to upload resume:', response);
+        // Handle error (e.g., show error message)
+      }
+    } catch (error) {
+      console.error('Error uploading resume:', error);
+      // Handle error (e.g., show error message)
+    } finally {
+      setLoading(false); // Stop loading indicator
     }
   };
 
@@ -98,11 +134,27 @@ const ResumeUploadPage = () => {
               <button
                 type="submit"
                 className="px-6 py-2 rounded-md bg-[#FF7C1D] text-white text-lg focus:outline-none hover:bg-[#FF6818] transition duration-200"
+                disabled={loading} // Disable button while loading
               >
-                Upload
+                {loading ? 'Uploading...' : 'Upload'}
               </button>
             </div>
           </form>
+
+          {/* Display Resume URL if available */}
+          {resumeUrl && (
+            <div className="mt-4">
+              <p className="text-white">Resume uploaded successfully!</p>
+              <a
+                href={resumeUrl}
+                className="text-blue-500"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Resume
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>

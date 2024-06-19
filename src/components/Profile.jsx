@@ -1,23 +1,23 @@
-import React, { useState,useEffect } from "react";
-import "../index.css";
+import React, { useEffect, useState } from "react";
+import { CiPhone } from "react-icons/ci";
+import { FaCloudDownloadAlt } from "react-icons/fa";
+import { IoLocationOutline } from "react-icons/io5";
+import { MdOutlineMailOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
+import cert1 from "../assets/cert1.svg";
+import cert2 from "../assets/cert2.svg";
 import certificate from "../assets/certificate.svg";
 import education from "../assets/education.svg";
 import links from "../assets/links.svg";
-import work from "../assets/work.svg";
-import cert1 from "../assets/cert1.svg";
-import cert2 from "../assets/cert2.svg";
-import { useUser } from "../store/UserContext";
-import { MdOutlineMailOutline } from "react-icons/md";
-import { FaCloudDownloadAlt } from "react-icons/fa";
 import Profil from "../assets/profile.jpg";
-import { CiPhone } from "react-icons/ci";
-import { IoLocationOutline } from "react-icons/io5";
+import work from "../assets/work.svg";
+import "../index.css";
+import { useUser } from "../store/UserContext";
 import Editeducation from "./Editeducation";
-import EditProfileForm from "./Editprofile";
 import Editlink from "./Editlink";
-import WorkExperienceForm from "./Editwork";
+import EditProfileForm from "./Editprofile";
 import ResumeUploadPage from "./Editresume";
+import WorkExperienceForm from "./Editwork";
 import Modal from "./Modal";
 
 function Profile() {
@@ -45,7 +45,7 @@ function Profile() {
           <div className="w-full md:w-[45%] lg:w-[30%] mt-6 flex flex-col gap-4">
             <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6">
               <div className="flex items-center mb-2">
-                { user.picture ? (
+                {user.picture ? (
                   <>
                     <img
                       src={user.picture}
@@ -210,6 +210,28 @@ function Profile() {
                   + Add Links
                 </p>
               </div>
+              <div className="mt-2">
+                <h2 className="text-sm">LinkedIn</h2>
+                <p>
+                  <a
+                    href="https://linkedin.com"
+                    className="text-sm text-blue-600 hover:text-blue-400 transition duration-300"
+                  >
+                    https://linkedin.com
+                  </a>
+                </p>
+              </div>
+              <div className="mt-2">
+                <h2 className="text-sm">LinkedIn</h2>
+                <p>
+                  <a
+                    href="https://linkedin.com"
+                    className="text-sm text-blue-600 hover:text-blue-400 transition duration-300"
+                  >
+                    https://linkedin.com
+                  </a>
+                </p>
+              </div>
             </div>
 
             <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6 mb-4">
@@ -222,13 +244,33 @@ function Profile() {
                 </div>
                 <p className="text-[#1859F1] cursor-pointer">+ Add Skills</p>
               </div>
+              <div className="mt-2">
+                <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                  Python
+                </span>
+                <span className="ml-2 inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
+                  Javascript
+                </span>
+                <span className="ml-2 inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
+                  Node.js
+                </span>
+                <span className="ml-2 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                  Bruh
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <Modal isOpen={isEducationModalOpen} onClose={() => setEducationModalOpen(false)}>
-        <Editeducation username={user.username} onClose={() => setEducationModalOpen(false)}  />
+      <Modal
+        isOpen={isEducationModalOpen}
+        onClose={() => setEducationModalOpen(false)}
+      >
+        <Editeducation
+          username={user.username}
+          onClose={() => setEducationModalOpen(false)}
+        />
       </Modal>
 
       <Modal isOpen={isWorkModalOpen} onClose={() => setWorkModalOpen(false)}>
@@ -239,12 +281,22 @@ function Profile() {
         <Editlink />
       </Modal>
 
-      <Modal isOpen={isResumeModalOpen} onClose={() => setResumeModalOpen(false)}>
+      <Modal
+        isOpen={isResumeModalOpen}
+        onClose={() => setResumeModalOpen(false)}
+      >
         <ResumeUploadPage />
       </Modal>
 
-      <Modal isOpen={isProfileModalOpen} onClose={() => setProfileModalOpen(false)}>
-        <EditProfileForm onClose={function(){setProfileModalOpen(false)}}/>
+      <Modal
+        isOpen={isProfileModalOpen}
+        onClose={() => setProfileModalOpen(false)}
+      >
+        <EditProfileForm
+          onClose={function () {
+            setProfileModalOpen(false);
+          }}
+        />
       </Modal>
     </>
   );
@@ -320,9 +372,13 @@ function EDU({ edu }) {
               />
             </svg>
             <div className="ml-5 flex flex-col">
-              <h1 className="text-white text-xl font-bold">{edu.institution}</h1>
+              <h1 className="text-white text-xl font-bold">
+                {edu.institution}
+              </h1>
               <div className="flex  text-[10px] ">
-                <p>{edu.course}, {edu.degree}</p>
+                <p>
+                  {edu.course}, {edu.degree}
+                </p>
                 <p className="ml-5">
                   {edu.startDate} - {edu.endDate}
                 </p>

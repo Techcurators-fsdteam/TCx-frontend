@@ -3,7 +3,7 @@ import { Link as Li } from "react-router-dom"
 import React, { useState } from "react"
 import courseImage from "../assets/courseImage.svg"
 import Header from "./Header"
-import rect from "../assets/rect.svg"
+import Navbar from "./Navbar"
 import Footer from "./Footer"
 
 const courses = [
@@ -208,6 +208,9 @@ function Learn() {
   return (
     <>
       <Header />
+      <div className="flex items-center justify-center w-full mt-12">
+        <Navbar />
+      </div>
       <div className="flex justify-center w-full mt-8 md:mt-12 lg:mt-16">
         <div className="w-[95%] sm:w-[90%] lg:w-[80%] flex justify-center text-center">
           <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white">

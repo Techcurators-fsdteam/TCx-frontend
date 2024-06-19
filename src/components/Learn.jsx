@@ -252,7 +252,7 @@ function Learn() {
         id="coursesSection"
         className="text-[#FF7C1D] flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20"
       >
-        <div className="flex w-full max-w-screen-xl">
+        <div className="flex w-full max-w-screen-xl lg:px-0 px-8">
           <div>
             <p className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">
               Courses
@@ -317,7 +317,7 @@ function Learn() {
         id="projectsSection"
         className="text-[#FF7C1D] flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20"
       >
-        <div className="flex w-full max-w-screen-xl justify-end items-end text-right">
+        <div className="flex w-full max-w-screen-xl justify-end items-end text-right md:px-6 lg:px-4 px-8">
           <div>
             <p className="text-2xl  sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">
               Live projects

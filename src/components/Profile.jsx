@@ -318,7 +318,7 @@ function WXP({ work }) {
   const handleDelete = async () => {
     try {
       // Replace with your API endpoint URL
-      const url = 'http://localhost:5000/api/profile/workExp';
+      const url = "http://localhost:5000/api/profile/workExp";
 
       const data = {
         workExpId: work.expId, // Assuming work object has an expId
@@ -328,7 +328,7 @@ function WXP({ work }) {
       // Making the HTTP DELETE request
       const response = await axios.delete(url, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         data: data,
       });
@@ -338,9 +338,8 @@ function WXP({ work }) {
 
       // Handle success (e.g., show a notification, update state)
       // For example, you can update the UI to remove the deleted work experience entry from the list
-
     } catch (error) {
-      console.error('Error deleting work experience:', error);
+      console.error("Error deleting work experience:", error);
       // Handle error (e.g., show a notification)
     }
   };
@@ -368,10 +367,19 @@ function WXP({ work }) {
               height="40"
               viewBox="0 0 25 25"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
               style={{ marginTop: "2px" }}
+              xmlns="http://www.w3.org/2000/svg"
             >
-              {/* SVG content */}
+              <rect width="25" height="40" rx="4" fill="white" />
+              <path
+                d="M5 20H6.5M19.5 20H17.5M17.5 20V9.5L13.5 8M17.5 20H13.5M13.5 8V6H6.5V20M13.5 8V20M6.5 20H13.5M10.5 8.5H12M8 8.5H9.5"
+                stroke="#FF7C1D"
+              />
+              <path d="M9.5 20V17.5H11V20" stroke="#FF7C1D" />
+              <path
+                d="M8 15.5H9.5M10.5 15.5H12M10.5 13H12M10.5 10.5H12M8 10.5H9.5M8 13H9.5M16 10.5H14.5M14.5 13H16M14.5 15.5H16M14.5 17.5H16"
+                stroke="#FF7C1D"
+              />
             </svg>
             {/* Rest of your content */}
             <div className="ml-5 flex flex-col">
@@ -395,7 +403,7 @@ function WXP({ work }) {
 
 function EDU({ edu }) {
   const [showDelete, setShowDelete] = useState(false);
-  const {user,fetchUserDetails}=useUser();
+  const { user, fetchUserDetails } = useUser();
 
   const handleMouseEnter = () => {
     setShowDelete(true);
@@ -408,10 +416,10 @@ function EDU({ edu }) {
   const handleDelete = async () => {
     try {
       // Replace with your API endpoint URL
-      const url = 'http://localhost:5000/api/profile/education';
+      const url = "http://localhost:5000/api/profile/education";
 
       // Replace with your username retrieval logic
-      const username = 'example_username'; // You need to retrieve this from your context or props
+      const username = "example_username"; // You need to retrieve this from your context or props
 
       const data = {
         eduId: edu.eduId, // Assuming edu object has an eduId
@@ -421,7 +429,7 @@ function EDU({ edu }) {
       // Making the HTTP DELETE request
       const response = await axios.delete(url, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         data: data,
       });
@@ -431,9 +439,8 @@ function EDU({ edu }) {
 
       // Handle success (e.g., show a notification, update state)
       // For example, you can update the UI to remove the deleted education entry from the list
-
     } catch (error) {
-      console.error('Error deleting education:', error);
+      console.error("Error deleting education:", error);
       // Handle error (e.g., show a notification)
     }
   };
@@ -461,10 +468,19 @@ function EDU({ edu }) {
               height="40"
               viewBox="0 0 25 25"
               fill="none"
-              xmlns="http://www.w3.org/2000/svg"
               style={{ marginTop: "2px" }}
+              xmlns="http://www.w3.org/2000/svg"
             >
-              {/* SVG content */}
+              <rect width="25" height="40" rx="4" fill="white" />
+              <path
+                d="M5 20H6.5M19.5 20H17.5M17.5 20V9.5L13.5 8M17.5 20H13.5M13.5 8V6H6.5V20M13.5 8V20M6.5 20H13.5M10.5 8.5H12M8 8.5H9.5"
+                stroke="#FF7C1D"
+              />
+              <path d="M9.5 20V17.5H11V20" stroke="#FF7C1D" />
+              <path
+                d="M8 15.5H9.5M10.5 15.5H12M10.5 13H12M10.5 10.5H12M8 10.5H9.5M8 13H9.5M16 10.5H14.5M14.5 13H16M14.5 15.5H16M14.5 17.5H16"
+                stroke="#FF7C1D"
+              />
             </svg>
             {/* Rest of your content */}
             <div className="ml-5 flex flex-col">

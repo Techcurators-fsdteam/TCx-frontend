@@ -1,122 +1,122 @@
-import { Link, animateScroll as scroll } from "react-scroll"
-import { Link as Li } from "react-router-dom"
 import React, { useState } from "react"
-import Header from "./Header"
+import { Link as Li } from "react-router-dom"
+import { Link } from "react-scroll"
 import rect from "../assets/rect.svg"
 import Footer from "./Footer"
+import Header from "./Header"
 
 const courses = [
   {
     id: 1,
-    title: "Generative AI Explained",
-    desc: "In this no-coding course, learn Generative AI concepts and applications, as well as the challenges and opportunities in this exciting field.",
+    title: "Generative AI Basics",
+    desc: "Explore Generative AI concepts and applications.",
     link: "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-07+V1",
   },
   {
     id: 2,
-    title: "Introduction to Artificial Intelligence in Software Testing",
-    desc: "Learn the Basic Fundamentals of Artificial Intelligence (AI) in Software Testing in less than 30 minutes!",
+    title: "AI in Software Testing",
+    desc: "Understand AI fundamentals in software testing in under 30 minutes.",
     link: "https://www.udemy.com/course/introduction-to-artificial-intelligence-in-software-testing/",
   },
   {
     id: 3,
-    title: "Introduction to AI for Business",
-    desc: "Amplifying Human Ingenuity with Intelligent Technology",
+    title: "AI for Business",
+    desc: "Harness AI to boost business innovation.",
     link: "https://www.udemy.com/course/introduction-to-ai-for-business/",
   },
   {
     id: 4,
-    title: "Artificial Intelligence in Manufacturing",
-    desc: "Although slow to start manufacturing will be coming on strong, soon",
+    title: "AI in Manufacturing",
+    desc: "Explore AI's emerging role in manufacturing.",
     link: "https://www.udemy.com/course/artificial-intelligence-in-manufacturing/",
   },
   {
     id: 5,
-    title: "Artificial Intelligence for Accountants I",
-    desc: "A course for next generation of accountants",
+    title: "AI for Accountants",
+    desc: "Prepare for the future of accounting with AI.",
     link: "https://www.udemy.com/course/artificial-intelligence-for-accountants-i/",
   },
   {
     id: 6,
-    title: "AI For Teachers and Educators",
-    desc: "A General Introduction to AI for Teachers and Education Professionals",
+    title: "AI for Educators",
+    desc: "An AI introduction for teachers and education professionals.",
     link: "https://www.udemy.com/course/ai-for-teachers-and-educators/",
   },
   {
     id: 7,
-    title: "Neuroevolution: Genetic Algorithms And Artificial NeuralNets",
-    desc: "Learn how to combine Artificial Neural network and Genetics Algorithms to build powerful AI",
+    title: "Neuroevolution",
+    desc: "Combine neural networks and genetic algorithms.",
     link: "https://www.udemy.com/course/neuroevolution-genetic-algorithms-and-artificial-neuralnets/",
   },
   {
     id: 8,
-    title: "Machine Intelligence - an Introductory Course",
-    desc: "Learn the cutting-edge Algorithms in the field of Machine Learning, Deep Learning, Artificial Intelligence, and more!",
+    title: "Machine Intelligence Intro",
+    desc: "Learn about cutting-edge algorithms in AI and ML.",
     link: "https://www.udemy.com/course/machine-intelligence-masterclass/",
   },
   {
     id: 9,
-    title: "Introduction to machine learning for beginners",
-    desc: "No matter your background, this course will provide you with a solid foundation in classical machine learning, opening doors to countless applications in various fields.",
+    title: "Machine Learning Basics",
+    desc: "Gain a solid foundation in classical machine learning.",
     link: "https://www.youtube.com/watch?v=6mSx_KJxcHI&list=PLlrxD0HtieHjNnGcZ1TWzPjKYWgfXSiWG",
   },
   {
     id: 10,
-    title: "Fundamentals of Machine Learning through Python",
-    desc: "Python, Scikit-Learn, and Practical ML: From Basics to Projects",
+    title: "Machine Learning with Python",
+    desc: "Practical ML projects with Python and Scikit-Learn.",
     link: "https://www.udemy.com/course/fundamentals-of-machine-learning-through-python/",
   },
   {
     id: 11,
-    title: "Introduction to Large Language Models",
-    desc: "This is an introductory level micro-learning course that explores what large language models (LLM) are, the use cases where they can be utilized, and how you can use prompt tuning to enhance LLM performance.",
+    title: "Intro to Large Language Models",
+    desc: "Explore large language models and prompt tuning.",
     link: "https://www.cloudskillsboost.google/paths/118/course_templates/539",
   },
   {
     id: 12,
-    title: "Artificial Intelligence Markup Language (AIML)",
-    desc: "Create your own chatbots using the world's most popular chatbot language.",
+    title: "AIML for Chatbots",
+    desc: "Create chatbots using AIML.",
     link: "https://www.udemy.com/course/artificial-intelligence-markup-language/",
   },
   {
     id: 13,
-    title: "AI Prompt Mastery - Part I",
-    desc: "AI Basics, Prompt Engineering, Key Challenges and Limitations explained in simplest and non-technical language",
+    title: "AI Prompt Mastery",
+    desc: "Learn the basics of AI and prompt engineering.",
     link: "https://www.udemy.com/course/ai-prompt-mastery-part-i/",
   },
   {
     id: 14,
-    title: "ChatGPT in 30 Minutes: NEW Prompt Engineering & AI Skills",
-    desc: "All-New ChatGPT Prompting Skills. Learn AI Vision, 'No Code' Programming, Data Analytics, + More. Practical Examples..",
+    title: "ChatGPT Prompt Skills",
+    desc: "Master ChatGPT prompting and 'no code' programming.",
     link: "https://www.udemy.com/course/chatgpt-in-30-minutes-new-prompt-engineering-ai-skills/",
   },
   {
     id: 15,
     title: "Prompt Design in Vertex AI",
-    desc: "This learning path provides an overview of generative AI concepts, from the fundamentals of large language models to responsible AI principles.",
+    desc: "Overview of generative AI and responsible AI principles.",
     link: "https://www.cloudskillsboost.google/paths/118/course_templates/976",
   },
-]
+];
 
 const liveCourses = [
   {
     id: 1,
-    title: "Netflix's Unified Recommendation ML Model",
+    title: "Netflix's ML Model",
     link: "https://youtu.be/OKmv9sUrvk8",
   },
   {
     id: 2,
-    title: "Evolution of Recommendation Systems | Instagram Pinterest Twitter",
+    title: "Evolution of Recsys",
     link: "https://youtu.be/lgoyJn7MsH8",
   },
   {
     id: 3,
-    title: "SONAR Rock vs Mine Prediction with Python",
+    title: "Rock vs Mine Prediction",
     link: "https://youtu.be/fiz1ORTBGpY?si=7t2Uaqg1OnByFqKk",
   },
   {
     id: 4,
-    title: "Heart Disease Prediction using Machine Learning with Python",
+    title: "Heart Disease Prediction",
     link: "https://youtu.be/qmqCYC-MBQo?si=lpzQ16VdqQ6WJ2M2",
   },
   {
@@ -126,69 +126,61 @@ const liveCourses = [
   },
   {
     id: 6,
-    title:
-      "Building Scalable Query-Item Two-Tower Model based Retrieval System",
+    title: "Scalable Query-Item Model",
     link: "https://youtu.be/o-pZk5R0TZg",
   },
   {
     id: 7,
-    title: "Meituan's Game-Changing Two-Tower Retrieval Recsys Model | KDD'21",
+    title: "Meituan's Recsys Model",
     link: "https://youtu.be/UhpbTSbi3lI",
   },
   {
     id: 8,
-    title:
-      "Innovative Linkedin's Deep-leaning based CTR Modeling: The Deep, Wide, and Shallow Towers Explained",
+    title: "LinkedIn's CTR Model",
     link: "https://youtu.be/7l0HLYVFEuU",
   },
   {
     id: 9,
-    title:
-      "How Twitter recommends Tweets: Inside Twitter's Recommendation Algorithm",
+    title: "Twitter's Recsys Algorithm",
     link: "https://youtu.be/IhGq9jgcxFM",
   },
   {
     id: 10,
-    title:
-      "How eBay Built a Next-Generation Language Model to Revolutionise Online Shopping 🛒",
+    title: "eBay's Language Model",
     link: "https://youtu.be/h51nbWr7feo",
   },
   {
     id: 11,
-    title:
-      "Leveraging Pre-trained Bert to generate Entity Embeddings across domain 📚",
+    title: "Bert Entity Embeddings",
     link: "https://youtu.be/v-0J7o-nDBE",
   },
   {
     id: 12,
-    title: "Learn to Build an In-App Voice AI Assistant",
+    title: "Build Voice AI Assistant",
     link: "https://www.udemy.com/course/alan-ai-course/",
   },
   {
     id: 13,
-    title:
-      "Dynamic Pricing Strategy to effectively fill slots | E-commerce | Travel | Hospitality Domains",
+    title: "Dynamic Pricing Strategy",
     link: "https://youtu.be/a_CXpnsvPa0",
   },
   {
     id: 14,
-    title:
-      "Train your own Product Embeddings | Embeddings across Domains | Training on 1.02 Billion rows on GPU 💡",
+    title: "Train Product Embeddings",
     link: "https://youtu.be/DN4S96oHRhE",
   },
   {
     id: 15,
-    title:
-      "Approximate Nearest Neighbour and a popular Library Annoy for k-Nearest Neighbour Search & Product Quantizer 🔍",
+    title: "Approximate Nearest Neighbour",
     link: "https://youtu.be/DSQOrBTqmYA",
   },
   {
     id: 16,
-    title:
-      "PID Controller to add a layer of diversity to the recommender systems 🎛️",
+    title: "Diverse Recommender Systems",
     link: "https://youtu.be/laTxgnzjfR0",
   },
-]
+];
+
 
 function Learn() {
   const [visibleCourses, setVisibleCourses] = useState(3)

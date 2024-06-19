@@ -233,7 +233,7 @@ function Profile() {
       </Modal>
 
       <Modal isOpen={isWorkModalOpen} onClose={() => setWorkModalOpen(false)}>
-        <WorkExperienceForm />
+        <WorkExperienceForm onClose={() => setWorkModalOpen(false)} />
       </Modal>
 
       <Modal isOpen={isLinkModalOpen} onClose={() => setLinkModalOpen(false)}>

@@ -288,7 +288,7 @@ function Learn() {
                     alt="Generative AI"
                     className="h-10 w-10 md:h-12 md:w-12"
                   />
-                  <h2 className="text-sm sm:text-lg md:text-xl text-left">
+                  <h2 className="text-sm lg:text-md text-left">
                     {course.title}
                   </h2>
                 </div>
@@ -352,7 +352,7 @@ function Learn() {
                     alt="Generative AI"
                     className="h-10 w-10 md:h-12 md:w-12"
                   />
-                  <h2 className="text-sm sm:text-lg md:text-xl text-left">
+                  <h2 className="text-sm lg:text-md text-left">
                     {course.title}
                   </h2>
                 </div>

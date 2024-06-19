@@ -305,6 +305,7 @@ function Profile() {
 
 function WXP({ work }) {
   const [showDelete, setShowDelete] = useState(false);
+  const { user, fetchUserDetails } = useUser();
 
   const handleMouseEnter = () => {
     setShowDelete(true);
@@ -314,9 +315,34 @@ function WXP({ work }) {
     setShowDelete(false);
   };
 
-  const handleDelete = () => {
-    // Implement delete logic here
-    console.log('Deleting work experience:', work.id); // Assuming work object has an id
+  const handleDelete = async () => {
+    try {
+      // Replace with your API endpoint URL
+      const url = 'http://localhost:5000/api/profile/workExp';
+
+      const data = {
+        workExpId: work.expId, // Assuming work object has an expId
+        username: user.username,
+      };
+
+      // Making the HTTP DELETE request
+      const response = await axios.delete(url, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: data,
+      });
+
+      // console.log('Delete response:', response.data);
+      await fetchUserDetails();
+
+      // Handle success (e.g., show a notification, update state)
+      // For example, you can update the UI to remove the deleted work experience entry from the list
+
+    } catch (error) {
+      console.error('Error deleting work experience:', error);
+      // Handle error (e.g., show a notification)
+    }
   };
 
   return (
@@ -350,7 +376,7 @@ function WXP({ work }) {
             {/* Rest of your content */}
             <div className="ml-5 flex flex-col">
               <h1 className="text-white text-xl font-bold">{work.role}</h1>
-              <div className="flex  text-[10px] ">
+              <div className="flex text-[10px]">
                 <p>{work.company}</p>
                 <p className="ml-5">
                   {work.startDate} - {work.endDate}

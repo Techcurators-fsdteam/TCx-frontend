@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useUser } from '../store/UserContext';
 
 const countryCodes = [
   { code: '+1', country: 'USA/Canada' },
@@ -29,7 +31,55 @@ const countryCodes = [
   // You can add more codes as needed
 ];
 
-function EditProfileForm() {
+
+function EditProfileForm({profile,onClose}) {
+  const {user,fetchUserDetails}=useUser()
+  // const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [country, setCountry] = useState('');
+  const [state, setstate] = useState('');
+
+  const handleCountryCodeChange = (event) => {
+    const countryCode = event.target.value;
+    // Implement logic to set the country code state if necessary
+  };
+
+  const handlePhoneChange = (event) => {
+    const phoneNumber = event.target.value;
+    setPhone(phoneNumber);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      username:user.username,
+      phone,
+      location: `${state}+${country}`,
+      
+    };
+   
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/profile/profile', data);
+
+      if (response.status === 201) {
+        console.log('Profile data updated successfully');
+
+        
+        // Handle success (e.g., show a notification, redirect, etc.)
+      } else {
+        console.error('Failed to update profile data', response);
+        // Handle error (e.g., show a notification, etc.)
+      }
+      await fetchUserDetails();
+      onClose();
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      // Handle error (e.g., show a notification, etc.)
+    }
+  };
+
   return (
     <div className='flex justify-center text-center px-4'>
       <div className='w-full md:w-[80%] lg:w-[60%] xl:w-[50%] bg-[#1F202A] mt-10 rounded-xl p-6'>
@@ -40,18 +90,8 @@ function EditProfileForm() {
             </p>
           </div>
           
-          <form className='space-y-4'>
-            {/* Email ID */}
-            <div className='flex flex-col text-left'>
-              <label className='text-white mb-2 text-xl' htmlFor='email'>Email ID</label>
-              <input
-                type='email'
-                required
-                id='email'
-                className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
-                placeholder='Enter your email'
-              />
-            </div>
+          <form className='space-y-4' onSubmit={handleSubmit}>
+           
 
             {/* Phone Number */}
             <div className='flex flex-col text-left'>
@@ -60,6 +100,7 @@ function EditProfileForm() {
                 <select
                   id='country-code'
                   className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
+                  onChange={handleCountryCodeChange}
                 >
                   {countryCodes.map(({ code, country }) => (
                     <option key={code} value={code}>{code} {country}</option>
@@ -72,8 +113,24 @@ function EditProfileForm() {
                   maxLength={10}
                   className='flex-grow p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
                   placeholder='Enter your phone number'
+                  value={phone}
+                  onChange={handlePhoneChange}
                 />
               </div>
+            </div>
+
+             {/* state */}
+             <div className='flex flex-col text-left'>
+              <label className='text-white mb-2 text-xl' htmlFor='state'>State</label>
+              <input
+                type='text'
+                required
+                id='state'
+                className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
+                placeholder='Enter your state'
+                value={state}
+                onChange={(e) => setstate(e.target.value)}
+              />
             </div>
 
             {/* Country */}
@@ -85,20 +142,12 @@ function EditProfileForm() {
                 id='country'
                 className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
                 placeholder='Enter your country'
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
               />
             </div>
 
-            {/* Location */}
-            <div className='flex flex-col text-left'>
-              <label className='text-white mb-2 text-xl' htmlFor='location'>Location</label>
-              <input
-                type='text'
-                required
-                id='location'
-                className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
-                placeholder='Enter your location'
-              />
-            </div>
+           
 
             {/* Submit Button */}
             <div className='flex justify-center mt-6'>
@@ -113,7 +162,7 @@ function EditProfileForm() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default EditProfileForm;

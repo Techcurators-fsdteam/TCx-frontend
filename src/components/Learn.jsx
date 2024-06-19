@@ -1,204 +1,201 @@
-import React, { useState } from "react"
-import { Link as Li } from "react-router-dom"
-import { Link } from "react-scroll"
-import courseImage from "../assets/courseImage.svg"
-import Footer from "./Footer"
-import Header from "./Header"
-import Navbar from "./Navbar"
+import React, { useState } from "react";
+import { Link as Li } from "react-router-dom";
+import { Link } from "react-scroll";
+import courseImage from "../assets/courseImage.svg";
+import Footer from "./Footer";
+import Header from "./Header";
+import Navbar from "./Navbar";
 
 const courses = [
   {
-    id: 1,
-    title: "Generative AI Basics",
-    desc: "Explore Generative AI concepts and applications.",
-    link: "https://learn.nvidia.com/courses/course-detail?course_id=course-v1:DLI+S-FX-07+V1",
+  id: 1,
+  title: "Generative AI Basics",
+  desc: "Explore Generative AI concepts and applications.",
+  link: "https://learn.nvidia.com/courses/course-detail?course_id=course-v1/",
   },
   {
-    id: 2,
-    title: "AI in Software Testing",
-    desc: "Understand AI fundamentals in software testing in under 30 minutes.",
-    link: "https://www.udemy.com/course/introduction-to-artificial-intelligence-in-software-testing/",
+  id: 2,
+  title: "AI in Software Testing",
+  desc: "Understand AI fundamentals in software testing in under 30 minutes.",
+  link: "https://www.udemy.com/course/introduction-to-artificial-intelligence-in-software-testing/",
   },
   {
-    id: 3,
-    title: "AI for Business",
-    desc: "Harness AI to boost business innovation.",
-    link: "https://www.udemy.com/course/introduction-to-ai-for-business/",
+  id: 3,
+  title: "AI for Business",
+  desc: "Harness AI to boost business innovation.",
+  link: "https://www.udemy.com/course/introduction-to-ai-for-business/",
   },
   {
-    id: 4,
-    title: "AI in Manufacturing",
-    desc: "Explore AI's emerging role in manufacturing.",
-    link: "https://www.udemy.com/course/artificial-intelligence-in-manufacturing/",
+  id: 4,
+  title: "AI in Manufacturing",
+  desc: "Explore AI's emerging role in manufacturing.",
+  link: "https://www.udemy.com/course/artificial-intelligence-in-manufacturing/",
   },
   {
-    id: 5,
-    title: "AI for Accountants",
-    desc: "Prepare for the future of accounting with AI.",
-    link: "https://www.udemy.com/course/artificial-intelligence-for-accountants-i/",
+  id: 5,
+  title: "AI for Accountants",
+  desc: "Prepare for the future of accounting with AI.",
+  link: "https://www.udemy.com/course/artificial-intelligence-for-accountants-i/",
   },
   {
-    id: 6,
-    title: "AI for Educators",
-    desc: "An AI introduction for teachers and education professionals.",
-    link: "https://www.udemy.com/course/ai-for-teachers-and-educators/",
+  id: 6,
+  title: "AI for Educators",
+  desc: "An AI introduction for teachers and education professionals.",
+  link: "https://www.udemy.com/course/ai-for-teachers-and-educators/",
   },
   {
-    id: 7,
-    title: "Neuroevolution",
-    desc: "Combine neural networks and genetic algorithms.",
-    link: "https://www.udemy.com/course/neuroevolution-genetic-algorithms-and-artificial-neuralnets/",
+  id: 7,
+  title: "Neuroevolution",
+  desc: "Combine neural networks and genetic algorithms.",
+  link: "https://www.udemy.com/course/neuroevolution-genetic-algorithms-and-artificial-neuralnets/",
   },
   {
-    id: 8,
-    title: "Machine Intelligence Intro",
-    desc: "Learn about cutting-edge algorithms in AI and ML.",
-    link: "https://www.udemy.com/course/machine-intelligence-masterclass/",
+  id: 8,
+  title: "Machine Intelligence Intro",
+  desc: "Learn about cutting-edge algorithms in AI and ML.",
+  link: "https://www.udemy.com/course/machine-intelligence-masterclass/",
   },
   {
-    id: 9,
-    title: "Machine Learning Basics",
-    desc: "Gain a solid foundation in classical machine learning.",
-    link: "https://www.youtube.com/watch?v=6mSx_KJxcHI&list=PLlrxD0HtieHjNnGcZ1TWzPjKYWgfXSiWG",
+  id: 9,
+  title: "Machine Learning Basics",
+  desc: "Gain a solid foundation in classical machine learning.",
+  link: "https://www.youtube.com/watch?v=6mSx_KJxcHI&list=PLlrxD0HtieHjNnGcZ1TWzPjKYWgfXSiWG",
   },
   {
-    id: 10,
-    title: "Machine Learning with Python",
-    desc: "Practical ML projects with Python and Scikit-Learn.",
-    link: "https://www.udemy.com/course/fundamentals-of-machine-learning-through-python/",
+  id: 10,
+  title: "Machine Learning with Python",
+  desc: "Practical ML projects with Python and Scikit-Learn.",
+  link: "https://www.udemy.com/course/fundamentals-of-machine-learning-through-python/",
   },
   {
-    id: 11,
-    title: "Intro to Large Language Models",
-    desc: "Explore large language models and prompt tuning.",
-    link: "https://www.cloudskillsboost.google/paths/118/course_templates/539",
+  id: 11,
+  title: "Intro to Large Language Models",
+  desc: "Explore large language models and prompt tuning.",
+  link: "https://www.cloudskillsboost.google/paths/118/course_templates/539",
   },
   {
-    id: 12,
-    title: "AIML for Chatbots",
-    desc: "Create chatbots using AIML.",
-    link: "https://www.udemy.com/course/artificial-intelligence-markup-language/",
+  id: 12,
+  title: "AIML for Chatbots",
+  desc: "Create chatbots using AIML.",
+  link: "https://www.udemy.com/course/artificial-intelligence-markup-language/",
   },
   {
-    id: 13,
-    title: "AI Prompt Mastery",
-    desc: "Learn the basics of AI and prompt engineering.",
-    link: "https://www.udemy.com/course/ai-prompt-mastery-part-i/",
+  id: 13,
+  title: "AI Prompt Mastery",
+  desc: "Learn the basics of AI and prompt engineering.",
+  link: "https://www.udemy.com/course/ai-prompt-mastery-part-i/",
   },
   {
-    id: 14,
-    title: "ChatGPT Prompt Skills",
-    desc: "Master ChatGPT prompting and 'no code' programming.",
-    link: "https://www.udemy.com/course/chatgpt-in-30-minutes-new-prompt-engineering-ai-skills/",
+  id: 14,
+  title: "ChatGPT Prompt Skills",
+  desc: "Master ChatGPT prompting and 'no code' programming.",
+  link: "https://www.udemy.com/course/chatgpt-in-30-minutes-new-prompt-engineering-ai-skills/",
   },
   {
-    id: 15,
-    title: "Prompt Design in Vertex AI",
-    desc: "Overview of generative AI and responsible AI principles.",
-    link: "https://www.cloudskillsboost.google/paths/118/course_templates/976",
+  id: 15,
+  title: "Prompt Design in Vertex AI",
+  desc: "Overview of generative AI and responsible AI principles.",
+  link: "https://www.cloudskillsboost.google/paths/118/course_templates/976",
   },
-];
-
-const liveCourses = [
+  ];
+  
+  const liveCourses = [
   {
-    id: 1,
-    title: "Netflix's ML Model",
-    link: "https://youtu.be/OKmv9sUrvk8",
-  },
-  {
-    id: 2,
-    title: "Evolution of Recsys",
-    link: "https://youtu.be/lgoyJn7MsH8",
+  id: 1,
+  title: "Netflix's ML Model",
+  link: "https://youtu.be/OKmv9sUrvk8",
   },
   {
-    id: 3,
-    title: "Rock vs Mine Prediction",
-    link: "https://youtu.be/fiz1ORTBGpY?si=7t2Uaqg1OnByFqKk",
+  id: 2,
+  title: "Evolution of Recsys",
+  link: "https://youtu.be/lgoyJn7MsH8",
   },
   {
-    id: 4,
-    title: "Heart Disease Prediction",
-    link: "https://youtu.be/qmqCYC-MBQo?si=lpzQ16VdqQ6WJ2M2",
+  id: 3,
+  title: "Rock vs Mine Prediction",
+  link: "https://youtu.be/fiz1ORTBGpY?si=7t2Uaqg1OnByFqKk",
   },
   {
-    id: 5,
-    title: "Multi-Armed Bandit Strategies",
-    link: "https://youtu.be/2A5f3GrX0dA",
+  id: 4,
+  title: "Heart Disease Prediction",
+  link: "https://youtu.be/qmqCYC-MBQo?si=lpzQ16VdqQ6WJ2M2",
   },
   {
-    id: 6,
-    title: "Scalable Query-Item Model",
-    link: "https://youtu.be/o-pZk5R0TZg",
+  id: 5,
+  title: "Multi-Armed Bandit Strategies",
+  link: "https://youtu.be/2A5f3GrX0dA",
   },
   {
-    id: 7,
-    title: "Meituan's Recsys Model",
-    link: "https://youtu.be/UhpbTSbi3lI",
+  id: 6,
+  title: "Scalable Query-Item Model",
+  link: "https://youtu.be/o-pZk5R0TZg",
   },
   {
-    id: 8,
-    title: "LinkedIn's CTR Model",
-    link: "https://youtu.be/7l0HLYVFEuU",
+  id: 7,
+  title: "Meituan's Recsys Model",
+  link: "https://youtu.be/UhpbTSbi3lI",
   },
   {
-    id: 9,
-    title: "Twitter's Recsys Algorithm",
-    link: "https://youtu.be/IhGq9jgcxFM",
+  id: 8,
+  title: "LinkedIn's CTR Model",
+  link: "https://youtu.be/7l0HLYVFEuU",
   },
   {
-    id: 10,
-    title: "eBay's Language Model",
-    link: "https://youtu.be/h51nbWr7feo",
+  id: 9,
+  title: "Twitter's Recsys Algorithm",
+  link: "https://youtu.be/IhGq9jgcxFM",
   },
   {
-    id: 11,
-    title: "Bert Entity Embeddings",
-    link: "https://youtu.be/v-0J7o-nDBE",
+  id: 10,
+  title: "eBay's Language Model",
+  link: "https://youtu.be/h51nbWr7feo",
   },
   {
-    id: 12,
-    title: "Build Voice AI Assistant",
-    link: "https://www.udemy.com/course/alan-ai-course/",
+  id: 11,
+  title: "Bert Entity Embeddings",
+  link: "https://youtu.be/v-0J7o-nDBE",
   },
   {
-    id: 13,
-    title: "Dynamic Pricing Strategy",
-    link: "https://youtu.be/a_CXpnsvPa0",
+  id: 12,
+  title: "Build Voice AI Assistant",
+  link: "https://www.udemy.com/course/alan-ai-course/",
   },
   {
-    id: 14,
-    title: "Train Product Embeddings",
-    link: "https://youtu.be/DN4S96oHRhE",
+  id: 13,
+  title: "Dynamic Pricing Strategy",
+  link: "https://youtu.be/a_CXpnsvPa0",
   },
   {
-    id: 15,
-    title: "Approximate Nearest Neighbour",
-    link: "https://youtu.be/DSQOrBTqmYA",
+  id: 14,
+  title: "Train Product Embeddings",
+  link: "https://youtu.be/DN4S96oHRhE",
   },
   {
-    id: 16,
-    title: "Diverse Recommender Systems",
-    link: "https://youtu.be/laTxgnzjfR0",
+  id: 15,
+  title: "Approximate Nearest Neighbour",
+  link: "https://youtu.be/DSQOrBTqmYA",
   },
-];
-
+  {
+  id: 16,
+  title: "Diverse Recommender Systems",
+  link: "https://youtu.be/laTxgnzjfR0",
+  },
+  ];
 
 function Learn() {
-  const [visibleCourses, setVisibleCourses] = useState(3)
-  const [visibleLiveCourses, setVisibleLiveCourses] = useState(3)
+  const [visibleCourses, setVisibleCourses] = useState(3);
+  const [visibleLiveCourses, setVisibleLiveCourses] = useState(3);
 
   const loadMoreCourses = () => {
-    setVisibleCourses((prevVisibleCourses) => prevVisibleCourses + 3)
-  }
+    setVisibleCourses((prevVisibleCourses) => prevVisibleCourses + 3);
+  };
 
   const loadMoreLiveCourses = () => {
-    setVisibleLiveCourses(
-      (prevVisibleLiveCourses) => prevVisibleLiveCourses + 3
-    )
-  }
+    setVisibleLiveCourses((prevVisibleLiveCourses) => prevVisibleLiveCourses + 3);
+  };
 
   return (
-    <>
+    <div style={{ fontFamily: "'Lexend', sans-serif" }}>
       <Header />
       <div className="flex items-center justify-center w-full mt-12">
         <Navbar />
@@ -206,10 +203,10 @@ function Learn() {
       <div className="flex justify-center w-full mt-8 md:mt-12 lg:mt-16">
         <div className="w-[95%] sm:w-[90%] lg:w-[80%] flex justify-center text-center">
           <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white">
-            THE FUTURE IS DRIVEN BY DATA,
+            <b>The future is driven by data,</b>
             <br />
             <span className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-[#FF7C1D]">
-              AND AI UNLOCKS ITS POTENTIAL
+              and AI unlocks its potential
             </span>
           </p>
         </div>
@@ -225,7 +222,7 @@ function Learn() {
                 duration={500}
                 offset={-50}
               >
-                COURSES
+                Courses
               </Link>
             </li>
 
@@ -236,13 +233,13 @@ function Learn() {
                 duration={500}
                 offset={-50}
               >
-                LIVE PROJECTS
+                Live projects
               </Link>
             </li>
 
             <li className="py-2 sm:py-0 sm:px-4 hover:text-[#FF7C1D] transition-colors duration-300 cursor-pointer">
               <Link to="testsSection" smooth={true} duration={500} offset={-50}>
-                PRACTICE TEST
+                Practice test
               </Link>
             </li>
           </ul>
@@ -253,18 +250,18 @@ function Learn() {
 
       <div
         id="coursesSection"
-        className="text-white flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20"
+        className="text-[#FF7C1D] flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20"
       >
         <div className="flex w-full max-w-screen-xl">
           <div>
             <p className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">
-              COURSES
+              Courses
             </p>
-            <p className="text-gray-400 text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
-              Learn how to implement and leverage
-              <br className="hidden sm:block" /> GenAI in your profession with
-              these
-              <br className="hidden sm:block" /> comprehensive courses
+            <p className="text-white text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
+              Learn how to implement and leverage Gen AI 
+              <br className="hidden sm:block" /> in your profession with
+              these comprehensive courses.
+              {/*<br className="hidden sm:block" /> comprehensive courses*/}
             </p>
           </div>
         </div>
@@ -281,7 +278,7 @@ function Learn() {
                 <div className="flex items-center gap-4 text-white">
                   <img
                     src={courseImage}
-                    alt="Generative AI"
+                    alt="generative ai"
                     className="h-8 w-8 md:h-10 md:w-10"
                   />
                   <h2 className="text-sm lg:text-md text-left">
@@ -299,7 +296,7 @@ function Learn() {
                   rel="noopener noreferrer"
                   className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4"
                 >
-                  Learn Now
+                  Learn now
                 </a>
               </div>
             ))}
@@ -308,7 +305,7 @@ function Learn() {
               onClick={loadMoreCourses}
               className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-2"
             >
-              Load More
+              load more
             </button>
           )}
         </div>
@@ -318,17 +315,17 @@ function Learn() {
 
       <div
         id="projectsSection"
-        className="text-white flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20"
+        className="text-[#FF7C1D] flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20"
       >
         <div className="flex w-full max-w-screen-xl justify-end items-end text-right">
           <div>
             <p className="text-2xl  sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">
-              LIVE PROJECTS
+              Live projects
             </p>
-            <p className="text-gray-400 text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
-              Gain deeper insights with AI-driven analytics that{" "}
+            <p className="text-white text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
+              Gain deeper insights with ai-driven analytics that{" "}
               <br className="hidden sm:block" /> provide a comprehensive view of
-              candidate <br className="hidden sm:block" /> performance.
+              candidate performance.{/*<br className="hidden sm:block" /> performance.*/}
             </p>
           </div>
         </div>
@@ -345,7 +342,7 @@ function Learn() {
                 <div className="flex items-center gap-4 text-white">
                   <img
                     src={courseImage}
-                    alt="Generative AI"
+                    alt="generative ai"
                     className="h-8 w-8 md:h-10 md:w-10"
                   />
                   <h2 className="text-sm lg:text-md text-left">
@@ -358,16 +355,16 @@ function Learn() {
                   rel="noopener noreferrer"
                   className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4"
                 >
-                  Learn Now
+                  Learn now
                 </a>
               </div>
             ))}
-          {visibleLiveCourses < courses.length && (
+          {visibleLiveCourses < liveCourses.length && (
             <button
               onClick={loadMoreLiveCourses}
               className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-2"
             >
-              Load More
+              Load more
             </button>
           )}
         </div>
@@ -377,14 +374,14 @@ function Learn() {
 
       <div
         id="testsSection"
-        className="text-white flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20 mb-10"
+        className="text-[#FF7C1D] flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20 mb-10"
       >
         <div className="flex flex-col md:flex-row w-full max-w-screen-xl items-start md:items-center gap-6 md:gap-8 lg:gap-10">
           <div className="flex-1">
             <p className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">
-              PRACTICE TEST
+              Practice test
             </p>
-            <p className="text-gray-400 text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
+            <p className="text-white text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
               Benefit from practice tests that adapt to your learning{" "}
               <br className="hidden sm:block" />
               pace and focus on areas needing improvement.
@@ -395,14 +392,14 @@ function Learn() {
               to="/Practicetest1"
               className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4 md:mt-0 self-center md:self-start"
             >
-              Take Your Test Now
+              Take your test now
             </Li>
           </div>
         </div>
       </div>
       <Footer />
-    </>
-  )
+    </div>
+  );
 }
 
-export default Learn
+export default Learn;

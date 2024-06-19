@@ -1,12 +1,12 @@
-  import React, { useState, useEffect } from 'react';
   import axios from 'axios';
-  import { useUser } from '../store/UserContext';
+import React, { useEffect, useState } from 'react';
+import { useUser } from '../store/UserContext';
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
-  const years = Array.from({ length: 51 }, (_, i) => new Date().getFullYear() - i); // Last 50 years
+  const years = Array.from({ length: 100 }, (_, i) => 1950 + i);
 
   function Editeducation({username, edu,onClose}) {
     const {fetchUserDetails}=useUser();

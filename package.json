@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^1.7.2",
     "react": "^18.2.0",
+    "react-components": "^0.5.1",
     "react-d3-speedometer": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-icon": "^1.0.0",

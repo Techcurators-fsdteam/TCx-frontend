@@ -57,10 +57,10 @@ function Hero() {
           </li>
           <li
             className='bg-[#1F1C1B] text-white rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-[#D6FF3C]'
-            onMouseEnter={(e) => showTooltip(e, 'Coming Soon')}
-            onMouseLeave={hideTooltip}
+            
           >
-            Certify
+          <Link to="/Certify" className=''>Certify</Link>
+            
           </li>
           <li
             className='bg-[#1F1C1B] text-white rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-[#D6FF3C]'

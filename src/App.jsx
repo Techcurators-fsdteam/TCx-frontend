@@ -16,6 +16,7 @@ import Editlink from './components/Editlink';
 import Editprofile from './components/Editprofile';
 import Editresume from './components/Editresume';
 import Modal from './components/Modal';
+import Certify from './components/Certify.jsx';
 
 function App() {
   // const [modalOpen, setModalOpen] = useState(null);
@@ -30,6 +31,7 @@ function App() {
         <Route path='/Profile' element={<Profile />} />
         <Route path='/profile' element={<Profile />} />
         <Route path="/learn" element={<Learn />} />
+        <Route path="/Certify" element={<Certify />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp/>} />
         <Route path="/Header" element={<Header/>}/>

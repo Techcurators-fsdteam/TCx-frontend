@@ -42,28 +42,26 @@ const Header = () => {
   };
 
   return (
-    <header className="flex md:flex-row items-center justify-center mt-4 gap-2 mb-4">
-      <div className="relative flex items-center justify-center bg-[#1E1E1E] text-white font-poppins rounded-full w-[70%] md:w-[70%] h-10">
+    <header className="flex px-10 md:flex-row items-center justify-between w-full mt-4 gap-2 mb-4">
+      <div className="relative flex items-center justify-start  text-white font-poppins rounded-full w-[70%] md:w-[70%] h-10">
         <a href="/">
           <img
             src={logo}
             alt="logo"
-            className="left-2 w-8 h-8 md:w-10 md:h-10 pl-2"
+            className="left-2 w-16 h-16 md:w-16 md:h-16 pl-2"
           />
         </a>
-        <p className="text-sm  mx-auto">
-          TCx <span className="text-[#D6FF3C]">.</span> Grow 100X
-        </p>
+        
       </div>
       {logged ? (
         <>
         <button
           onClick={() => setDropdownOpen(!dropdownOpen)}
-          className="flex items-center justify-center bg-[#1E1E1E] hover:border-[#D6FF3C] text-white font-poppins rounded-full w-10 h-10"
+          className="flex items-center justify-center bg-[#1E1E1E] hover:border-[#D6FF3C] text-white font-poppins rounded-full w-12 h-12"
         >
           <img
             src={imageUrl}
-            className="w-6 h-6 rounded-full cursor-pointer"
+            className="w-12 h-12 rounded-full cursor-pointer"
             alt=""
           />
         </button>

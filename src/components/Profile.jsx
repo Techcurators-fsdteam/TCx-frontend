@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { CiPhone } from "react-icons/ci";
-import { FaCloudDownloadAlt } from "react-icons/fa";
+// import { FaCloudDownloadAlt } from "react-icons/fa";
+import { IoCloudDownload as FaCloudDownloadAlt } from "react-icons/io5";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -103,34 +104,55 @@ function Profile() {
                 </p>
               )}
             </div>
-
-            <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6">
-              <div className="flex  justify-between items-center mb-2">
-                <div className="flex items-center">
-                  <p className="ml-2 text-lg md:text-xl text-[#FF7C1D]">
-                    My Resume
+            {user.resume ? (
+              <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6">
+                <div className="flex  justify-between items-center mb-2">
+                  <div className="flex items-center">
+                    <p className="ml-2 text-lg md:text-xl text-[#FF7C1D]">
+                      My Resume
+                    </p>
+                  </div>
+                  <p
+                    className="text-[#1859F1] cursor-pointer"
+                    onClick={() => setResumeModalOpen(true)}
+                  >
+                    + Add Resume
                   </p>
                 </div>
-                <p
-                  className="text-[#1859F1] cursor-pointer"
-                  onClick={() => setResumeModalOpen(true)}
+
+                <Link
+                  className="flex flex-col justify-center items-center"
+                  to={user.resume}
                 >
-                  + Add Resume
-                </p>
+                  {" "}
+                  <FaCloudDownloadAlt
+                    height="50"
+                    width="50"
+                    className="mt-1 h-20 w-20"
+                  />
+                  <p className="mt-[0.5px]">Download Resume</p>
+                </Link>
               </div>
-              <Link
-                className="flex flex-col justify-center items-center"
-                to={user.resume}
-              >
-                {" "}
-                <FaCloudDownloadAlt
-                  height="50"
-                  width="50"
-                  className="mt-1 h-20 w-20"
-                />
-                <p className="mt-[0.5px]">Download Resume</p>
-              </Link>
-            </div>
+            ) : (
+              <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6">
+                <div className="flex  justify-between items-center mb-2">
+                  <div className="flex items-center">
+                    <p className="ml-2 text-lg md:text-xl text-[#FF7C1D]">
+                      My Resume
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex justify-center w-full">
+                  <button
+                    onClick={() => setResumeModalOpen(true)}
+                    className="bg-[#FF7C1D]  mt-5 mb-3 text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 text-[10px] sm:text-sm md:text-xs"
+                  >
+                    Add Resume
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Content Box */}
@@ -211,28 +233,27 @@ function Profile() {
                   + Add Links
                 </p>
               </div>
-              <div className="mt-2">
-                <h2 className="text-sm">LinkedIn</h2>
-                <p>
-                  <a
-                    href="https://linkedin.com"
-                    className="text-sm text-blue-600 hover:text-blue-400 transition duration-300"
-                  >
-                    https://linkedin.com
-                  </a>
-                </p>
-              </div>
-              <div className="mt-2">
-                <h2 className="text-sm">LinkedIn</h2>
-                <p>
-                  <a
-                    href="https://linkedin.com"
-                    className="text-sm text-blue-600 hover:text-blue-400 transition duration-300"
-                  >
-                    https://linkedin.com
-                  </a>
-                </p>
-              </div>
+              {user.links ? (
+                <>
+                  {user.links.map((link) => {
+                    return (
+                      <div className="mt-2">
+                        <h2 className="text-sm uppercase">{link.linkName}</h2>
+                        <p>
+                          <a
+                            href={link.link}
+                            className="text-sm text-blue-600 hover:text-blue-400 transition duration-300"
+                          >
+                            {link.link}
+                          </a>
+                        </p>
+                      </div>
+                    );
+                  })}
+                </>
+              ) : (
+                <></>
+              )}
             </div>
 
             <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6 mb-4">

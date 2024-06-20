@@ -55,7 +55,7 @@ function EditProfileForm({profile,onClose}) {
     const data = {
       username:user.username,
       phone,
-      location: `${state}+${country}`,
+      location: `${state},${country}`,
       
     };
    

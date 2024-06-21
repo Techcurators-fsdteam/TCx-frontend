@@ -40,7 +40,7 @@ function Hero() {
     <div className='flex flex-col justify-center text-center items-center'>
         <div>
             <p className=' text-center mt-4 bg-gradient-to-b from-white via-gray-400 to-gray-900  bg-clip-text text-transparent text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-9xl'>
-                BECOME AN AI PRODIGY
+                Become an AI Prodigy<br></br> with TCx
             </p>
         </div>
 
@@ -111,8 +111,8 @@ function Hero() {
         <img src={logo} alt='logo' className='w-40 h-40 md:w-48 md:h-48 lg:w-60 lg:h-60' />
 
         <p className='text-white text-4xl md:text-5xl lg:text-7xl text-center lg:text-right'>
-          TRANSFORM YOUR SKILLS, <br />
-          <span className='text-2xl md:text-3xl lg:text-5xl text-gray-500'>TRANSFORM YOUR FUTURE</span>
+          Transform your skills, <br />
+          <span className='text-2xl md:text-3xl lg:text-5xl text-gray-500'>Transform your future</span>
         </p>
       </div>
     </div>
@@ -149,7 +149,7 @@ function Hero() {
     <div className='flex justify-center w-full mt-16'>
       <div className='text-white flex flex-col lg:flex-row w-[90%] px-4 md:px-8 lg:px-16 gap-4 lg:gap-0'>
         <p className='text-4xl sm:text-5xl md:text-6xl flex-1 text-center lg:text-left'>
-          WHY TCx?
+          Why TCx?
         </p>
         
         <p className='flex-1 font-light text-lg sm:text-xl md:text-2xl lg:text-xl text-center lg:text-right'>
@@ -169,9 +169,9 @@ function Hero() {
           <div className='flex flex-col gap-6 md:gap-8 items-end'>
             <div className='flex justify-center items-center rounded-full w-40 h-14 md:w-48 md:h-16 bg-[#313131]'>
               <div className='rounded-full bg-[#D9D9D9] h-10 w-10 md:h-12 md:w-12'></div>
-              <p className='ml-2 text-sm md:text-base'>AI SOLUTIONS</p>
+              <p className='ml-2 text-sm md:text-base'>AI Solutions</p>
             </div>
-            <p className='text-4xl md:text-5xl text-right'>TOOLS</p>
+            <p className='text-4xl md:text-5xl text-right'>Tools</p>
           </div>
         </div>
 
@@ -180,9 +180,9 @@ function Hero() {
           <div className='flex flex-col gap-6 md:gap-8 items-end'>
             <div className='flex justify-center items-center rounded-full w-40 h-14 md:w-48 md:h-16 bg-[#313131]'>
               <div className='rounded-full bg-[#D9D9D9] h-10 w-10 md:h-12 md:w-12'></div>
-              <p className='ml-2 text-sm md:text-base'>AI CONSULTING</p>
+              <p className='ml-2 text-sm md:text-base'>AI Consultation</p>
             </div>
-            <p className='text-4xl md:text-5xl text-right'>CONSULTING</p>
+            <p className='text-4xl md:text-5xl text-right'>Consultation</p>
           </div>
         </div>
       </div>
@@ -194,9 +194,9 @@ function Hero() {
           <div className='flex flex-col gap-6 md:gap-8 items-end'>
             <div className='flex justify-center items-center rounded-full w-40 h-14 md:w-48 md:h-16 bg-[#313131]'>
               <div className='rounded-full bg-[#D9D9D9] h-10 w-10 md:h-12 md:w-12'></div>
-              <p className='ml-2 text-sm md:text-base'>AI EDUCATION</p>
+              <p className='ml-2 text-sm md:text-base'>AI Education</p>
             </div>
-            <p className='text-4xl md:text-5xl text-right'>EDUCATION</p>
+            <p className='text-4xl md:text-5xl text-right'>Education</p>
           </div>
         </div>
 
@@ -205,9 +205,9 @@ function Hero() {
           <div className='flex flex-col gap-6 md:gap-8 items-end'>
             <div className='flex justify-center items-center rounded-full w-40 h-14 md:w-48 md:h-16 bg-[#313131]'>
               <div className='rounded-full bg-[#D9D9D9] h-10 w-10 md:h-12 md:w-12'></div>
-              <p className='ml-2 text-sm md:text-base text-white'>AI COMMUNITY</p>
+              <p className='ml-2 text-sm md:text-base text-white'>AI Community</p>
             </div>
-            <p className='text-4xl md:text-5xl text-right text-black'>COMMUNITY</p>
+            <p className='text-4xl md:text-5xl text-right text-black'>Community</p>
           </div>
         </div>
       </div>
@@ -219,7 +219,7 @@ function Hero() {
     <div className='flex justify-center w-full mt-28'>
       <div className='text-white flex flex-col lg:flex-row w-[90%] px-4 md:px-8 lg:px-16 gap-4 lg:gap-0'>
         <p className='text-4xl sm:text-5xl md:text-6xl flex-1 text-center lg:text-left'>
-        FUTURE -PROOF YOUR CAREER <span className='text-gray-500'> TODAY </span>       
+        Future-proof your career <span className='text-gray-500'> today </span>       
         </p>
         
         <p className='flex-1 font-light text-lg sm:text-xl md:text-2xl lg:text-xl text-center lg:text-right'>

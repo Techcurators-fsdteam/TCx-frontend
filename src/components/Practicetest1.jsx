@@ -38,7 +38,7 @@ function Practicetest1() {
   return (
     <>
       <Header />
-      <div className="flex justify-center w-full mt-8 md:mt-12 lg:mt-16">
+      <div className="flex justify-center w-full mt-8 md:mt-12 lg:mt-2">
         <div className="w-[95%] sm:w-[90%] lg:w-[80%] flex justify-center text-center">
           <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white">
             WELCOME TO
@@ -50,7 +50,7 @@ function Practicetest1() {
         </div>
       </div>
 
-      <div className="flex justify-center w-full mt-10">
+      <div className="flex justify-center w-full mt-8 mb-2">
         <div className="bg-white w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] rounded-2xl p-6 sm:p-8 md:p-10 flex flex-col items-center">
           {/* Practice Test Section */}
           {conf ? (

@@ -20,8 +20,8 @@ import certify3 from './Certify3'
 function CertificationPage() {
   return (
     <>
-      <div className='flex flex-col justify-center text-center items-center gap-8'>
-        <Header />
+      <Header/>
+      <div className="flex items-center justify-center w-full mt-12">
         <Navbar />
       </div>
       <div className="flex flex-col md:flex-row bg-black text-white py-10 px-4 md:px-8 lg:px-16">

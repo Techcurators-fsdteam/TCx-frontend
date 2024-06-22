@@ -111,9 +111,9 @@ function Certify() {
 
   return (
     <>
-      <div className='flex flex-col justify-center text-center items-center gap-8'>
-        <Header />
-        <Navbar/>
+    <Header/>
+      <div className="flex items-center justify-center w-full mt-12">
+        <Navbar />
       </div>
 
       {/* Background Section */}

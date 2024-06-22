@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Practicetest1 from './components/Practicetest1';
 import SignUp from './components/Signup';
 import Test from './components/Test';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import Result from './components/Result';
 import Profile from './components/Profile.jsx'
 import Editwork from './components/Editwork';
@@ -24,6 +25,7 @@ function App() {
   
   return (
     <>
+    <GoogleOAuthProvider clientId='817860106596-lfombupsre85gug8361n208iu2j8amm4.apps.googleusercontent.com'>
     <Router>
       <Routes>
         <Route path="/" element={<Hero />} />
@@ -62,6 +64,7 @@ function App() {
         
       </Routes>
       </Router>
+      </GoogleOAuthProvider>
     </>
   );
 }

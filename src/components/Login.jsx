@@ -1,18 +1,25 @@
-import { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
+import { useGoogleLogin, googleLogout } from "@react-oauth/google";
 import ldin from "../assets/ldin.svg";
 import google from "../assets/google.svg";
 import foto from "../assets/robot.svg";
 import bgi from "../assets/bgimg.svg";
 import coi from "../assets/logo.svg";
+
 import { login } from "../api/axios";
-import eye from '../assets/eyePasswordShow.svg';
-import eyeStash from '../assets/eyePasswordHide.svg';
+import eye from "../assets/eyePasswordShow.svg";
+import eyeStash from "../assets/eyePasswordHide.svg";
+import { useUser } from "../store/UserContext";
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
+  // const {user,fetchUserDetails}=useUser();
+  const [user, setUseR] = useState("");
+  const [profile, setProfile] = useState("");
   const [username, setUser] = useState("");
   const [password, setPass] = useState("");
   const navigate = useNavigate(); // Use useNavigate hook
@@ -21,21 +28,73 @@ function Login() {
     setPasswordVisible(!passwordVisible);
   };
 
-  function handleSignIn() {
+  const handleGoogleLogin = useGoogleLogin({
+    onSuccess: (codeResponse) => setUseR(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
 
+  function googleLogin() {
+    console.log(profile);
+    axios
+      .post("http://localhost:5000/api/auth/googleLogin", profile)
+      .then((res) => {
+        console.log(res.data.token);
+        document.cookie = `token=${res.data.token};  path=/`;
+        navigate("/");
+      });
+  }
+
+  useEffect(() => {
+    // console.log(user);
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setProfile(res.data);
+          
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+
+
+
+
+  function handleSignIn() {
     const data = { email, username, password };
     // console.log("Hello")
 
     // console.log(res.token)
-    login(data).then(res => {
+    login(data)
+      .then((res) => {
+        if(res.token!=undefined){
         document.cookie = `token=${res.token};  path=/`;
         console.log(res.token);
-        navigate("/")
-         // Use navigate for redirection
-    }).catch(err => {
-        alert("Invalid Credentials") // Handle errors appropriately
-    });
-}
+        navigate("/");}
+        
+        // Use navigate for redirection
+      })
+      .then(()=>fetchUserDetails())
+      .catch((err) => {
+        alert("Invalid Credentials"); // Handle errors appropriately
+      });
+  }
+
+
+    useEffect(() => {
+      if (profile) {
+        googleLogin();  // Call googleLogin only after profile state is updated
+      }
+    }, [profile]);
+  
 
   return (
     <>
@@ -72,9 +131,12 @@ function Login() {
                 <p className="text-white pb-3 text-sm">
                   Don't have an account.&nbsp;
                 </p>
-                
-                  <Link className="text-blue-500 text-sm hover:underline" to="/SignUp">Sign up</Link>{" "}
-                
+                <Link
+                  className="text-blue-500 text-sm hover:underline"
+                  to="/SignUp"
+                >
+                  Sign up
+                </Link>{" "}
               </div>
             </div>
             <div className="mb-4">
@@ -86,8 +148,7 @@ function Login() {
                 value={username}
                 onChange={(e) => setUser(e.target.value)}
                 className="w-full px-4 py-4 rounded-full bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border "
-                />
-              
+              />
             </div>
             <div className="mb-4">
               <label htmlFor="email" className="block text-white"></label>
@@ -116,7 +177,7 @@ function Login() {
                 alt="toggle"
                 onClick={togglePasswordVisibility}
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
-                style={{ width: '20px', height: '20px' }}
+                style={{ width: "20px", height: "20px" }}
               />
             </div>
             <div className="flex justify-between items-center mb-5">
@@ -125,34 +186,39 @@ function Login() {
                   type="checkbox"
                   className="form-checkbox h-4 w-4 text-orange-500"
                 />
-               <span className="ml-2 text-sm">Remember me</span>
+                <span className="ml-2 text-sm">Remember me</span>
               </label>
               <a href="#" className="text-blue-500 text-sm hover:underline">
                 Forgot password?
               </a>
             </div>
             <div className="p-2">
-            <button onClick={handleSignIn} className="w-full py-3 px-4 bg-orange-500 text-white rounded-full text-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50">
+              <button
+                onClick={handleSignIn}
+                className="w-full py-3 px-4 bg-orange-500 text-white rounded-full text-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50"
+              >
                 Sign In
-            </button>
+              </button>
             </div>
             <div>
-            <div className="text-center pt-4 md:pt-6">
-            <p className="text-white rounded-full text-xl">
+              <div className="text-center pt-4 md:pt-6">
+                <p className="text-white rounded-full text-xl">
                   or continue with
                 </p>
               </div>
               <div className="flex justify-center mt-4">
-                <img
-                  src={ldin}
-                  alt="LinkedIn"
-                 className="text-blue-600 text-3xl mx-2 hover:text-blue-700 cursor-pointer"
-                />
-                <img
+                <button
+                  onClick={handleGoogleLogin}
+                  className="text-blue-600 bg-white flex text-sm items-center px-2 rounded-full mx-2 hover:text-blue-700 cursor-pointer"
+                >
+                  <img src={google} alt="LinkedIn" /> Sign in With Google
+                </button>
+
+                {/* <img
                   src={google}
                   alt="Google"
                   className="text-red-600 text-3xl mx-2 hover:text-red-700 cursor-pointer"
-                />
+                /> */}
               </div>
             </div>
           </div>
@@ -163,4 +229,3 @@ function Login() {
 }
 
 export default Login;
-

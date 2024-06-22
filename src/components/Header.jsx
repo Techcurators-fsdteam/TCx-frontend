@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../index.css";
 import logo from "../assets/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
+import { googleLogout } from '@react-oauth/google';
+
 import { useUser } from "../store/UserContext";
 
 const Header = () => {
@@ -10,7 +12,7 @@ const Header = () => {
   const [imageUrl, setImageUrl] = useState(
     "https://i.pinimg.com/236x/7a/2d/59/7a2d59b45f3221b020ed465f92e8d44e.jpg"
   );
-  const { user } = useUser();
+  const { user,fetchUserDetails } = useUser();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   useEffect(() => {
     const checkLoggedIn = () => {
@@ -29,6 +31,11 @@ const Header = () => {
 
     checkLoggedIn();
   }, []);
+
+  useEffect(()=>{
+    fetchUserDetails();
+  })
+
   const handleProfile = () => {
     navigate('/profile');
   }
@@ -37,6 +44,8 @@ const Header = () => {
     // Delete the token cookie by setting its expiration date to a past date
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     console.log(document.cookie)
+    googleLogout();
+
     setLogged(false); // Update logged state to false
     // navigate('/login'); // Redirect to login page after logout
   };

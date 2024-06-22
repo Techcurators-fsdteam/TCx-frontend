@@ -10,6 +10,7 @@ import uncle from '../assets/uncle.svg'
 import AIskull from '../assets/AIskull.svg'
 import { useEffect } from 'react';
 import Header from './Header.jsx'
+import Footer from './Footer.jsx'
 import Navbar from './Navbar.jsx'
 import '../index.css'
 
@@ -39,7 +40,7 @@ function Hero() {
     <Header/>
     <div className='flex flex-col justify-center text-center items-center'>
         <div>
-            <p className=' text-center mt-4 bg-gradient-to-b from-white via-gray-400 to-gray-900  bg-clip-text text-transparent text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-9xl'>
+            <p className=' text-center mt-4 bg-gradient-to-b from-white via-gray-400 to-gray-900  bg-clip-text text-transparent text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl'>
                 BECOME AN AI PRODIGY
             </p>
         </div>
@@ -51,40 +52,25 @@ function Hero() {
         {/* this is the navbar*/}
 
         <div className='flex bg-[#2E231A] bg-opacity-75 rounded-full text-center justify-center font-poppins w-[70%] h-16' style={{ marginTop: '-1.5%' }}>
-        <ul className='flex flex-grow justify-evenly items-center gap-3 px-3'>
-          <li className='bg-[#1F1C1B] text-white rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-[#D6FF3C]'>
-            <Link to="/learn" className=''>Learn</Link>
-          </li>
-          <li
-            className='bg-[#1F1C1B] text-white rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-[#D6FF3C]'
-            
-          >
-          <Link to="/Certify" className=''>Certify</Link>
-            
-          </li>
-          <li
-            className='bg-[#1F1C1B] text-white rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-[#D6FF3C]'
-            onMouseEnter={(e) => showTooltip(e, 'Coming Soon')}
-            onMouseLeave={hideTooltip}
-          >
-            Blog
-          </li>
-          <li
-            className='bg-[#1F1C1B] text-white rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-[#D6FF3C]'
-            onMouseEnter={(e) => showTooltip(e, 'Coming Soon')}
-            onMouseLeave={hideTooltip}
-          >
-            Research
-          </li>
-          <li
-            className='bg-[#D6FF3C] text-black rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-black'
-            onMouseEnter={(e) => showTooltip(e, 'Coming Soon')}
-            onMouseLeave={hideTooltip}
-          >
-            Start Learning Today
-          </li>
-        </ul>
-      </div>
+          <ul className='flex flex-grow justify-evenly items-center gap-3 px-3'>
+            <li className='bg-[#1F1C1B] text-white rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-[#D6FF3C]'>
+              <Link to="/learn">Learn</Link>
+            </li>
+            <li className='bg-[#1F1C1B] text-white rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-[#D6FF3C]'>
+              <Link to="/certify">Certify</Link>
+            </li>
+            <li className='bg-[#1F1C1B] text-white rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-[#D6FF3C]' onMouseEnter={(e) => showTooltip(e, 'Coming Soon')} onMouseLeave={hideTooltip}>
+              Blog
+            </li>
+            <li className='bg-[#1F1C1B] text-white rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300 hover:border-2 border-transparent hover:border-[#D6FF3C]' onMouseEnter={(e) => showTooltip(e, 'Coming Soon')} onMouseLeave={hideTooltip}>
+              Research
+            </li>
+            <li className='bg-[#D6FF3C] text-black rounded-full px-4 py-2 w-1/5 cursor-pointer transition ease-in-out duration-300' onMouseEnter={(e) => showTooltip(e, 'Coming Soon')} onMouseLeave={hideTooltip}>
+              Start Learning Today
+            </li>
+          </ul>
+        </div>
+
 
       {/* Tooltip */}
       {tooltip.visible && (
@@ -238,7 +224,7 @@ function Hero() {
     </div>
     
     {/*ninth section */}
-    <Header/>
+    <Footer/>
 
     </>
   )

@@ -165,36 +165,36 @@ const Header = () => {
         </p>
       </div>
       {logged ? (
-        <>
+        <div className="flex flex-col">
         <button
           onClick={() => setDropdownOpen(!dropdownOpen)}
           className="flex items-center justify-center bg-[#1E1E1E] hover:border-[#D6FF3C] text-white font-poppins rounded-full w-10 h-10"
         >
           <img
             src={imageUrl}
-            className="w-6 h-6 rounded-full cursor-pointer"
+            className="w-10 h-10 rounded-full cursor-pointer"
             alt=""
           />
         </button>
         {dropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl z-10">
+        <div className="absolute right-16 mt-12 w-48 bg-[#1E1E1E] text-white rounded-lg shadow-xl z-10">
           <div className="py-1">
             <Link
               to='/profile'
-              className="w-full px-4 py-2 text-left text-sm hover:bg-gray-200 focus:outline-none"
+              className="w-full px-4 py-2 text-left text-sm hover:bg-[#1E1E1E] focus:outline-none"
             >
               Profile
             </Link>
             <button
               onClick={handleLogout}
-              className="w-full px-4 py-2 text-left text-sm hover:bg-gray-200 focus:outline-none"
+              className="w-full px-4 py-2 text-left text-sm hover:[#1E1E1E] focus:outline-none"
             >
               Logout
             </button>
           </div>
         </div>
       )}
-        </>
+        </div>
       ) : (
         <Link
           to="/login"

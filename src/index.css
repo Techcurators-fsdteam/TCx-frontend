@@ -3,13 +3,13 @@
 @tailwind components;
 @tailwind utilities;
 :root{
-  background-color: #0D0D0E;
+  background-color: black;
   font-family: "Lexend", sans-serif;
 }
 .tooltip {
   position: absolute;
-  background-color: #000; /* Black background */
-  color: #fff;           /* White text */
+  background-color: #000; 
+  color: #fff;           
   text-align: center;
   padding: 5px 10px;
   border-radius: 6px;
@@ -28,3 +28,36 @@
 html {
   scroll-behavior: smooth;
 }
+/* CSS for the Glare Animation */
+.glare-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.glare-effect::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(45deg);
+  transition: all 0.3s ease-in-out;
+  animation: glare 2s infinite linear; 
+}
+
+@keyframes glare {
+  0% {
+    transform: translate(-100%, -50%) rotate(45deg);
+  }
+  100% {
+    transform: translate(100%, 50%) rotate(45deg);
+  }
+}
+
+.glare-effect:hover {
+  box-shadow: 0 0 15px rgba(214, 255, 60, 0.6);
+}
+
+

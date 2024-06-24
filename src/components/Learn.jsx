@@ -3,7 +3,7 @@ import { Link as Li } from "react-router-dom";
 import { Link } from "react-scroll";
 import courseImage from "../assets/courseImage.svg";
 import Footer from "./Footer";
-import Header from "./Header";
+// import Header from "./Header";
 import Navbar from "./Navbar";
 
 const courses = [
@@ -196,7 +196,6 @@ function Learn() {
 
   return (
     <div style={{ fontFamily: "'Lexend', sans-serif" }}>
-      <Header />
       <div className="flex items-center justify-center w-full mt-12">
         <Navbar />
       </div>

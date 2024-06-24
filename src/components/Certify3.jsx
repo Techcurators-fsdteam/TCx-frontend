@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './Header';
+// import Header from './Header';
 import Navbar from './Navbar';
 import cert3 from '../assets/image container.svg'; 
 
@@ -7,7 +7,6 @@ function Certify3() {
   return (
     <>
       {/* Header and Navbar */}
-      <Header/>
       <div className="flex items-center justify-center w-full mt-12">
         <Navbar />
       </div>

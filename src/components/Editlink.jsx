@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useUser } from '../store/UserContext';
 
-function Editlink() {
+function Editlink({onClose}) {
+  
   const [links, setLinks] = useState({
     linkedin: '',
     github: '',
     portfolio: ''
   });
-  const {user}=useUser()
+  const {user,fetchUserDetails}=useUser()
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -54,7 +55,9 @@ function Editlink() {
       });
 
       // Handle success (e.g., show a notification, update state)
-      console.log('Response:', response.data);
+      // console.log('Response:', response.data);
+      await fetchUserDetails();
+      onClose();
     } catch (error) {
       // Handle error (e.g., show a notification)
       console.error('Error posting links:', error);

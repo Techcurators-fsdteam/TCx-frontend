@@ -26,10 +26,13 @@ export const UserProvider = ({ children }) => {
   const fetchUserDetails = async () => {
     setLoading(true); // Set loading to true when fetch starts
     try {
-      const token = getCookie('token'); // Get the token from the cookie
-      if (!token) {
+      const token = getCookie('token');
+      if (token===undefined || token===null) {
         throw new Error('No token found');
+        return null;  
       }
+      console.log(token) // Get the token from the cookie
+
 
       const response = await axios.get('http://localhost:5000/api/auth/verify', {
         headers: {

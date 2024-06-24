@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Header from "./Header";
+// import Header from "./Header";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getQues } from "../api/axios";
 
@@ -154,7 +154,7 @@ export default function Test(props) {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className="flex justify-center mt-24 w-full p-4">
         <div className="w-full md:w-[80%] bg-white rounded-2xl p-20 relative">
           <div className="absolute top-4 right-4">

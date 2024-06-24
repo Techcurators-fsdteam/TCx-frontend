@@ -78,7 +78,7 @@ const ResumeUploadPage = () => {
   return (
     <div className="flex justify-center text-center px-4">
       <div
-        className={`w-full md:w-[80%] lg:w-[80%] xl:w-[80%] bg-[#1F202A] mt-10 rounded-xl p-6 ${
+        className={`w-full md:w-[80%] lg:w-[80%] xl:w-[80%] bg-transparent mt-10 rounded-xl p-6 ${
           dragging ? 'border-4 border-dashed border-[#FF7C1D]' : ''
         }`}
         onDragEnter={handleDragEnter}

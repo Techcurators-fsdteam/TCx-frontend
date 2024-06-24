@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { RxCross2 as Cross } from "react-icons/rx";
+import { RiDeleteBin6Line as DeleteIcon } from "react-icons/ri";
 import { CiPhone } from "react-icons/ci";
 // import { FaCloudDownloadAlt } from "react-icons/fa";
 import { IoCloudDownload as FaCloudDownloadAlt } from "react-icons/io5";
@@ -21,6 +23,7 @@ import EditProfileForm from "./Editprofile";
 import ResumeUploadPage from "./Editresume";
 import WorkExperienceForm from "./Editwork";
 import Modal from "./Modal";
+import AddSkill from "./AddSkills";
 
 function Profile() {
   const { user, fetchUserDetails } = useUser();
@@ -30,6 +33,7 @@ function Profile() {
   const [isLinkModalOpen, setLinkModalOpen] = useState(false);
   const [isResumeModalOpen, setResumeModalOpen] = useState(false);
   const [isProfileModalOpen, setProfileModalOpen] = useState(false);
+  const [isSkillModalOpen, setSkillModalOpen] = useState(false);
 
   useEffect(() => {
     fetchUserDetails();
@@ -52,7 +56,7 @@ function Profile() {
                     <img
                       src={user.picture}
                       alt="Image Not Found"
-                      className="h-20"
+                      className="w-16 h-16 rounded-full cursor-pointer"
                     />
                   </>
                 ) : (
@@ -236,19 +240,7 @@ function Profile() {
               {user.links ? (
                 <>
                   {user.links.map((link) => {
-                    return (
-                      <div className="mt-2">
-                        <h2 className="text-sm uppercase">{link.linkName}</h2>
-                        <p>
-                          <a
-                            href={link.link}
-                            className="text-sm text-blue-600 hover:text-blue-400 transition duration-300"
-                          >
-                            {link.link}
-                          </a>
-                        </p>
-                      </div>
-                    );
+                    return <LinkComponent link={link} />;
                   })}
                 </>
               ) : (
@@ -264,21 +256,21 @@ function Profile() {
                     Skills
                   </p>
                 </div>
-                <p className="text-[#1859F1] cursor-pointer">+ Add Skills</p>
+                <button
+                  onClick={() => {
+                    setSkillModalOpen(true);
+                  }}
+                  className="text-[#1859F1] cursor-pointer"
+                >
+                  + Add Skills
+                </button>
               </div>
               <div className="mt-2">
-                <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
-                  Python
-                </span>
-                <span className="ml-2 inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">
-                  Javascript
-                </span>
-                <span className="ml-2 inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
-                  Node.js
-                </span>
-                <span className="ml-2 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                  Bruh
-                </span>
+                {user.skills.map((skill) => {
+                  return (
+                    <Skills skill={skill}/>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -300,7 +292,7 @@ function Profile() {
       </Modal>
 
       <Modal isOpen={isLinkModalOpen} onClose={() => setLinkModalOpen(false)}>
-        <Editlink />
+        <Editlink onClose={() => setLinkModalOpen(false)} />
       </Modal>
 
       <Modal
@@ -320,7 +312,127 @@ function Profile() {
           }}
         />
       </Modal>
+      <Modal isOpen={isSkillModalOpen} onClose={() => setSkillModalOpen(false)}>
+        <AddSkill
+          onClose={function () {
+            setProfileModalOpen(false);
+          }}
+        />
+      </Modal>
     </>
+  );
+}
+
+const LinkComponent = ({ link }) => {
+  const [showDelete, setShowDelete] = useState(false);
+  const { user, fetchUserDetails } = useUser();
+  const handleMouseEnter = () => {
+    setShowDelete(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowDelete(false);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(
+        "http://localhost:5000/api/profile/links",
+        {
+          data: {
+            username: user.username,
+            linkName: link.linkName,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        fetchUserDetails();
+      } else {
+        console.error("Failed to delete the link");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  return (
+    <div
+      className="mt-2 relative group  p-2"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <h2 className="text-sm uppercase">{link.linkName}</h2>
+      <p>
+        <a
+          href={link.link}
+          className="text-sm text-blue-600 hover:text-blue-400 transition duration-300"
+        >
+          {link.link}
+        </a>
+      </p>
+      {showDelete && (
+        <button
+          onClick={handleDelete}
+          className="absolute top-0 h-8 right-0 bg-red-500 text-white px-2 py-1 rounded transition duration-300"
+        >
+          <DeleteIcon height={50} />
+        </button>
+      )}
+    </div>
+  );
+};
+
+function Skills({ skill }) {
+  const [showDelete, setShowDelete] = useState(false);
+  const { user, fetchUserDetails } = useUser();
+
+  const handleMouseEnter = () => {
+    setShowDelete(true);
+  };
+
+  const handleMouseLeave = () => {
+    setShowDelete(false);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await axios.delete(
+        "http://localhost:5000/api/profile/skills",
+        {
+          data: {
+            username: user.username,
+            skill: skill,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        fetchUserDetails();
+      } else {
+        console.error("Failed to delete skill");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  return (
+    <div
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="relative inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-m font-medium text-gray-600 ring-1 mr-3 ring-inset ring-gray-500/10"
+    >
+      {skill}
+      {showDelete && (
+        <button
+          className="absolute top-[-8px] right-[-10px] font-extrabold rounded-full w-fit h-fit bg-[#FF7C1D]  hover:bg-[#FF7C1D] text-white  "
+          onClick={handleDelete}
+        >
+          <Cross color="white" fontWeight={"bold"} size={20} />
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -375,10 +487,10 @@ function WXP({ work }) {
         >
           {showDelete && (
             <button
-              className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 rounded"
+              className="absolute top-0 right-0 bg-red-500 h-8 text-white px-2 py-1 rounded"
               onClick={handleDelete}
             >
-              Delete
+              <DeleteIcon height={20} />
             </button>
           )}
           <div className="flex">
@@ -476,10 +588,10 @@ function EDU({ edu }) {
         >
           {showDelete && (
             <button
-              className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 rounded"
+              className="absolute top-0 h-8 right-0 bg-red-500 text-white px-2 py-1 rounded"
               onClick={handleDelete}
             >
-              Delete
+              <DeleteIcon height={20} />
             </button>
           )}
           <div className="flex">

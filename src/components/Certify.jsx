@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from './Header';
+// import Header from './Header';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import bg from '../assets/certifybg.svg';
@@ -111,7 +111,6 @@ function Certify() {
 
   return (
     <>
-    <Header/>
       <div className="flex items-center justify-center w-full mt-12">
         <Navbar />
       </div>

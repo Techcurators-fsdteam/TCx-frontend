@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import arrow from "../assets/arrow.svg";
 import pt from "../assets/pt.svg";
-import Header from "./Header";
+// import Header from "./Header";
 
 
 const Domains=["web development","machine learning","data science","networking","blockchain","cybersecurity"]
@@ -37,7 +37,6 @@ function Practicetest1() {
 
   return (
     <>
-      <Header />
       <div className="flex justify-center w-full mt-8 md:mt-12 lg:mt-2">
         <div className="w-[95%] sm:w-[90%] lg:w-[80%] flex justify-center text-center">
           <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white">

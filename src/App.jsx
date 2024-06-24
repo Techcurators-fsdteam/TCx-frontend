@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
+
 import Hero from './components/Hero';
 import Learn from './components/Learn';
 import './index.css';
@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Practicetest1 from './components/Practicetest1';
 import SignUp from './components/Signup';
 import Test from './components/Test';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import Result from './components/Result';
 import Profile from './components/Profile.jsx'
 import Certify from './components/Certify.jsx';
@@ -19,6 +20,7 @@ function App() {
   
   return (
     <>
+    <GoogleOAuthProvider clientId='817860106596-lfombupsre85gug8361n208iu2j8amm4.apps.googleusercontent.com'>
     <Router>
     <Scroll />
       <Routes>
@@ -31,13 +33,14 @@ function App() {
         <Route path="/Certify3" element={<Certify3 />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp/>} />
-        <Route path="/Header" element={<Header/>}/>
+        {/* <Route path="/Header" element={<Header/>}/> */}
         <Route path="/test" element={<Test/>}/>
         <Route path="/Practicetest1" element={<Practicetest1 />} />
         <Route path='/result' element={<Result/>} />
         
       </Routes>
       </Router>
+      </GoogleOAuthProvider>
     </>
   );
 }

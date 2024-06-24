@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from './Header'; 
+// import Header from './Header'; 
 import Navbar from './Navbar'; 
 import Footer from './Footer'; 
 import cert2pic from '../assets/cert2pic.svg';
@@ -20,7 +20,6 @@ import certify3 from './Certify3'
 function CertificationPage() {
   return (
     <>
-      <Header/>
       <div className="flex items-center justify-center w-full mt-12">
         <Navbar />
       </div>

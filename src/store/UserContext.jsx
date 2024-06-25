@@ -25,26 +25,27 @@ export const UserProvider = ({ children }) => {
   // Function to fetch user details from API
   const fetchUserDetails = async () => {
     setLoading(true); // Set loading to true when fetch starts
-    try {
-      const token = getCookie('token');
+    const token = getCookie('token');
       if (token===undefined || token===null) {
         throw new Error('No token found');
-        return null;  
       }
-      console.log(token) // Get the token from the cookie
-
-
-      const response = await axios.get('http://localhost:5000/api/auth/verify', {
-        headers: {
-          'Authorization': `${token}`
+    try {
+      
+      // console.log(token) // Get the token from the cookie
+      if(token){
+        const response = await axios.get('http://localhost:5000/api/auth/verify', {
+          headers: {
+            'Authorization': `${token}`
+          }
+        });
+        if (!response.data) {
+          throw new Error('Failed to fetch user details');
         }
-      });
-
-      if (!response.data) {
-        throw new Error('Failed to fetch user details');
+  
+        setUser(response.data);
       }
 
-      setUser(response.data); // Update the user state with fetched data
+       // Update the user state with fetched data
     } catch (error) {
       console.error('Error fetching user details:', error);
     } finally {

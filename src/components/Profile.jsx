@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import profileBG from "../assets/profileBG.webm"
 import { RxCross2 as Cross } from "react-icons/rx";
 import { RiDeleteBin6Line as DeleteIcon } from "react-icons/ri";
 import { CiPhone } from "react-icons/ci";
@@ -45,8 +46,12 @@ function Profile() {
 
   return (
     <>
+      <div className="video-background">
+        <video autoPlay muted loop playsInline className="video-tag" src={profileBG} />
+          
+      </div>
       <div className="flex justify-center text-center py-8">
-        <div className="flex flex-wrap w-[90%] md:w-[80%] lg:w-[70%] xl:w-[70%] gap-4">
+        <div className="flex flex-wrap w-[90%] md:w-[80%] lg:w-[70%] z-10 xl:w-[70%] gap-4">
           {/* Left Profile Box */}
           <div className="w-full md:w-[45%] lg:w-[30%] mt-6 flex flex-col gap-4">
             <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6">
@@ -267,9 +272,7 @@ function Profile() {
               </div>
               <div className="mt-2">
                 {user.skills.map((skill) => {
-                  return (
-                    <Skills skill={skill}/>
-                  );
+                  return <Skills skill={skill} />;
                 })}
               </div>
             </div>

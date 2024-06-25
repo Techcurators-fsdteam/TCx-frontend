@@ -30,3 +30,33 @@ export async function register(data) {
     return error;
   }
 }
+
+
+export async function getTests(){
+  try {
+    const response = await apiClient.get("/certify/get-tests");
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export const getQuestions = async (testId) => {
+  try {
+    const response = await api.get(`/certify/get-questions/${testId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching questions:', error);
+    throw error;
+  }
+};
+
+export const submitAnswers = async (testId, answers, name) => {
+  try {
+    const response = await api.post('/certify/submit-answers', { testId, answers, name });
+    return response.data;
+  } catch (error) {
+    console.error('Error submitting answers:', error);
+    throw error;
+  }
+};

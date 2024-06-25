@@ -37,6 +37,7 @@ function App() {
         <Route path="/test" element={<Test/>}/>
         <Route path="/Practicetest1" element={<Practicetest1 />} />
         <Route path='/result' element={<Result/>} />
+        <Route path='/certificationTest' element={<Certify3/>}/>
         
       </Routes>
       </Router>

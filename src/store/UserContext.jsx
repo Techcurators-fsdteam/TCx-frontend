@@ -21,31 +21,28 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const [data, setData] = useState({}); // State for additional data
   // Function to fetch user details from API
+  // if(token)
   const fetchUserDetails = async () => {
-    setLoading(true); // Set loading to true when fetch starts
     const token = getCookie('token');
-      if (token===undefined || token===null) {
-        throw new Error('No token found');
-      }
-    try {
-      
-      // console.log(token) // Get the token from the cookie
-      if(token){
-        const response = await axios.get('http://localhost:5000/api/auth/verify', {
-          headers: {
-            'Authorization': `${token}`
-          }
-        });
-        if (!response.data) {
-          throw new Error('Failed to fetch user details');
-        }
-  
-        setUser(response.data);
-      }
 
-       // Update the user state with fetched data
+    setLoading(true); // Set loading to true when fetch starts
+    
+    if (!token) {
+      return "No Token Found"
+    }
+    try {
+      const response = await axios.get('http://localhost:5000/api/auth/verify', {
+        headers: {
+          'Authorization': `${token}`
+        }
+      });
+      if (!response.data) {
+        throw new Error('Failed to fetch user details');
+      }
+  
+      setUser(response.data); // Update the user state with fetched data
     } catch (error) {
       console.error('Error fetching user details:', error);
     } finally {
@@ -53,17 +50,22 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  // Function to set data
+  const setAppData = (newData) => {
+    setData(newData);
+  };
+
+  // Function to get data
+  const getAppData = () => data;
+
   // Fetch user details on component mount
   useEffect(() => {
     fetchUserDetails();
   }, []);
 
-  // if (loading) {
-  //   return <p>Loading...</p>;
-  // }
-
+  // Provide user, fetchUserDetails, and data handling functions and state through context
   return (
-    <UserContext.Provider value={{ user, fetchUserDetails }}>
+    <UserContext.Provider value={{ user, fetchUserDetails, data, setAppData, getAppData }}>
       {children}
     </UserContext.Provider>
   );

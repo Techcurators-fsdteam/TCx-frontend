@@ -106,9 +106,7 @@ function Certify() {
 
   const handleGetCertifiedClick = (title,testId) => {
     if(user){
-    setTestId(testId)
-    setTitle(title)
-    setShowCertify2(true);
+    navigate('/testIntro',{state:{title,testId}})
   }
   else{
     alert("You need to login first")
@@ -116,9 +114,7 @@ function Certify() {
   }
   };
 
-  if (showCertify2) {
-    return <Certify2 title={title} testId={testId} />;
-  }
+  
 
   return (
     <>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 // import Header from "./Header";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getQues } from "../api/axios";
+import { getQues, getQuestions, submitAnswers } from "../api/axios";
+import { useUser } from "../store/UserContext";
 
 export default function Test(props) {
   const location = useLocation();
@@ -13,31 +14,58 @@ export default function Test(props) {
   const [clearDisabled, setClearDisabled] = useState(true); // Initially clear button is disabled
   const [timeLeft, setTimeLeft] = useState(300); // 300 seconds (5 minutes)
   const [timerRunning, setTimerRunning] = useState(true);
-  const { fName, lName, domain, experience } = location.state || {};
-  const [score, setScore] = useState(0);
+  const { fName, lName, domain,experience,testId } = location.state || {};
+  // const [score, setScore] = useState(0);
+  const {user,setAppData}=useUser();
+  const [testid,setTestId]=useState()
+  
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        if (fName && lName && domain && experience) {
-          const data = await getQues({ fName, lName, domain, experience });
-          setQues(data.randomQuestions); // Assuming 'randomQuestions' is the array containing questions
-          setSelectedAnswers(Array(data.randomQuestions.length).fill(""));
-          console.log(data.randomQuestions);
-        } else {
-          console.error("Missing required parameters:", {
-            fName,
-            lName,
-            domain,
-            experience,
-          });
+    if(fName && lName && testId){
+      console.log(fName,lName,testId)
+        async function fetchData(){
+          try{
+            const data=await getQuestions(testId);
+            console.log(data)
+            setQues(data.selectedQuestions)
+            setTimeLeft(data.duration*60)
+            setTestId(data.testId)
+            setSelectedAnswers(Array(data.selectedQuestions.length).fill(""));
+          }
+          catch(err){
+            alert(err)
+          }
         }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
+        fetchData();
+        
     }
-
-    fetchData();
+    else if(domain && experience){
+      async function fetchData() {
+        try {
+          if (fName && lName && domain && experience) {
+            const data = await getQues({ fName, lName, domain, experience });
+            setQues(data.randomQuestions); // Assuming 'randomQuestions' is the array containing questions
+            setSelectedAnswers(Array(data.randomQuestions.length).fill(""));
+            console.log(data.randomQuestions);
+          } else {
+            console.error("Missing required parameters:", {
+              fName,
+              lName,
+              domain,
+              experience,
+            });
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+  
+      fetchData();
+    }
+    else{
+      alert("Invalid Input")
+    }
+    
   }, [fName, lName, domain, experience]);
 
   useEffect(() => {
@@ -82,16 +110,33 @@ export default function Test(props) {
     return () => clearInterval(interval);
   }, [timerRunning, timeLeft]);
 
-  const handleFinalSubmit = () => {
-    console.log(selectedAnswers);
-    let calculatedScore = 0;
-    for (let i = 0; i < selectedAnswers.length; i++) {
-      if (selectedAnswers[i] === ques[i].answer) {
-        calculatedScore += 1;
+  const handleFinalSubmit =async () => {
+    // console.log(selectedAnswers);
+    if(domain && experience){
+      let calculatedScore = 0;
+      for (let i = 0; i < selectedAnswers.length; i++) {
+        if (selectedAnswers[i] === ques[i].answer) {
+          calculatedScore += 1;
+        }
       }
+      setScore(calculatedScore);
+      navigate("/result", { state: { fName, lName, score: calculatedScore } });
     }
-    setScore(calculatedScore);
-    navigate("/result", { state: { fName, lName, score: calculatedScore } });
+    else if(testId){
+      let answers=[]
+      for(let i=0;i<ques.length;i++){
+          const questionId=ques[i]._id;
+          const selectedOption=selectedAnswers[i];
+          const data={questionId,selectedOption};
+          answers.push(data);
+      }
+      const result=await submitAnswers(testid,answers,`${fName} ${lName}`)
+      setAppData(result)
+      navigate('/testReport',{state:{ques:ques,answers:selectedAnswers}})
+      
+      
+    }
+    
   };
 
   const next = () => {
@@ -129,7 +174,7 @@ export default function Test(props) {
       <div key={index}>
         <p className="text-black mb-4">
           <span className="text-xl font-semibold">Question {index + 1}:</span>{" "}
-          {question.question}
+          {question.questionText}
         </p>
         <div className="flex flex-col mb-4">
           {question.options.map((option, optionIndex) => (
@@ -138,12 +183,12 @@ export default function Test(props) {
                 type="radio"
                 id={`option_${index}_${optionIndex}`}
                 name={`question_${index}`}
-                value={option}
+                value={option.optionText}
                 checked={selectedAnswers[index] === option}
                 onChange={() => handleOptionChange(index, option)}
               />
               <label htmlFor={`option_${index}_${optionIndex}`} className="ml-2">
-                {option}
+                {option.text}
               </label>
             </div>
           ))}

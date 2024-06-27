@@ -43,7 +43,7 @@ export async function getTests(){
 
 export const getQuestions = async (testId) => {
   try {
-    const response = await api.get(`/certify/get-questions/${testId}`);
+    const response = await apiClient.get(`/certify/get-questions/${testId}`);
     return response.data;
   } catch (error) {
     console.error('Error fetching questions:', error);
@@ -53,7 +53,7 @@ export const getQuestions = async (testId) => {
 
 export const submitAnswers = async (testId, answers, name) => {
   try {
-    const response = await api.post('/certify/submit-answers', { testId, answers, name });
+    const response = await apiClient.post('/certify/submit-answers', { testId, answers, name });
     return response.data;
   } catch (error) {
     console.error('Error submitting answers:', error);

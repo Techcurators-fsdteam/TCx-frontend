@@ -17,7 +17,7 @@ import { useUser } from "../store/UserContext";
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
-  // const {user,fetchUserDetails}=useUser();
+  const {fetchUserDetails}=useUser();
   const [user, setUseR] = useState("");
   const [profile, setProfile] = useState("");
   const [username, setUser] = useState("");
@@ -41,7 +41,7 @@ function Login() {
         console.log(res.data.token);
         document.cookie = `token=${res.data.token};  path=/`;
         navigate("/");
-      });
+      }).then(()=>fetchUserDetails())
   }
 
   useEffect(() => {

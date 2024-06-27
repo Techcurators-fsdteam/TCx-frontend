@@ -13,7 +13,7 @@ function Navbar() {
         { name: 'Certify', route: '/certify' },
         { name: 'Blog', route: '/blog' },
         { name: 'Research', route: '/research' },
-        { name: 'Start Learning Today', route: '/start-learning' },
+        // { name: 'Start Learning Today', route: '/start-learning' },
     ];
 
     const [hoveredTab, setHoveredTab] = useState(null);
@@ -79,7 +79,7 @@ function Navbar() {
             />
 
             {/* Hamburger Menu Icon for Mobile */}
-            <div className='md:hidden text-neon-cyan cursor-pointer'>
+            <div className='md:hidden text-orange-600 cursor-pointer'>
                 {isMenuOpen ? <FaTimes size={24} onClick={toggleMenu} /> : <FaBars size={24} onClick={toggleMenu} />}
             </div>
 
@@ -98,7 +98,7 @@ function Navbar() {
                         <Link 
                             to={tab.route}
                             className={`${location.pathname === tab.route ? 'rounded-full' : ''}`}
-                            onClick={() => setIsMenuOpen(false)} // Close menu on link click
+                            onClick={() => setIsMenuOpen(false)} 
                         >
                             {tab.name}
                         </Link>

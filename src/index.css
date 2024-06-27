@@ -59,6 +59,23 @@ html {
 .glare-effect:hover {
   box-shadow: 0 0 15px rgba(214, 255, 60, 0.6);
 }
+/* index.css */
+@keyframes neon {
+  0% {
+    box-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14, 0 0 80px #39ff14, 0 0 160px #39ff14;
+  }
+  100% {
+    box-shadow: 0 0 15px #39ff14, 0 0 30px #39ff14, 0 0 60px #39ff14, 0 0 80px #39ff14, 0 0 100px #39ff14, 0 0 200px #39ff14;
+  }
+}
+
+.hover\:shadow-neon:hover {
+  animation: neon 1.5s ease-in-out infinite alternate;
+}
+
+
+
+
 
 
 

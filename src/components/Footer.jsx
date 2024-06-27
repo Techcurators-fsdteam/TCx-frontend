@@ -32,7 +32,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
-      <div className='bg-[#FF7C1D] text-black px-10 py-4 flex md:flex-row flex-col md:justify-between justify-center items-center'>
+      <div className='bg-[#D6FF3C] text-black px-10 py-4 flex md:flex-row flex-col md:justify-between justify-center items-center'>
         <p>© 2024 TCx-Grow 100x . All rights reserved.</p>
         <div className='flex flex-row gap-5 text-right'>
           <p>Terms of Service</p>

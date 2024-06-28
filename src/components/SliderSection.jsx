@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
+import firstslide from "../assets/slide1.svg"
+import secondslide from "../assets/slide2.svg"
+import thirdslide from "../assets/slide3.svg"
 
 const slides = [
   {
@@ -8,7 +11,7 @@ const slides = [
     title: "Determine your business problem",
     content:
       "In order to create the best LLM adoption plan that improves your goods and increases staff efficiency, we first identify your business challenge.",
-    image: "./assets/logo.svg",
+    image: firstslide,
   },
   {
     id: 2,
@@ -16,7 +19,7 @@ const slides = [
     title: "Create high quality data for personalised LLM",
     content:
       "With your company goals in mind, we develop optimal data structures. This includes creating high-quality training datasets for fine-tuning and formatting internal documents for LLM-ready use in a RAG system.",
-    image: "/assets/slide2.webp",
+    image: secondslide,
   },
   {
     id: 3,
@@ -24,7 +27,7 @@ const slides = [
     title: "Develop a unique LLM",
     content:
       "We use RAG, prompt-enginnering, and fine-tuning to create your unique LLM based on a base LLM. We make sure the chosen approach best serves your company's requirements.",
-    image: "/assets/slide3.webp",
+    image: thirdslide,
   },
   
 ]
@@ -58,11 +61,10 @@ const SliderSection = () => {
   return (
     <div className="overflow-x-hidden z-auto h-full">
       <div className="max-w-screen-xl mx-auto md:p-12 p-8 ">
-        <p className="mb-3 text-white tracking-widest lg:text-lg text-sm">
-          Generative AI platform
-        </p>
+        
         <h2 className="text-left text-white md:text-4xl text-2xl font-semibold mb-3 max-w-4xl">
-          We offer consultation at every level of your LLM adoption journey
+          Why TCx?
+
         </h2>
         <div>
           {slides.map((slide, index) => (
@@ -100,7 +102,7 @@ const SliderSection = () => {
                         <img
                           alt="image"
                           src={slide.image}
-                          loading="lazy"
+                          loading="eager"
                           className="h-full w-full lg:object-cover object-contain object-center"
                         />
                       </div>

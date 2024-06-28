@@ -12,6 +12,7 @@ import '../index.css';
 import { TypeAnimation } from 'react-type-animation';
 import Marquee from "react-fast-marquee";
 import herovid from '../assets/herovid.webm';
+import girl from '../assets/girl.webm';
 import { Statistic } from "antd";
 import CountUp from "react-countup";
 import Globe from './globe';
@@ -431,6 +432,7 @@ function Hero() {
           </div>
         </FadeInSection>
       </div>
+      {/* <Globe/> */}
 
       <Footer />
     </>

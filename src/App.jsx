@@ -16,6 +16,10 @@ import Certify2 from './components/Certify2.jsx';
 import Certify3 from './components/Certify3.jsx';
 import Scroll from './Scroll';
 import Report from './components/Report.jsx';
+import Forgotpass from './components/Forgotpass.jsx';
+import Otp from './components/Otp.jsx';
+import Confirmpass from './components/Confirmpass.jsx';
+import Resetdone from './components/Resetdone.jsx';
 
 function App() {
   
@@ -34,6 +38,10 @@ function App() {
         <Route path="/Certify3" element={<Certify3 />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp/>} />
+        <Route path="/Forgotpass" element={<Forgotpass/>} />
+        <Route path="/Otp" element={<Otp/>} />
+        <Route path="/Confirmpass" element={<Confirmpass/>} />
+        <Route path="/Resetdone" element={<Resetdone/>} />
         {/* <Route path="/Header" element={<Header/>}/> */}
         <Route path="/test" element={<Test/>}/>
         <Route path="/Practicetest1" element={<Practicetest1 />} />

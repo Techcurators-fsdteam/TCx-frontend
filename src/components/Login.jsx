@@ -38,8 +38,8 @@ function Login() {
     axios
       .post("http://localhost:5000/api/auth/googleLogin", profile)
       .then((res) => {
-        console.log(res.data.token);
-        document.cookie = `token=${res.data.token};  path=/`;
+        console.log(res.data.accessToken);
+        document.cookie = `token=${res.data.accessToken};  path=/`;
         navigate("/");
       }).then(()=>fetchUserDetails())
   }

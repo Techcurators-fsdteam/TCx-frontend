@@ -7,6 +7,7 @@ import InfoIcon from "../assets/info-icon.svg";
 import Sei from "../assets/SEI.svg";
 import Certify2 from "./Certify2";
 import { useNavigate } from "react-router-dom";
+import BouncingDotsLoader from "./Loaders/Bouncing";
 import { getTests } from "../api/axios";
 import { useUser } from "../store/UserContext";
 // import { useNavigate } from "react-router-dom";
@@ -119,7 +120,7 @@ function Certify() {
   return (
     <>
       {loading ? (
-        <div className="text-white">Loading</div>
+        <BouncingDotsLoader />
       ) : (
         <>
           <div className="flex items-center justify-center w-full mt-12">
@@ -189,7 +190,7 @@ function Certify() {
 
           <div className="flex justify-center items-center mb-20 px-4">
             <div className="flex flex-wrap justify-center md:justify-start w-full md:w-[90%] gap-10">
-              {tests.map((box) => (
+              { tests.map((box) => (
                 <div
                   key={box.id}
                   id={box.id}

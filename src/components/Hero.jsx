@@ -366,7 +366,7 @@ function Hero() {
                 Future-proof your career today
               </p>
               <p className="font-light text-white text-lg sm:text-xl md:text-2xl lg:text-xl text-center mt-4">
-                Don’t let the fear of layoffs hold you back. With TCx, you’ll gain the knowledge and skills to navigate and lead in an AI-driven world. Equip yourself with the skills and knowledge to thrive in the AI era. Sign up now and take the first step towards an empowered, secure, and exciting future
+                Don&apos;t let the fear of layoffs hold you back. With TCx, you’ll gain the knowledge and skills to navigate and lead in an AI-driven world. Equip yourself with the skills and knowledge to thrive in the AI era. Sign up now and take the first step towards an empowered, secure, and exciting future
               </p>
             </div>
           </div>
@@ -385,7 +385,7 @@ function Hero() {
 
       {/* Ninth Section */}
       
-      <Globe />
+      {/* <Globe /> */}
       <Footer />
     </>
   );

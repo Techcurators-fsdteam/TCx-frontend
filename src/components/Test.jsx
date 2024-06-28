@@ -15,7 +15,7 @@ export default function Test(props) {
   const [timeLeft, setTimeLeft] = useState(300); // 300 seconds (5 minutes)
   const [timerRunning, setTimerRunning] = useState(true);
   const { fName, lName, domain,experience,testId } = location.state || {};
-  // const [score, setScore] = useState(0);
+  const [score, setScore] = useState(0);
   const {user,setAppData}=useUser();
   const [testid,setTestId]=useState()
   
@@ -170,32 +170,60 @@ export default function Test(props) {
   };
 
   const renderQuestion = (question, index) => {
-    return (
-      <div key={index}>
-        <p className="text-black mb-4">
-          <span className="text-xl font-semibold">Question {index + 1}:</span>{" "}
-          {question.questionText}
-        </p>
-        <div className="flex flex-col mb-4">
-          {question.options.map((option, optionIndex) => (
-            <div key={optionIndex} className="flex items-center">
-              <input
-                type="radio"
-                id={`option_${index}_${optionIndex}`}
-                name={`question_${index}`}
-                value={option.optionText}
-                checked={selectedAnswers[index] === option}
-                onChange={() => handleOptionChange(index, option)}
-              />
-              <label htmlFor={`option_${index}_${optionIndex}`} className="ml-2">
-                {option.text}
-              </label>
-            </div>
-          ))}
+    // Conditional rendering: Only render if testId is truthy
+    if (testId) {
+      return (
+        <div key={index}>
+          <p className="text-black mb-4">
+            <span className="text-xl font-semibold">Question {index + 1}:</span> {question.questionText}
+          </p>
+          <div className="flex flex-col mb-4">
+            {question.options.map((option, optionIndex) => (
+              <div key={optionIndex} className="flex items-center">
+                <input
+                  type="radio"
+                  id={`option_${index}_${optionIndex}`}
+                  name={`question_${index}`}
+                  value={option.optionText}
+                  checked={selectedAnswers[index] === option}
+                  onChange={() => handleOptionChange(index, option)}
+                />
+                <label htmlFor={`option_${index}_${optionIndex}`} className="ml-2">
+                  {option.text}
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div key={index}>
+          <p className="text-black mb-4">
+            <span className="text-xl font-semibold">Question {index + 1}:</span> {question.question}
+          </p>
+          <div className="flex flex-col mb-4">
+            {question.options.map((option, optionIndex) => (
+              <div key={optionIndex} className="flex items-center">
+                <input
+                  type="radio"
+                  id={`option_${index}_${optionIndex}`}
+                  name={`question_${index}`}
+                  value={option}
+                  checked={selectedAnswers[index] === option}
+                  onChange={() => handleOptionChange(index, option)}
+                />
+                <label htmlFor={`option_${index}_${optionIndex}`} className="ml-2">
+                  {option}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+      ); // Return null if testId is falsy
+    }
   };
+  
 
   return (
     <>

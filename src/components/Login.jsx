@@ -188,9 +188,12 @@ function Login() {
                 />
                 <span className="ml-2 text-sm">Remember me</span>
               </label>
-              <a href="#" className="text-blue-500 text-sm hover:underline">
-                Forgot password?
-              </a>
+              <Link
+                  className="text-blue-500 text-sm hover:underline"
+                  to="/Forgotpass"
+                >
+                  Forgot Password?
+                </Link>{" "}
             </div>
             <div className="p-2">
               <button

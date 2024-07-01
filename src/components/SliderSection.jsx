@@ -8,25 +8,25 @@ const slides = [
   {
     id: 1,
     slideTitle: "Define Problem",
-    title: "Determine your business problem",
+    title: "World's First GenAI Upskilling Platform that makes you the unicorn in the job market",
     content:
-      "In order to create the best LLM adoption plan that improves your goods and increases staff efficiency, we first identify your business challenge.",
+      "In today’s competitive job market, standing out is more critical than ever and we make sure you stand out well .",
     image: firstslide,
   },
   {
     id: 2,
     slideTitle: "Design and Build Data",
-    title: "Create high quality data for personalised LLM",
+    title: "Everywhere skills are needed, from tech giants to startups, from Bangalore to Silicon Valley.",
     content:
-      "With your company goals in mind, we develop optimal data structures. This includes creating high-quality training datasets for fine-tuning and formatting internal documents for LLM-ready use in a RAG system.",
+      "TCx ensures you gain practical, real-world and Gen ai skills that employers demand.",
     image: secondslide,
   },
   {
     id: 3,
     slideTitle: "Develop Model",
-    title: "Develop a unique LLM",
+    title: "Coming from the house of TechCurators.",
     content:
-      "We use RAG, prompt-enginnering, and fine-tuning to create your unique LLM based on a base LLM. We make sure the chosen approach best serves your company's requirements.",
+      " A TC Group of companies bringing knowledge and expertise of 15000+ professionals making you job-ready every minute of the year. ",
     image: thirdslide,
   },
   
@@ -59,10 +59,10 @@ const SliderSection = () => {
   }
 
   return (
-    <div className="overflow-x-hidden z-auto h-full">
+    <div className="overflow-x-hidden z-auto h-full ">
       <div className="max-w-screen-xl mx-auto md:p-12 p-8 ">
         
-        <h2 className="text-left text-white md:text-4xl text-2xl font-semibold mb-3 max-w-4xl">
+        <h2 className="text-center text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 md:text-6xl text-2xl font-bold mb-3 ">
           Why TCx?
 
         </h2>
@@ -70,7 +70,7 @@ const SliderSection = () => {
           {slides.map((slide, index) => (
             <div key={slide.id} className="inline-flex ">
             
-            <button
+            {/* <button
                 className={`${
                   currentSlide === index
                     ? "bg-orange-600 text-white"
@@ -79,7 +79,7 @@ const SliderSection = () => {
                 onClick={() => handleSlideChange(index)}
               >
                 {slide.slideTitle}
-              </button>
+              </button> */}
               
             </div>
           ))}
@@ -107,7 +107,7 @@ const SliderSection = () => {
                         />
                       </div>
                       <div className="lg:py-24">
-                        <h2 className="text-3xl text-white font-bold sm:text-4xl">
+                        <h2 className="text-3xl text-white font-semibold sm:text-4xl">
                           {slide.title}
                         </h2>
                         <p className="my-4 text-gray-300">{slide.content}</p>

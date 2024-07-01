@@ -184,7 +184,7 @@ function Hero() {
         />
 
         <div className="relative z-10 flex flex-col justify-center items-center md:items-start text-center md:text-left w-full h-full px-8 md:px-16 lg:px-32">
-          <div className="py-6 mt-16 md:mt-8">
+          <div className="py-6 mt-16 md:mt-8 ">
             <TypeAnimation
               sequence={[
                 'Become an AI Prodigy',
@@ -194,11 +194,11 @@ function Hero() {
               ]}
               wrapper="span"
               speed={20}
-              className="text-4xl md:text-5xl lg:text-6xl font-semibold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500"
               repeat={Infinity}
             />
           </div>
-          <p className="text-gray-200 text-3xl mt-4 md:mt-6 lg:mt-8">
+          <p className="text-gray-200  text-3xl mt-4 md:mt-6 lg:mt-8">
             Don’t just be a professional, <br />
             Be an AI Professional.
           </p>
@@ -368,7 +368,7 @@ function Hero() {
         </div>
       </div>
 
-      <div className="flex justify-center w-full mt-6 mb-10">
+      <div className="flex justify-center w-full mt-6 mb-20">
         <div className="w-[90%] mt-6 flex justify-between">
           {cards.map((card, index) => (
             <HoverCard

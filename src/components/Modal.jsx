@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { FaTimes } from 'react-icons/fa';
 import './Modal.css'; // Import the custom CSS
 
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal = ({ isOpen, onClose, children,bg }) => {
   const modalRef = useRef();
 
   const handleClickOutside = (event) => {
@@ -30,7 +30,7 @@ const Modal = ({ isOpen, onClose, children }) => {
     <div className="fixed inset-0 flex  items-center justify-center bg-black bg-opacity-50 z-50 overflow-auto">
       <div
         ref={modalRef}
-        className="modal-content bg-[#1F202A] text-white rounded-xl p-4 sm:p-6 max-h-[80%] max-w-[90%] overflow-y-auto"
+        className={`modal-content bg-${bg} text-white rounded-xl p-4 sm:p-6 max-h-[80%] max-w-[90%] overflow-y-auto`}
         style={{ width: 'max-content', maxWidth: '100%' }}
       >
         <div className="flex justify-end">

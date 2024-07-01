@@ -97,7 +97,7 @@ const HoverCard = ({ id, index, question, answer, isHovered, setHoveredIndex }) 
       className="p-2 transition-transform duration-500"
       style={{ transform: isHovered ? 'scale(1.1)' : 'scale(1)' }}
     >
-      <div className={`relative flex flex-1 flex-col rounded-xl justify-between items-center bg-[#1E1E1E] text-white h-72 w-60 p-6 md:h-80 md:w-72 lg:h-96 lg:w-80 overflow-hidden`} style={{ background: 'radial-gradient(circle, rgba(255,165,0,0.2), rgba(30,30,30,0.3))' }}>
+      <div className={`relative flex flex-1 flex-col rounded-xl justify-between items-center bg-[#1E1E1E] text-white h-72 w-60 p-6 md:h-80 md:w-72 lg:h-96 lg:w-80 overflow-hidden`} style={{ background: 'radial-gradient(circle, rgba(30, 30, 30, 0.3), rgba(255, 165, 0, 0.2))' }}>
         <div className="flex flex-col gap-6 md:gap-8 items-center w-full h-full">
           <div className="relative flex justify-center items-center h-full w-full">
             <p className={`absolute text-lg md:text-xl lg:text-2xl text-center transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>

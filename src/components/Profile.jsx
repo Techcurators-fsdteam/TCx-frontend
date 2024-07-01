@@ -343,7 +343,7 @@ const LinkComponent = ({ link }) => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        "http://localhost:5000/api/profile/links",
+        "http://api.tcx.academy/api/profile/links",
         {
           data: {
             username: user.username,
@@ -404,7 +404,7 @@ function Skills({ skill }) {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        "http://localhost:5000/api/profile/skills",
+        "http://api.tcx.academy/api/profile/skills",
         {
           data: {
             username: user.username,
@@ -457,7 +457,7 @@ function WXP({ work }) {
   const handleDelete = async () => {
     try {
       // Replace with your API endpoint URL
-      const url = "http://localhost:5000/api/profile/workExp";
+      const url = "http://api.tcx.academy/api/profile/workExp";
 
       const data = {
         workExpId: work.expId, // Assuming work object has an expId
@@ -555,7 +555,7 @@ function EDU({ edu }) {
   const handleDelete = async () => {
     try {
       // Replace with your API endpoint URL
-      const url = "http://localhost:5000/api/profile/education";
+      const url = "http://api.tcx.academy/api/profile/education";
 
       // Replace with your username retrieval logic
       const username = "example_username"; // You need to retrieve this from your context or props

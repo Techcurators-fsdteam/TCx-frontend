@@ -25,7 +25,7 @@ export default function AddSkill({ onClose }) {
 
     try {
         console.log(data)
-      const response = await axios.post('http://localhost:5000/api/profile/skills', data, {
+      const response = await axios.post('https://api.tcx.academy/api/profile/skills', data, {
         headers: {
           'Content-Type': 'application/json',
         },

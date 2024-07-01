@@ -61,7 +61,7 @@ function EditProfileForm({profile,onClose}) {
    
 
     try {
-      const response = await axios.post('http://localhost:5000/api/profile/profile', data);
+      const response = await axios.post('http://api.tcx.academy/api/profile/profile', data);
 
       if (response.status === 201) {
         console.log('Profile data updated successfully');

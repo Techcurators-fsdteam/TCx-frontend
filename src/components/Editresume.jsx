@@ -52,7 +52,7 @@ const ResumeUploadPage = () => {
     formData.append('username', user.username);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/profile/resume', formData, {
+      const response = await axios.post('http://api.tcx.academy/api/profile/resume', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

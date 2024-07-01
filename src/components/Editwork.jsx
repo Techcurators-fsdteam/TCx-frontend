@@ -93,7 +93,7 @@ function WorkExperienceForm({ workExp, onClose }) {
     };
 
     try {
-      const url = 'http://localhost:5000/api/profile/workExp';
+      const url = 'http://api.tcx.academy/api/profile/workExp';
       const method = workExp ? 'PATCH' : 'POST';
 
       const response = await axios({

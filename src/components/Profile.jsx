@@ -283,6 +283,7 @@ function Profile() {
       <Modal
         isOpen={isEducationModalOpen}
         onClose={() => setEducationModalOpen(false)}
+        bg={'[#1F202A]'}
       >
         <Editeducation
           username={user.username}
@@ -290,17 +291,18 @@ function Profile() {
         />
       </Modal>
 
-      <Modal isOpen={isWorkModalOpen} onClose={() => setWorkModalOpen(false)}>
+      <Modal isOpen={isWorkModalOpen} onClose={() => setWorkModalOpen(false)} bg={'[#1F202A]'}>
         <WorkExperienceForm onClose={() => setWorkModalOpen(false)} />
       </Modal>
 
-      <Modal isOpen={isLinkModalOpen} onClose={() => setLinkModalOpen(false)}>
+      <Modal isOpen={isLinkModalOpen} onClose={() => setLinkModalOpen(false)} bg={'[#1F202A]'}>
         <Editlink onClose={() => setLinkModalOpen(false)} />
       </Modal>
 
       <Modal
         isOpen={isResumeModalOpen}
         onClose={() => setResumeModalOpen(false)}
+        bg={'[#1F202A]'}
       >
         <ResumeUploadPage />
       </Modal>
@@ -308,6 +310,7 @@ function Profile() {
       <Modal
         isOpen={isProfileModalOpen}
         onClose={() => setProfileModalOpen(false)}
+        bg={'[#1F202A]'}
       >
         <EditProfileForm
           onClose={function () {
@@ -315,7 +318,7 @@ function Profile() {
           }}
         />
       </Modal>
-      <Modal isOpen={isSkillModalOpen} onClose={() => setSkillModalOpen(false)}>
+      <Modal isOpen={isSkillModalOpen} onClose={() => setSkillModalOpen(false)} bg={'[#1F202A]'}>
         <AddSkill
           onClose={function () {
             setProfileModalOpen(false);

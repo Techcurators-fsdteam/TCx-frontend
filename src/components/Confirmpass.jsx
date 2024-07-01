@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import key from '../assets/key.svg';
+import key from '../assets/key.svg'; // Ensure the path is correct
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { ResetPassword } from '../api/axios';
 
-function Confirmpass() {
+function Confirmpass({email,setEmail,isPasswordModalOpen,setPasswordModalOpen,setDone}) {
   const [password, setPassword] = useState('');
+  const [Loading,setLoading]=useState(false)
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -44,17 +46,37 @@ function Confirmpass() {
       setMessage('Passwords match');
     }
   };
+  const handleSubmit=async()=>{
+      setLoading(true)
+      console.log('sending reset password')
+      const res=await ResetPassword(email,confirmPassword)
+      console.log(res)
+      if(res.status==200){
+        setLoading(false);
+        setPasswordModalOpen(false);
+        setDone(true);
+      }
+  }
+
+  // const handleSubmit
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-black">
-      <div className="flex flex-col items-center justify-center w-11/12 sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4 text-center space-y-4 px-4 py-8">
+    <div className="flex justify-center items-center min-h-fit bg-black">
+      <style>
+        {`
+          .glowing-border {
+            box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+          }
+        `}
+      </style>
+      <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto text-center space-y-4 px-4 py-8">
         <img src={key} alt="Key Icon" className="w-16 h-16" />
         <p className="text-white font-bold text-2xl md:text-3xl">Set new password</p>
         <p className='text-gray-500 font-medium text-lg'>
           We recommend using a password that you don't use anywhere else.
         </p>
         <div className="relative w-full">
-          <label htmlFor="new-password" className="block text-white text-left w-full mt-2">New Password</label>
+          <label htmlFor="new-password" className="block text-white text-left w-fit mt-2">New Password</label>
           <input
             type={showPassword ? 'text' : 'password'}
             id="new-password"
@@ -67,7 +89,7 @@ function Confirmpass() {
             type="button"
             className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200"
             onClick={togglePasswordVisibility}
-            style={{ zIndex: 10 }} // Ensure eye icon is above input field
+            style={{ zIndex: 10 }}
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
@@ -86,7 +108,7 @@ function Confirmpass() {
             type="button"
             className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-200"
             onClick={toggleConfirmPasswordVisibility}
-            style={{ zIndex: 10 }} // Ensure eye icon is above input field
+            style={{ zIndex: 10 }}
           >
             {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
@@ -96,19 +118,23 @@ function Confirmpass() {
             {message}
           </p>
         )}
-        <Link
-        to="/Resetdone"
-        className="w-full py-2 px-4 bg-orange-600 text-white rounded-xl text-lg hover:bg-orange-500 focus:outline-none"
-        disabled={password !== confirmPassword || password === '' || !strongPasswordRegex.test(password)}
+        <button
+          onClick={handleSubmit}
+          className="w-full py-2 cursor-pointer px-0 bg-orange-600 text-white rounded-xl text-lg hover:bg-orange-500 focus:outline-none"
+          disabled={password !== confirmPassword || password === '' || !strongPasswordRegex.test(password)}
         >
           Reset Password
-        </Link>
-        <button
-          className="inline-flex items-center justify-center py-2 px-4 text-white rounded-full text-lg group"
-        >
-          <span className="mr-2 transition-transform duration-200 group-hover:-translate-x-1">&#x2190;</span>
-          Back to Login
         </button>
+        <Link
+            to="/Login"
+            className="inline-flex items-center justify-center py-2 px-4 text-white rounded-full text-lg group"
+          >
+            <span className="mr-2 transition-transform duration-200 group-hover:-translate-x-1">
+              &#x2190;
+            </span>{" "}
+            {/* Unicode for left arrow */}
+            Back to Login
+          </Link>
       </div>
     </div>
   );

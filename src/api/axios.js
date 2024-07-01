@@ -61,3 +61,29 @@ export const submitAnswers = async (testId, answers, name) => {
     throw error;
   }
 };
+
+export async function forgotPass(email) {
+  try {
+    const response = await apiClient.post("/auth/forgetPassword", {email});
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function VerifyOTP(email,token) {
+  try {
+    const response = await apiClient.post("/auth/verify", {email,token});
+    return response;
+  } catch (error) {
+    return error;
+  }
+}
+export async function ResetPassword(email,password){
+  try {
+    const response = await apiClient.post("/auth/reset", {email,password});
+    return response;
+  } catch (error) {
+    return error;
+  }
+}

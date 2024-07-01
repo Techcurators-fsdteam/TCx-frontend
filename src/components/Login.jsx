@@ -8,11 +8,18 @@ import google from "../assets/google.svg";
 import foto from "../assets/robot.svg";
 import bgi from "../assets/bgimg.svg";
 import coi from "../assets/logo.svg";
+import Modal from "./Modal";
+
+import Forgotpass from './Forgotpass'
+import Otp from './Otp'
+import Confirmpass from './Confirmpass'
+import Resetdone from './Resetdone'
 
 import { login } from "../api/axios";
 import eye from "../assets/eyePasswordShow.svg";
 import eyeStash from "../assets/eyePasswordHide.svg";
 import { useUser } from "../store/UserContext";
+import { Button } from "antd/es/radio";
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -23,6 +30,12 @@ function Login() {
   const [username, setUser] = useState("");
   const [password, setPass] = useState("");
   const navigate = useNavigate(); // Use useNavigate hook
+
+  
+  const [isEmailModalOpen,setEmailModalOpen]=useState(false);
+  const [isOTPModalOpen,setOTPModalOpen]=useState(false);
+  const [isPasswordModalOpen,setPasswordModalOpen]=useState(false);
+  const [isDone,setDone]=useState(false)
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -189,8 +202,9 @@ function Login() {
                 <span className="ml-2 text-sm">Remember me</span>
               </label>
               <Link
+              onClick={()=>{setEmailModalOpen(true)}}
                   className="text-blue-500 text-sm hover:underline"
-                  to="/Forgotpass"
+                  to=""
                 >
                   Forgot Password?
                 </Link>{" "}
@@ -227,6 +241,35 @@ function Login() {
           </div>
         </div>
       </div>
+      <Modal
+        isOpen={isEmailModalOpen}
+        onClose={() => setEmailModalOpen(false)}
+        bg={"black"}
+      >
+        <Forgotpass email={email} setEmail={setEmail} setEmailModalOpen={setEmailModalOpen} setOTPModalOpen={setOTPModalOpen}/>
+        
+      </Modal>
+      <Modal
+        isOpen={isOTPModalOpen}
+        onClose={() => setOTPModalOpen(false)}
+        bg={"black"}
+      >
+        <Otp email={email} setEmail={setEmail} setOTPModalOpen={setOTPModalOpen} setPasswordModalOpen={setPasswordModalOpen}/>
+      </Modal>
+      <Modal
+        isOpen={isPasswordModalOpen}
+        onClose={() => setPasswordModalOpen(false)}
+        bg={"black"}
+      >
+        <Confirmpass email={email} setEmail={setEmail} setPasswordModalOpen={setPasswordModalOpen} setDone={setDone}/>
+      </Modal>
+      <Modal
+        isOpen={isDone}
+        onClose={() => setDone(false)}
+        bg={"black"}
+      >
+        <Resetdone setDone={setDone}/>
+      </Modal>
     </>
   );
 }

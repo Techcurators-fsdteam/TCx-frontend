@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useUser } from '../store/UserContext';
+import { URL } from '../api/url';
 
 export default function AddSkill({ onClose }) {
   const [skill, setSkill] = useState('');
@@ -25,7 +26,7 @@ export default function AddSkill({ onClose }) {
 
     try {
         console.log(data)
-      const response = await axios.post('https://api.tcx.academy/api/profile/skills', data, {
+      const response = await axios.post(`${URL}/profile/skills`, data, {
         headers: {
           'Content-Type': 'application/json',
         },

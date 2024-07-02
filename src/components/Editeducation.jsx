@@ -1,6 +1,7 @@
   import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../store/UserContext';
+import { URL } from '../api/url';
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
@@ -101,7 +102,7 @@ import { useUser } from '../store/UserContext';
       console.log(edu)
 
       try {
-        const url =  `http://localhost:5000/api/profile/education`
+        const url =  `${URL}/profile/education`
       const method = edu ? 'patch' : 'post';
 
       try {

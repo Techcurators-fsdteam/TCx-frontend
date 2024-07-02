@@ -2,16 +2,14 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useGoogleLogin } from "@react-oauth/google";
-import ldin from "../assets/ldin.svg";
 import google from "../assets/google.svg";
-import foto from "../assets/robot.svg";
-import bgi from "../assets/bgimg.svg";
 import coi from "../assets/logo.svg";
 import Modal from "./Modal";
-import Forgotpass from './Forgotpass';
-import Otp from './Otp';
-import Confirmpass from './Confirmpass';
-import Resetdone from './Resetdone';
+import { URL } from "../api/url";
+import Forgotpass from './Forgotpass'
+import Otp from './Otp'
+import Confirmpass from './Confirmpass'
+import Resetdone from './Resetdone'
 import { login } from "../api/axios";
 import eye from "../assets/eyePasswordShow.svg";
 import eyeStash from "../assets/eyePasswordHide.svg";
@@ -43,7 +41,7 @@ function Login() {
 
   function googleLogin() {
     axios
-      .post("http://localhost:5000/api/auth/googleLogin", profile)
+      .post(`${URL}/auth/googleLogin`, profile)
       .then((res) => {
         document.cookie = `token=${res.data.accessToken};  path=/`;
         navigate("/");
@@ -106,14 +104,13 @@ function Login() {
           <h3 className="text-orange-500 text-2xl m-1">Welcome Back!</h3>
           <h3 className="text-gray-400 text-md ">Glad to see you again!</h3>
           <div className="flex justify-center mt-4">
-              <button
-                onClick={handleGoogleLogin}
-                className="text-white border-gray-500 border-2 bg-gray-900 flex text-sm items-center px-2 rounded-xl mx-2 hover:text-gray-300 cursor-pointer"
-              >
-                <img src={google} alt="Google" className="w-5 h-10 mr-2" /> Continue With Google
-              </button>
-            </div>
-          
+            <button
+              onClick={handleGoogleLogin}
+              className="text-white border-gray-500 border-2 bg-gray-900 flex text-sm items-center px-2 rounded-xl mx-2 hover:text-gray-300 cursor-pointer"
+            >
+              <img src={google} alt="Google" className="w-5 h-10 mr-2" /> Continue With Google
+            </button>
+          </div>
 
           <div className="mb-4 w-full">
             <label htmlFor="username" className="text-white"></label>
@@ -179,12 +176,6 @@ function Login() {
               Sign In
             </button>
           </div>
-          {/* <div>
-            <div className="text-center pt-4 md:pt-6">
-              <p className="text-white text-xl">or continue with</p>
-            </div>
-            
-          </div> */}
           <div className="flex">
             <p className="text-white pb-3 text-sm">
               Don't have an account.&nbsp;

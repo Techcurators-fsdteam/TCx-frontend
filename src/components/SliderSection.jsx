@@ -1,32 +1,36 @@
+"use client";
+// import { motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import firstslide from "../assets/slide1.svg"
 import secondslide from "../assets/slide2.svg"
 import thirdslide from "../assets/slide3.svg"
+import { cn } from "./globe";
+import BlurIn from "./BlurIn";
 
 const slides = [
   {
     id: 1,
     slideTitle: "Define Problem",
-    title: "Determine your business problem",
+    title: "World's First GenAI Upskilling Platform that makes you the unicorn in the job market",
     content:
-      "In order to create the best LLM adoption plan that improves your goods and increases staff efficiency, we first identify your business challenge.",
+      "In today’s competitive job market, standing out is more critical than ever and we make sure you stand out well .",
     image: firstslide,
   },
   {
     id: 2,
     slideTitle: "Design and Build Data",
-    title: "Create high quality data for personalised LLM",
+    title: "Everywhere skills are needed, from tech giants to startups, from Bangalore to Silicon Valley.",
     content:
-      "With your company goals in mind, we develop optimal data structures. This includes creating high-quality training datasets for fine-tuning and formatting internal documents for LLM-ready use in a RAG system.",
+      "TCx ensures you gain practical, real-world and Gen ai skills that employers demand.",
     image: secondslide,
   },
   {
     id: 3,
     slideTitle: "Develop Model",
-    title: "Develop a unique LLM",
+    title: "Coming from the house of TechCurators.",
     content:
-      "We use RAG, prompt-enginnering, and fine-tuning to create your unique LLM based on a base LLM. We make sure the chosen approach best serves your company's requirements.",
+      " A TC Group of companies bringing knowledge and expertise of 15000+ professionals making you job-ready every minute of the year. ",
     image: thirdslide,
   },
   
@@ -36,6 +40,10 @@ const SliderSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const intervalRef = useRef(null)
+  const defaultVariants = {
+    hidden: { filter: "blur(10px)", opacity: 0 },
+    visible: { filter: "blur(0px)", opacity: 1 },
+  };
 
   useEffect(() => {
     const changeSlide = () => {
@@ -59,27 +67,13 @@ const SliderSection = () => {
   }
 
   return (
-    <div className="overflow-x-hidden z-auto h-full">
+    <div className="overflow-x-hidden z-auto h-full ">
       <div className="max-w-screen-xl mx-auto md:p-12 p-8 ">
         
-        <h2 className="text-left text-white md:text-4xl text-2xl font-semibold mb-3 max-w-4xl">
-          Why TCx?
-
-        </h2>
+      <BlurIn word="Why TCx?"/>
         <div>
           {slides.map((slide, index) => (
             <div key={slide.id} className="inline-flex ">
-            
-            <button
-                className={`${
-                  currentSlide === index
-                    ? "bg-orange-600 text-white"
-                    : "hover:border-orange-600 hover:text-white bg-gray-800"
-                } border border-[#000c17] inline-flex lg:mx-16 md:mx-2 mt-4 px-4 py-2 rounded-full transition duration-300`}
-                onClick={() => handleSlideChange(index)}
-              >
-                {slide.slideTitle}
-              </button>
               
             </div>
           ))}
@@ -107,7 +101,7 @@ const SliderSection = () => {
                         />
                       </div>
                       <div className="lg:py-24">
-                        <h2 className="text-3xl text-white font-bold sm:text-4xl">
+                        <h2 className="text-3xl text-white font-semibold sm:text-4xl">
                           {slide.title}
                         </h2>
                         <p className="my-4 text-gray-300">{slide.content}</p>

@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from "react";
-// import Header from './Header';
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import bg from "../assets/certifybg.svg";
 import InfoIcon from "../assets/info-icon.svg";
 import Sei from "../assets/SEI.svg";
-import Certify2 from "./Certify2";
-import { useNavigate } from "react-router-dom";
 import BouncingDotsLoader from "./Loaders/Bouncing";
 import { getTests } from "../api/axios";
 import { useUser } from "../store/UserContext";
-// import { useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const certificationBoxesSecondSet = [
   {
@@ -80,13 +76,13 @@ const certificationBoxesSecondSet = [
 ];
 
 function Certify() {
-  const [title,setTitle]=useState('')
-  const [testId,setTestId]=useState('');
+  const [title, setTitle] = useState('');
+  const [testId, setTestId] = useState('');
   const [showCertify2, setShowCertify2] = useState(false);
   const [loading, setLoading] = useState(true);
   const [tests, setTests] = useState([]);
-  const {user}=useUser();
-  const navigate=useNavigate();
+  const { user } = useUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTests = async () => {
@@ -105,17 +101,18 @@ function Certify() {
     fetchTests();
   }, []);
 
-  const handleGetCertifiedClick = (title,testId) => {
-    if(user){
-    navigate('/testIntro',{state:{title,testId}})
-  }
-  else{
-    alert("You need to login first")
-    navigate('/login')
-  }
+  const handleGetCertifiedClick = (title, testId) => {
+    if (user) {
+      navigate('/testIntro', { state: { title, testId } });
+    } else {
+      alert("You need to login first");
+      navigate('/login');
+    }
   };
 
-  
+  const handleSkillCertificationClick = () => {
+    navigate('/Testintro2');
+  };
 
   return (
     <>
@@ -123,7 +120,7 @@ function Certify() {
         <BouncingDotsLoader />
       ) : (
         <>
-          <div className="flex items-center justify-center w-full mt-12">
+          <div className="flex items-center justify-center w-full ">
             <Navbar />
           </div>
 
@@ -190,7 +187,7 @@ function Certify() {
 
           <div className="flex justify-center items-center mb-20 px-4">
             <div className="flex flex-wrap justify-center md:justify-start w-full md:w-[90%] gap-10">
-              { tests.map((box) => (
+              {tests.map((box) => (
                 <div
                   key={box.id}
                   id={box.id}
@@ -206,7 +203,7 @@ function Certify() {
                   </div>
                   <div className="flex items-center justify-between mt-4">
                     <button
-                      onClick={()=>handleGetCertifiedClick(box.testName,box.testId)}
+                      onClick={() => handleGetCertifiedClick(box.testName, box.testId)}
                       className="border border-white rounded-lg px-4 py-2 hover:bg-white hover:text-gray-900 transition-all"
                     >
                       Get Certified
@@ -249,7 +246,7 @@ function Certify() {
                   </div>
                   <div className="flex items-center justify-between mt-4">
                     <button
-                      onClick={handleGetCertifiedClick}
+                      onClick={handleSkillCertificationClick}
                       className="border border-white rounded-lg px-4 py-2 hover:bg-white hover:text-gray-900 transition-all"
                     >
                       {box.buttonText}

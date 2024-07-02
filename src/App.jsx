@@ -14,6 +14,7 @@ import Profile from './components/Profile.jsx'
 import Certify from './components/Certify.jsx';
 import Certify2 from './components/Certify2.jsx';
 import Certify3 from './components/Certify3.jsx';
+import Testintro2 from './components/Testintro2.jsx';
 import Scroll from './Scroll';
 import Report from './components/Report.jsx';
 import Forgotpass from './components/Forgotpass.jsx';
@@ -48,6 +49,7 @@ function App() {
         <Route path='/result' element={<Result/>} />
         <Route path='/certificationTest' element={<Certify3/>}/>
         <Route path='/testIntro' element={<Certify2/>}/>  
+        <Route path='/testIntro2' element={<Testintro2/>}/> 
         <Route path='/testReport' element={<Report/>}/>
         <Route path='/certificate' element={<Certify3/>}/>      
       </Routes>

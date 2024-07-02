@@ -48,7 +48,7 @@ function Editlink({onClose}) {
     // console.log(linkArray)
 
     try {
-      const response = await axios.post('http://localhost:5000/api/profile/links', data, {
+      const response = await axios.post('http://api.tctx.academy/api/profile/links', data, {
         headers: {
           'Content-Type': 'application/json',
         },

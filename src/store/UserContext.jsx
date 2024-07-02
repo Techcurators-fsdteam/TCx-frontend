@@ -33,7 +33,7 @@ export const UserProvider = ({ children }) => {
       return "No Token Found"
     }
     try {
-      const response = await axios.get('http://localhost:5000/api/auth/verify', {
+      const response = await axios.get('http://api.tcx.academy/api/auth/verify', {
         withCredentials:'include',
         headers: {
           'Authorization': `${token}`

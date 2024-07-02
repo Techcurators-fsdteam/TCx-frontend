@@ -20,7 +20,7 @@ const slides = [
   {
     id: 2,
     slideTitle: "Design and Build Data",
-    title: "Everywhere skills are needed, from tech giants to startups, from Bangalore to Silicon Valley.",
+    title: "Skills are needed everywhere, from tech giants to startups, from Bangalore to Silicon Valley.",
     content:
       "TCx ensures you gain practical, real-world and Gen ai skills that employers demand.",
     image: secondslide,

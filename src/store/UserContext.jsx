@@ -34,7 +34,7 @@ export const UserProvider = ({ children }) => {
       return "No Token Found"
     }
     try {
-      const response = await axios.get(`${URL}api/auth/verify`, {
+      const response = await axios.get(`${URL}/auth/verify`, {
         withCredentials:'include',
         headers: {
           'Authorization': `${token}`

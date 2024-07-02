@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useInView } from "react-intersection-observer";
@@ -16,6 +15,12 @@ import { Statistic } from "antd";
 import CountUp from "react-countup";
 import TextRevealByWord from "./textReveal";
 import SliderSection from "./SliderSection.jsx";
+import microsoft from "../assets/logos_microsoft.svg";
+import google from "../assets/logos_google.svg";
+import amazon from "../assets/logos_amazon.svg";
+import sap from "../assets/logos_sap.svg";
+import tc from "../assets/logos_tc.svg";
+import ts from "../assets/logos_transc.svg";
 
 const settings = {
   infinite: true,
@@ -85,7 +90,6 @@ const HoverCard = ({
   });
   const [allowAnimation, setAllowAnimation] = useState(window.innerWidth > 600);
 
-  // Handle resizing to enable/disable animations based on width
   useEffect(() => {
     const handleResize = () => {
       setAllowAnimation(window.innerWidth > 600);
@@ -97,7 +101,6 @@ const HoverCard = ({
     };
   }, []);
 
-  // Animate or simply make visible based on allowAnimation state
   useEffect(() => {
     if (inView) {
       if (allowAnimation) {
@@ -254,14 +257,13 @@ function Hero() {
   return (
     <>
       <Navbar />
-      <div className="relative w-[100vw] overflow-x-hidden flex justify-center items-center h-screen bg-black overflow-hidden">
+      <div className="relative flex justify-center items-center h-screen bg-black overflow-hidden">
         <video
           src={herovid}
           autoPlay
           loop
           muted
           className="absolute top-0 left-0 w-full h-full object-cover"
-          style={{ minWidth: "100%", minHeight: "100%" }}
         />
 
         <div className="relative z-10 flex flex-col justify-center items-center md:items-start text-center md:text-left w-full h-full px-8 md:px-16 lg:px-32">
@@ -504,8 +506,8 @@ function Hero() {
         </div>
       </div>
 
-      <div className=" flex overflow-x-hidden justify-center  pl-10 md:pl-0 w-[100vw]  mt-6 mb-20">
-        <div className="grid md:grid-cols-4 grid-cols-1 w-[90%] mt-6 justify-between">
+      <div className="flex justify-center w-full mt-6 mb-20 overflow-hidden">
+        <div className="grid md:grid-cols-4 grid-cols-1 gap-4 w-[90%] mt-6">
           {cards.map((card, index) => (
             <HoverCard
               key={card.id}
@@ -523,11 +525,12 @@ function Hero() {
       <SliderSection />
 
       <Marquee speed={50} gradient={false} style={{ color: "white" }}>
-        <img src={demo} alt="demo" style={{ margin: "0 58px" }} />
-        <img src={demo} alt="demo" style={{ margin: "0 58px" }} />
-        <img src={demo} alt="demo" style={{ margin: "0 58px" }} />
-        <img src={demo} alt="demo" style={{ margin: "0 58px" }} />
-        <img src={demo} alt="demo" style={{ margin: "0 58px" }} />
+        <img src={microsoft} alt="demo" className="h-48 w-48" style={{ margin: "0 58px" }} />
+        <img src={google} alt="demo" className="h-48 w-48" style={{ margin: "0 58px" }} />
+        <img src={amazon} alt="demo" className="h-16 w-48" style={{ margin: "0 58px" }} />
+        <img src={sap} alt="demo" className="h-40 w-48" style={{ margin: "0 58px" }} />
+        <img src={tc} alt="demo" className="h-40 w-48" style={{ margin: "0 58px" }} />
+        <img src={ts} alt="demo" className="h-40 w-48" style={{ margin: "0 58px" }} />
       </Marquee>
 
       <div className="flex justify-center w-full mt-28 mb-20">
@@ -548,14 +551,14 @@ function Hero() {
           </div>
         </FadeInSection>
       </div>
-      {/* <Globe/> */}
-      <div className="relative flex justify-center items-center h-screen bg-black overflow-hidden">
+
+      <div className="flex justify-center items-center h-screen bg-black overflow-hidden">
         <video
           src={women}
           autoPlay
           loop
           muted
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className=" top-0 left-0 w-[80%] rounded-2xl h-[80%] object-cover"
         />
       </div>
 

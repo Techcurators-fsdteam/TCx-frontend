@@ -1,8 +1,12 @@
+"use client";
+// import { motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import firstslide from "../assets/slide1.svg"
 import secondslide from "../assets/slide2.svg"
 import thirdslide from "../assets/slide3.svg"
+import { cn } from "./globe";
+import BlurIn from "./BlurIn";
 
 const slides = [
   {
@@ -36,6 +40,10 @@ const SliderSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const intervalRef = useRef(null)
+  const defaultVariants = {
+    hidden: { filter: "blur(10px)", opacity: 0 },
+    visible: { filter: "blur(0px)", opacity: 1 },
+  };
 
   useEffect(() => {
     const changeSlide = () => {
@@ -62,24 +70,10 @@ const SliderSection = () => {
     <div className="overflow-x-hidden z-auto h-full ">
       <div className="max-w-screen-xl mx-auto md:p-12 p-8 ">
         
-        <h2 className="text-center text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 md:text-6xl text-2xl font-bold mb-3 ">
-          Why TCx?
-
-        </h2>
+      <BlurIn word="Why TCx?"/>
         <div>
           {slides.map((slide, index) => (
             <div key={slide.id} className="inline-flex ">
-            
-            {/* <button
-                className={`${
-                  currentSlide === index
-                    ? "bg-orange-600 text-white"
-                    : "hover:border-orange-600 hover:text-white bg-gray-800"
-                } border border-[#000c17] inline-flex lg:mx-16 md:mx-2 mt-4 px-4 py-2 rounded-full transition duration-300`}
-                onClick={() => handleSlideChange(index)}
-              >
-                {slide.slideTitle}
-              </button> */}
               
             </div>
           ))}

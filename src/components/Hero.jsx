@@ -5,17 +5,15 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useInView } from 'react-intersection-observer';
 import demo from '../assets/logoipsum.svg';
-import women from '../assets/women.svg';
+import women from '../assets/women.webm';
 import Footer from './Footer.jsx';
 import Navbar from './Navbar.jsx';
 import '../index.css';
 import { TypeAnimation } from 'react-type-animation';
 import Marquee from "react-fast-marquee";
 import herovid from '../assets/herovid.webm';
-import girl from '../assets/girl.webm';
 import { Statistic } from "antd";
 import CountUp from "react-countup";
-import Globe from './globe';
 import TextRevealByWord from './textReveal';
 import SliderSection from './SliderSection.jsx';
 
@@ -71,7 +69,7 @@ const metrics = [
     image: "/svgs/client.svg",
     emphasis: "Practice Tests",
   },
-]
+];
 
 const HoverCard = ({ id, index, question, answer, isHovered, setHoveredIndex }) => {
   const controls = useAnimation();
@@ -87,6 +85,15 @@ const HoverCard = ({ id, index, question, answer, isHovered, setHoveredIndex }) 
     }
   }, [controls, inView]);
 
+  const glassStyle = {
+    background: 'rgba(255, 255, 255, 0.2)',
+    backdropFilter: 'blur(10px)',
+    borderRadius: '15px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+    border: '1px solid rgba(255, 255, 255, 0.18)',
+    position: 'relative',
+  };
+
   return (
     <motion.div
       ref={ref}
@@ -97,16 +104,25 @@ const HoverCard = ({ id, index, question, answer, isHovered, setHoveredIndex }) 
       className="p-2 transition-transform duration-500"
       style={{ transform: isHovered ? 'scale(1.1)' : 'scale(1)' }}
     >
-      <div className={`relative flex flex-1 flex-col rounded-xl justify-between items-center bg-[#1E1E1E] text-white h-72 w-60 p-6 md:h-80 md:w-72 lg:h-96 lg:w-80 overflow-hidden`} style={{ background: 'radial-gradient(circle, rgba(30, 30, 30, 0.3), rgba(255, 165, 0, 0.2))' }}>
-        <div className="flex flex-col gap-6 md:gap-8 items-center w-full h-full">
-          <div className="relative flex justify-center items-center h-full w-full">
+      <div
+        className={`relative flex flex-1 flex-col rounded-xl justify-between items-center text-white h-72 w-60 p-6 md:h-80 md:w-72 lg:h-96 lg:w-80 overflow-hidden`}
+        style={glassStyle}
+        id={`card-${id}`}
+      >
+        <div className="absolute inset-0">
+          <div className="glitter" />
+          <div className="glitter" />
+          <div className="glitter" />
+        </div>
+        <div className="flex flex-col gap-6 md:gap-8 items-center w-full h-full relative z-10">
+          <div className="relative flex flex-wrap justify-center items-center h-full w-full">
             <p className={`absolute text-lg md:text-xl lg:text-2xl text-center transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
               {question}
             </p>
             <p className={`absolute text-base md:text-lg lg:text-xl text-center transition-all duration-500 transform ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
               {answer}
             </p>
-            <button className={`absolute bottom-4 text-base bg-orange-600 opacity-70 text-white py-2 px-4 rounded transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+            <button className={`absolute bottom-4 text-base bg-white opacity-70 text-black py-2 px-4 rounded transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
               Learn More
             </button>
           </div>
@@ -162,7 +178,7 @@ function Hero() {
       separator=","
       className="text-orange-600 text-4xl md:text-5xl"
     />
-  )
+  );
 
   const textSegments = [
     "World's First GenAI Upskilling Platform that makes you the unicorn in the job market.",
@@ -174,13 +190,14 @@ function Hero() {
   return (
     <>
       <Navbar />
-      <div className="relative flex justify-center items-center h-screen  bg-black overflow-hidden">
+      <div className="relative flex justify-center items-center h-screen bg-black overflow-hidden">
         <video
           src={herovid}
           autoPlay
           loop
           muted
           className="absolute top-0 left-0 w-full h-full object-cover"
+          style={{ minWidth: '100%', minHeight: '100%' }}
         />
 
         <div className="relative z-10 flex flex-col justify-center items-center md:items-start text-center md:text-left w-full h-full px-8 md:px-16 lg:px-32">
@@ -198,7 +215,7 @@ function Hero() {
               repeat={Infinity}
             />
           </div>
-          <p className="text-gray-200  text-3xl mt-4 md:mt-6 lg:mt-8">
+          <p className="text-gray-200 text-3xl mt-4 md:mt-6 lg:mt-8">
             Don’t just be a professional, <br />
             Be an AI Professional.
           </p>
@@ -238,11 +255,11 @@ function Hero() {
         </div>
       </div>
 
-      <div className="relative ">
+      <div className="relative">
         <div className="absolute inset-x-0 bottom-0 h-1/2" />
         <div className="max-w-full mx-auto sm:px-6 lg:px-8">
           <div className="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
-            <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:py-32 lg:px-8">
+            <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:pt-44 lg:px-8">
               <div className="relative text-center mt-20 text-white text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
                 <div className="absolute inset-0 flex justify-center items-center -z-10">
                   <div className="relative w-[450px] h-[450px]">
@@ -358,9 +375,42 @@ function Hero() {
           right: 0;
           transform: translate(50%, -50%);
         }
+        .glitter {
+          width: 3px;
+          height: 3px;
+          background: white;
+          border-radius: 50%;
+          position: absolute;
+          animation: glitter 1.5s infinite ease-in-out;
+        }
+        .glitter:nth-child(1) {
+          top: 20%;
+          left: 30%;
+          animation-delay: 0s;
+        }
+        .glitter:nth-child(2) {
+          top: 50%;
+          left: 70%;
+          animation-delay: 0.5s;
+        }
+        .glitter:nth-child(3) {
+          top: 80%;
+          left: 50%;
+          animation-delay: 1s;
+        }
+        @keyframes glitter {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.5);
+            opacity: 0.5;
+          }
+        }
       `}</style>
 
-      <div className='flex justify-center  px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16'>
+      <div className='flex justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16'>
         <div className='w-full sm:w-[90%] flex flex-col gap-4 justify-center items-center text-center text-white'>
           <p className='text-2xl sm:text-2xl md:text-3xl lg:text-5xl xl:text-5xl leading-tight'>
             <TextRevealByWord />
@@ -384,27 +434,7 @@ function Hero() {
         </div>
       </div>
 
-      {/* <div className="flex justify-center w-full mt-16 mb-24">
-        <FadeInSection>
-          <div className="flex flex-col w-[90%] mx-auto text-center items-center">
-            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white mb-6">
-              Why TCx?
-            </p>
-            <div className="w-full mt-4">
-              <Slider {...settings}>
-                {textSegments.map((segment, index) => (
-                  <div key={index} className="px-2">
-                    <div className="w-full h-56 border border-gray-400 rounded-lg p-4 text-sm text-gray-400 bg-transparent flex items-center justify-center text-center overflow-hidden">
-                      {segment}
-                    </div>
-                  </div>
-                ))}
-              </Slider>
-            </div>
-          </div>
-        </FadeInSection>
-      </div> */}
-      <SliderSection/>
+      <SliderSection />
 
       <Marquee
         speed={50}
@@ -418,7 +448,7 @@ function Hero() {
         <img src={demo} alt="demo" style={{ margin: '0 58px' }} />
       </Marquee>
 
-      <div className="flex justify-center w-full mt-28">
+      <div className="flex justify-center w-full mt-28 mb-20">
         <FadeInSection>
           <div className="flex flex-col justify-center lg:flex-row w-[90%] mx-auto gap-4 lg:gap-0">
             <div className="flex flex-col text-center justify-center items-center ">
@@ -433,6 +463,15 @@ function Hero() {
         </FadeInSection>
       </div>
       {/* <Globe/> */}
+      <div className="relative flex justify-center items-center h-screen bg-black overflow-hidden">
+        <video
+          src={women}
+          autoPlay
+          loop
+          muted
+          className="absolute top-0 left-0 w-full h-full object-cover"
+        />
+      </div>
 
       <Footer />
     </>

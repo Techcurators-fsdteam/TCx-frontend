@@ -95,7 +95,9 @@ function Login() {
         
         // Use navigate for redirection
       })
-      .then(()=>fetchUserDetails())
+      .then(()=>{
+        console.log("Fetching User Details")
+        fetchUserDetails()})
       .catch((err) => {
         alert("Invalid Credentials"); // Handle errors appropriately
       });

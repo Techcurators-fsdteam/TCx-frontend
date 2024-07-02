@@ -42,7 +42,7 @@ export const UserProvider = ({ children }) => {
       if (!response.data) {
         throw new Error('Failed to fetch user details');
       }
-  
+      console.log(response.data)
       setUser(response.data); // Update the user state with fetched data
     } catch (error) {
       console.error('Error fetching user details:', error);

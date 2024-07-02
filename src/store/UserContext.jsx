@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { URL } from '../api/url';
 
 // Utility function to get a cookie by name
 const getCookie = (name) => {
@@ -33,7 +34,7 @@ export const UserProvider = ({ children }) => {
       return "No Token Found"
     }
     try {
-      const response = await axios.get('http://api.tcx.academy/api/auth/verify', {
+      const response = await axios.get(`${URL}api/auth/verify`, {
         withCredentials:'include',
         headers: {
           'Authorization': `${token}`

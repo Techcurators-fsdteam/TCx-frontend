@@ -9,12 +9,11 @@ import foto from "../assets/robot.svg";
 import bgi from "../assets/bgimg.svg";
 import coi from "../assets/logo.svg";
 import Modal from "./Modal";
-
+import { URL } from "../api/url";
 import Forgotpass from './Forgotpass'
 import Otp from './Otp'
 import Confirmpass from './Confirmpass'
 import Resetdone from './Resetdone'
-
 import { login } from "../api/axios";
 import eye from "../assets/eyePasswordShow.svg";
 import eyeStash from "../assets/eyePasswordHide.svg";
@@ -49,7 +48,7 @@ function Login() {
   function googleLogin() {
     console.log(profile);
     axios
-      .post("http://localhost:5000/api/auth/googleLogin", profile)
+      .post(`${URL}/auth/googleLogin`, profile)
       .then((res) => {
         console.log(res.data.accessToken);
         document.cookie = `token=${res.data.accessToken};  path=/`;
@@ -110,8 +109,8 @@ function Login() {
   
 
   return (
-    <>
-      <div className="flex justify-center items-center h-screen bg-black font-custom">
+    <section>
+      <div className="flex  justify-center items-center h-screen bg-black font-custom">
         <div
           className="absolute top-0 right-0 w-3/6 h-full bg-cover bg-center"
           style={{
@@ -270,7 +269,7 @@ function Login() {
       >
         <Resetdone setDone={setDone}/>
       </Modal>
-    </>
+    </section>
   );
 }
 

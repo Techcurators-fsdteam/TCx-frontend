@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useUser } from '../store/UserContext';
+import { URL } from '../api/url';
 
 function Editlink({onClose}) {
   
@@ -48,7 +49,7 @@ function Editlink({onClose}) {
     // console.log(linkArray)
 
     try {
-      const response = await axios.post('http://api.tctx.academy/api/profile/links', data, {
+      const response = await axios.post(`${URL}/profile/links`, data, {
         headers: {
           'Content-Type': 'application/json',
         },

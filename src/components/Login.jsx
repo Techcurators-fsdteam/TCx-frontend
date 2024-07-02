@@ -1,41 +1,36 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
-import { useGoogleLogin, googleLogout } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import ldin from "../assets/ldin.svg";
 import google from "../assets/google.svg";
 import foto from "../assets/robot.svg";
 import bgi from "../assets/bgimg.svg";
 import coi from "../assets/logo.svg";
 import Modal from "./Modal";
-
-import Forgotpass from './Forgotpass'
-import Otp from './Otp'
-import Confirmpass from './Confirmpass'
-import Resetdone from './Resetdone'
-
+import Forgotpass from './Forgotpass';
+import Otp from './Otp';
+import Confirmpass from './Confirmpass';
+import Resetdone from './Resetdone';
 import { login } from "../api/axios";
 import eye from "../assets/eyePasswordShow.svg";
 import eyeStash from "../assets/eyePasswordHide.svg";
 import { useUser } from "../store/UserContext";
-import { Button } from "antd/es/radio";
 
 function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [email, setEmail] = useState("");
-  const {fetchUserDetails}=useUser();
+  const { fetchUserDetails } = useUser();
   const [user, setUseR] = useState("");
   const [profile, setProfile] = useState("");
   const [username, setUser] = useState("");
   const [password, setPass] = useState("");
-  const navigate = useNavigate(); // Use useNavigate hook
+  const navigate = useNavigate();
 
-  
-  const [isEmailModalOpen,setEmailModalOpen]=useState(false);
-  const [isOTPModalOpen,setOTPModalOpen]=useState(false);
-  const [isPasswordModalOpen,setPasswordModalOpen]=useState(false);
-  const [isDone,setDone]=useState(false)
+  const [isEmailModalOpen, setEmailModalOpen] = useState(false);
+  const [isOTPModalOpen, setOTPModalOpen] = useState(false);
+  const [isPasswordModalOpen, setPasswordModalOpen] = useState(false);
+  const [isDone, setDone] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -47,18 +42,16 @@ function Login() {
   });
 
   function googleLogin() {
-    console.log(profile);
     axios
       .post("http://localhost:5000/api/auth/googleLogin", profile)
       .then((res) => {
-        console.log(res.data.accessToken);
         document.cookie = `token=${res.data.accessToken};  path=/`;
         navigate("/");
-      }).then(()=>fetchUserDetails())
+      })
+      .then(() => fetchUserDetails());
   }
 
   useEffect(() => {
-    // console.log(user);
     if (user) {
       axios
         .get(
@@ -72,205 +65,167 @@ function Login() {
         )
         .then((res) => {
           setProfile(res.data);
-          
         })
         .catch((err) => console.log(err));
     }
   }, [user]);
 
-
-
-
   function handleSignIn() {
     const data = { email, username, password };
-    // console.log("Hello")
 
-    // console.log(res.token)
     login(data)
       .then((res) => {
-        if(res.token!=undefined){
-        document.cookie = `token=${res.token};  path=/`;
-        console.log(res.token);
-        navigate("/");}
-        
-        // Use navigate for redirection
+        if (res.token !== undefined) {
+          document.cookie = `token=${res.token};  path=/`;
+          navigate("/");
+        }
       })
-      .then(()=>{
-        console.log("Fetching User Details")
-        fetchUserDetails()})
+      .then(() => fetchUserDetails())
       .catch((err) => {
-        alert("Invalid Credentials"); // Handle errors appropriately
+        alert("Invalid Credentials");
       });
   }
 
-
-    useEffect(() => {
-      if (profile) {
-        googleLogin();  // Call googleLogin only after profile state is updated
-      }
-    }, [profile]);
-  
+  useEffect(() => {
+    if (profile) {
+      googleLogin();
+    }
+  }, [profile]);
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen bg-black font-custom">
-        <div
-          className="absolute top-0 right-0 w-3/6 h-full bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${bgi})`,
-          }}
-        ></div>
-        <div className="w-6/10 h-5/10 flex ml-4 mr-4 bg-gray-800 rounded-3xl z-10">
-          <div>
-            <a href="/">
-              <img
-                className="absolute top-0 left-0 w-20 h-20 mt-4 ml-4 rounded-full"
-                src={coi}
-                alt="Corner Image"
-              />
-            </a>
-          </div>
-          <div className="hidden md:block w-3/6 h-full">
+      <div className="flex justify-center items-center min-h-screen bg-gray-900 p-4">
+        <div className="flex flex-col w-full max-w-md bg-black rounded-xl justify-center items-center text-center p-8 space-y-4">
+          <a href="/">
             <img
-              className="w-full h-full object-cover rounded-l-3xl object-center"
-              src={foto}
-              alt="image"
+              className="w-20 h-20 rounded-full"
+              src={coi}
+              alt="Corner Image"
             />
-          </div>
-          <div className="w-full md:w-3/6 p-8 bg-gray-800 rounded-3xl">
-            <div className="sm:p-0.5 md:p-1 lg:p-1.5 mb-4">
-              <h3 className="text-orange-500 text-2xl m-1">
-                Begin Your Journey To AI Excellence
-              </h3>
-              <div className="flex">
-                <p className="text-white pb-3 text-sm">
-                  Don't have an account.&nbsp;
-                </p>
-                <Link
-                  className="text-blue-500 text-sm hover:underline"
-                  to="/SignUp"
-                >
-                  Sign up
-                </Link>{" "}
-              </div>
-            </div>
-            <div className="mb-4">
-              <label htmlFor="username" className="block text-white"></label>
-              <input
-                type="text"
-                required
-                placeholder="Username"
-                value={username}
-                onChange={(e) => setUser(e.target.value)}
-                className="w-full px-4 py-4 rounded-full bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border "
-              />
-            </div>
-            <div className="mb-4">
-              <label htmlFor="email" className="block text-white"></label>
-              <input
-                type="email"
-                required
-                placeholder="E-mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-4 rounded-full bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border"
-              />
-            </div>
-            <div className="mb-4 relative">
-              <label htmlFor="password" className="block text-white"></label>
-              <input
-                type={passwordVisible ? "text" : "password"}
-                required
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPass(e.target.value)}
-                onClick={togglePasswordVisibility}
-                className="w-full px-4 py-4 rounded-full bg-gray-700 text-sm text-white focus:outline-none placeholder-orange-500 glowing-border"
-              />
-              <img
-                src={passwordVisible ? eye : eyeStash}
-                alt="toggle"
-                onClick={togglePasswordVisibility}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
-                style={{ width: "20px", height: "20px" }}
-              />
-            </div>
-            <div className="flex justify-between items-center mb-5">
-              <label className="flex items-center text-white">
-                <input
-                  type="checkbox"
-                  className="form-checkbox h-4 w-4 text-orange-500"
-                />
-                <span className="ml-2 text-sm">Remember me</span>
-              </label>
-              <Link
-              onClick={()=>{setEmailModalOpen(true)}}
-                  className="text-blue-500 text-sm hover:underline"
-                  to=""
-                >
-                  Forgot Password?
-                </Link>{" "}
-            </div>
-            <div className="p-2">
+          </a>
+          <h3 className="text-orange-500 text-2xl m-1">Welcome Back!</h3>
+          <h3 className="text-gray-400 text-md ">Glad to see you again!</h3>
+          <div className="flex justify-center mt-4">
               <button
-                onClick={handleSignIn}
-                className="w-full py-3 px-4 bg-orange-500 text-white rounded-full text-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50"
+                onClick={handleGoogleLogin}
+                className="text-white border-gray-500 border-2 bg-gray-900 flex text-sm items-center px-2 rounded-xl mx-2 hover:text-gray-300 cursor-pointer"
               >
-                Sign In
+                <img src={google} alt="Google" className="w-5 h-10 mr-2" /> Continue With Google
               </button>
             </div>
-            <div>
-              <div className="text-center pt-4 md:pt-6">
-                <p className="text-white rounded-full text-xl">
-                  or continue with
-                </p>
-              </div>
-              <div className="flex justify-center mt-4">
-                <button
-                  onClick={handleGoogleLogin}
-                  className="text-blue-600 bg-white flex text-sm items-center px-2 rounded-full mx-2 hover:text-blue-700 cursor-pointer"
-                >
-                  <img src={google} alt="LinkedIn" /> Sign in With Google
-                </button>
+          
 
-                {/* <img
-                  src={google}
-                  alt="Google"
-                  className="text-red-600 text-3xl mx-2 hover:text-red-700 cursor-pointer"
-                /> */}
-              </div>
+          <div className="mb-4 w-full">
+            <label htmlFor="username" className="text-white"></label>
+            <input
+              type="text"
+              required
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUser(e.target.value)}
+              className="w-full px-4 py-4 rounded-xl bg-gray-900 text-sm text-white focus:outline-none placeholder-gray-500 glowing-border"
+            />
+          </div>
+          <div className="mb-4 w-full">
+            <label htmlFor="email" className="text-white"></label>
+            <input
+              type="email"
+              required
+              placeholder="E-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-4 rounded-xl bg-gray-900 text-sm text-white focus:outline-none placeholder-gray-500 glowing-border"
+            />
+          </div>
+          <div className="mb-4 relative w-full">
+            <label htmlFor="password" className="text-white"></label>
+            <input
+              type={passwordVisible ? "text" : "password"}
+              required
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPass(e.target.value)}
+              className="w-full px-4 py-4 rounded-xl bg-gray-900 text-sm text-white focus:outline-none placeholder-gray-500 glowing-border"
+            />
+            <img
+              src={passwordVisible ? eye : eyeStash}
+              alt="toggle"
+              onClick={togglePasswordVisibility}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
+              style={{ width: "20px", height: "20px" }}
+            />
+          </div>
+          <div className="flex justify-between items-center w-full mb-5">
+            <label className="flex items-center text-white">
+              <input
+                type="checkbox"
+                className="form-checkbox h-4 w-4 text-orange-500"
+              />
+              <span className="ml-2 text-sm">Remember me</span>
+            </label>
+            <Link
+              onClick={() => { setEmailModalOpen(true); }}
+              className="text-orange-500 text-sm hover:underline"
+              to=""
+            >
+              Forgot Password?
+            </Link>
+          </div>
+          <div className="w-full">
+            <button
+              onClick={handleSignIn}
+              className="w-full py-3 px-4 bg-orange-500 text-white rounded-xl text-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:ring-opacity-50"
+            >
+              Sign In
+            </button>
+          </div>
+          {/* <div>
+            <div className="text-center pt-4 md:pt-6">
+              <p className="text-white text-xl">or continue with</p>
             </div>
+            
+          </div> */}
+          <div className="flex">
+            <p className="text-white pb-3 text-sm">
+              Don't have an account.&nbsp;
+            </p>
+            <Link
+              className="text-orange-500 text-sm hover:underline"
+              to="/SignUp"
+            >
+              Sign up
+            </Link>
           </div>
         </div>
       </div>
+
       <Modal
         isOpen={isEmailModalOpen}
         onClose={() => setEmailModalOpen(false)}
         bg={"black"}
       >
-        <Forgotpass email={email} setEmail={setEmail} setEmailModalOpen={setEmailModalOpen} setOTPModalOpen={setOTPModalOpen}/>
-        
+        <Forgotpass email={email} setEmail={setEmail} setEmailModalOpen={setEmailModalOpen} setOTPModalOpen={setOTPModalOpen} />
       </Modal>
       <Modal
         isOpen={isOTPModalOpen}
         onClose={() => setOTPModalOpen(false)}
         bg={"black"}
       >
-        <Otp email={email} setEmail={setEmail} setOTPModalOpen={setOTPModalOpen} setPasswordModalOpen={setPasswordModalOpen}/>
+        <Otp email={email} setEmail={setEmail} setOTPModalOpen={setOTPModalOpen} setPasswordModalOpen={setPasswordModalOpen} />
       </Modal>
       <Modal
         isOpen={isPasswordModalOpen}
         onClose={() => setPasswordModalOpen(false)}
         bg={"black"}
       >
-        <Confirmpass email={email} setEmail={setEmail} setPasswordModalOpen={setPasswordModalOpen} setDone={setDone}/>
+        <Confirmpass email={email} setEmail={setEmail} setPasswordModalOpen={setPasswordModalOpen} setDone={setDone} />
       </Modal>
       <Modal
         isOpen={isDone}
         onClose={() => setDone(false)}
         bg={"black"}
       >
-        <Resetdone setDone={setDone}/>
+        <Resetdone setDone={setDone} />
       </Modal>
     </>
   );

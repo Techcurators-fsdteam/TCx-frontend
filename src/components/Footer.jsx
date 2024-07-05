@@ -7,41 +7,53 @@ import e4 from '../assets/x.svg';
 
 const Footer = () => {
   return (
-    <>
-    <div className='px-10 py-8 flex flex-col gap-7 bg-[#303030] text-white'>
-      <div className='flex md:flex-row flex-col justify-between w-full gap-5 items-center'>
-        <div className='flex flex-col gap-3 '>
-          
-          <p className='text-xl font-semibold'>Become an AI Prodigy</p>
-          <p>TCx- Grow 100x , 2024.</p>
+    <div className='flex flex-col items-center bg-gray-900 w-full p-6  text-gray-500'>
+      <div className='w-full sm:w-[90%]'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>
+          <ul className='text-center'>
+            <li className='text-white text-lg mb-2'>Learn</li>
+            <li>lorem</li>
+            <li>lorem</li>
+            <li>lorem</li>
+          </ul>
+          <ul className='text-center'>
+            <li className='text-white text-lg mb-2'>Certify</li>
+            <li>lorem</li>
+            <li>lorem</li>
+            <li>lorem</li>
+          </ul>
+          <ul className='text-center'>
+            <li className='text-white text-lg mb-2'>Blog</li>
+            <li>lorem</li>
+            <li>lorem</li>
+            <li>lorem</li>
+          </ul>
+          <ul className='text-center'>
+            <li className='text-white text-lg mb-2'>Research</li>
+            <li>lorem</li>
+            <li>lorem</li>
+            <li>lorem</li>
+          </ul>
         </div>
-        <a href="/"><img  src={logo} alt="" className='w-24' /></a>
-        <div className='flex flex-col gap-5 text-right'>
-          <div className='flex flex-row gap-6 justify-center items-center text-lg'>
-            <p>Learn</p>
-            <p>Blogs</p>
-            <p>Blogs</p>
-            <p>About</p>
+        <hr className='my-6 border-gray-500' />
+        <div className='flex flex-col items-center'>
+          <a href="/"><img src={logo} alt="Company Logo" className='w-24 mb-4' /></a>
+          <div className='flex gap-4 mb-4'>
+            <a href="#"><img src={e1} alt="LinkedIn" className='w-8 h-8' /></a>
+            <a href="#"><img src={e2} alt="Instagram" className='w-8 h-8' /></a>
+            <a href="#"><img src={e3} alt="Mail" className='w-8 h-8' /></a>
+            <a href="#"><img src={e4} alt="Twitter" className='w-8 h-8' /></a>
           </div>
-          <div className='flex flex-row gap-4 justify-center items-center'>
-            <img src={e4} alt="" />
-            <img src={e3} alt="" />
-            <img src={e2} alt="" />
-            <img src={e1} alt="" />
+          <p className='text-center text-sm mt-4'>© 2024 TCx-Grow 100x. All rights reserved.</p>
+          <div className='flex flex-col md:flex-row gap-5 text-center mt-4'>
+            <p>Terms of Service</p>
+            <p>Privacy Policy</p>
+            <p>Cookies</p>
           </div>
         </div>
       </div>
     </div>
-      <div className='bg-[#D6FF3C] text-black px-10 py-4 flex md:flex-row flex-col md:justify-between justify-center items-center'>
-        <p>© 2024 TCx-Grow 100x . All rights reserved.</p>
-        <div className='flex flex-row gap-5 text-right'>
-          <p>Terms of Service</p>
-          <p>Privacy Policy</p>
-          <p>Cookies</p>
-        </div>
-      </div>
-      </>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

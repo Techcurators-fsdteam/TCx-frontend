@@ -21,6 +21,7 @@ import Forgotpass from './components/Forgotpass.jsx';
 import Otp from './components/Otp.jsx';
 import Confirmpass from './components/Confirmpass.jsx';
 import Resetdone from './components/Resetdone.jsx';
+import Editor from './components/Editor.jsx';
 
 function App() {
   
@@ -34,6 +35,7 @@ function App() {
         <Route path='/Profile' element={<Profile />} />
         <Route path='/profile' element={<Profile />} />
         <Route path="/learn" element={<Learn />} />
+        <Route path="/editor" element={<Editor />} />
         <Route path="/Certify" element={<Certify />} />
         <Route path="/Certify2" element={<Certify2 />} />
         <Route path="/Certify3" element={<Certify3 />} />

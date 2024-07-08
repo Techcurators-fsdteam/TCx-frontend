@@ -27,34 +27,35 @@ import './index.css'; // Ensure this points to your CSS file
 function App() {
   return (
     <>
-      <GoogleOAuthProvider clientId='817860106596-lfombupsre85gug8361n208iu2j8amm4.apps.googleusercontent.com'>
-        <Router>
-          <Scroll />
-          <Routes>
-            <Route path="/" element={<Hero />} />
-            <Route path='/Profile' element={<Profile />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path="/learn" element={<Learn />} />
-            <Route path="/editor" element={<Editor />} />
-            <Route path="/Certify" element={<Certify />} />
-            <Route path="/Certify2" element={<Certify2 />} />
-            <Route path="/Certify3" element={<Certify3 />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/Forgotpass" element={<Forgotpass />} />
-            <Route path="/Otp" element={<Otp />} />
-            <Route path="/Confirmpass" element={<Confirmpass />} />
-            <Route path="/Resetdone" element={<Resetdone />} />
-            <Route path="/test" element={<Test />} />
-            <Route path="/Practicetest1" element={<Practicetest1 />} />
-            <Route path='/result' element={<Result />} />
-            <Route path='/certificationTest' element={<Certify3 />} />
-            <Route path='/testIntro' element={<Certify2 />} />
-            <Route path='/testIntro2' element={<Testintro2 />} />
-            <Route path='/testReport' element={<Report />} />
-            <Route path='/certificate' element={<Certify3 />} />
-          </Routes>
-        </Router>
+    <GoogleOAuthProvider clientId='817860106596-lfombupsre85gug8361n208iu2j8amm4.apps.googleusercontent.com'>
+    <Router>
+    <Scroll />
+      <Routes>
+        <Route path="/" element={<Hero />} />
+        <Route path='/Profile' element={<Profile />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path="/learn" element={<Learn />} />
+        <Route path="/project/:pid" element={<Editor />} />
+        <Route path="/Certify" element={<Certify />} />
+        <Route path="/Certify2" element={<Certify2 />} />
+        <Route path="/Certify3" element={<Certify3 />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp/>} />
+        <Route path="/Forgotpass" element={<Forgotpass/>} />
+        <Route path="/Otp" element={<Otp/>} />
+        <Route path="/Confirmpass" element={<Confirmpass/>} />
+        <Route path="/Resetdone" element={<Resetdone/>} />
+        {/* <Route path="/Header" element={<Header/>}/> */}
+        <Route path="/test" element={<Test/>}/>
+        <Route path="/Practicetest1" element={<Practicetest1 />} />
+        <Route path='/result' element={<Result/>} />
+        <Route path='/certificationTest' element={<Certify3/>}/>
+        <Route path='/testIntro' element={<Certify2/>}/>  
+        <Route path='/testIntro2' element={<Testintro2/>}/> 
+        <Route path='/testReport' element={<Report/>}/>
+        <Route path='/certificate' element={<Certify3/>}/>      
+      </Routes>
+      </Router>
       </GoogleOAuthProvider>
       <CustomCursor /> {/* Add the Custom Cursor Component */}
     </>

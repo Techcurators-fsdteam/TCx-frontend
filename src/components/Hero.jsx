@@ -492,10 +492,8 @@ function Hero() {
           className=" top-0 left-0 w-[80%] rounded-2xl h-[80%] object-cover"
         />
       </div>
-
       <Footer />
     </>
   );
 }
-
 export default Hero;

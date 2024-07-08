@@ -11,7 +11,7 @@ function Navbar() {
   const tabs = [
     { name: "Learn", route: "/learn" },
     { name: "Certify", route: "/certify" },
-    { name: "Blog", route: "/blog" },
+    { name: "Blog", route: "/editor" },  // Updated route for Blog
     { name: "Research", route: "/research" },
     // { name: 'Start Learning Today', route: '/start-learning' },
   ];
@@ -234,20 +234,21 @@ function Navbar() {
             </li>
           ))}
         </ul>
-        {logged ? (<>
-          <button
-          onClick={handleProfile}
-          className=" self-center text-white px-16 py-2 w-fit rounded-full border-2 border-[#D6FF3C] hover:bg-[#D6FF3C] hover:text-black transition ease-in-out duration-300"
-        >
-          Profile
-        </button>
-        <button
-          onClick={handleLogout}
-          className=" self-center text-white px-16 py-2 w-fit rounded-full border-2 border-[#D6FF3C] hover:bg-[#D6FF3C] hover:text-black transition ease-in-out duration-300"
-        >
-          Logout
-        </button>
-        </>
+        {logged ? (
+          <>
+            <button
+              onClick={handleProfile}
+              className=" self-center text-white px-16 py-2 w-fit rounded-full border-2 border-[#D6FF3C] hover:bg-[#D6FF3C] hover:text-black transition ease-in-out duration-300"
+            >
+              Profile
+            </button>
+            <button
+              onClick={handleLogout}
+              className=" self-center text-white px-16 py-2 w-fit rounded-full border-2 border-[#D6FF3C] hover:bg-[#D6FF3C] hover:text-black transition ease-in-out duration-300"
+            >
+              Logout
+            </button>
+          </>
         ) : (
           <Link
             to="/login"

@@ -4,6 +4,22 @@ import { cn } from "./globe";
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { FC, ReactNode, useRef } from "react";
+import Marquee from "react-fast-marquee";
+import logo from "../assets/logo.svg";
+import one from "../assets/logos_angular.svg";
+import two from "../assets/logos_flutter.svg";
+import three from "../assets/logos_html-5.svg";
+import four from "../assets/logos_github.svg";
+import five from "../assets/logos_js.svg";
+import six from "../assets/logos_mongo.svg";
+import seven from "../assets/logos_node.svg";
+import eight from "../assets/logos_postgresql.svg";
+import nine from "../assets/logos_powerbi.svg";
+import ten from "../assets/logos_python.svg";
+import eleven from "../assets/logos_react.svg";
+import twelve from "../assets/logos_tailwind.svg";
+import thirteen from "../assets/logos_typescript.svg";
+
 
 interface TextRevealByWordProps {
   text: string;
@@ -44,9 +60,61 @@ const text="Master countless skills, endless assessments and real-world projects
             );
           })}
         </p>
-        <p className=" sm:text-lg md:text-lg lg:text-xl xl:text-2xl text-gray-500 max-w-prose">
+        {/* <p className=" sm:text-lg md:text-lg lg:text-xl xl:text-2xl text-gray-500 max-w-prose">
         Step into the future with the world's first GenAI upskilling platform, designed to make you job-ready. Whether you're a beginner or an experienced professional, TCx offers resources that guide you through building, training, and implementing advanced AI models.
-        </p>
+        </p> */}
+        <div className="relative w-[88%] bg-black opacity-80 border border-transparent rounded-xl p-4 gradient-border">
+  <Marquee>
+    <img src={one} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={two} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={three} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={eleven} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={five} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={six} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={seven} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={eight} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={nine} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+  </Marquee>
+  <div className="my-4"></div> 
+  <Marquee direction="right">
+    <img src={ten} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={eleven} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={twelve} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={thirteen} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={six} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={seven} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={eight} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={two} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+    <img src={one} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
+  </Marquee>
+  <style jsx>{`
+    .gradient-border {
+      position: relative;
+      z-index: 1;
+      border-image: linear-gradient(to right, black, gray, black) 1;
+    }
+    .gradient-border::before, .gradient-border::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 0;
+      border-width: 0 0 0.2px 0;
+      border-style: solid;
+      border-image: linear-gradient(to right, black, gray, black) 1;
+      z-index: -1;
+      box-shadow: 0 2px 4px rgba(255, 255, 255, 0.6);
+    }
+    .gradient-border::before {
+      top: 0;
+    }
+    .gradient-border::after {
+      bottom: 0;
+    }
+  `}</style>
+</div>
+
+     
       </div>
     </div>
   );

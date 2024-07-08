@@ -1,29 +1,30 @@
+// App.js
 import React from 'react';
-import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Hero from './components/Hero';
 import Learn from './components/Learn';
-import './index.css';
 import Login from './components/Login';
 import Practicetest1 from './components/Practicetest1';
 import SignUp from './components/Signup';
 import Test from './components/Test';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Result from './components/Result';
-import Profile from './components/Profile.jsx'
-import Certify from './components/Certify.jsx';
-import Certify2 from './components/Certify2.jsx';
-import Certify3 from './components/Certify3.jsx';
-import Testintro2 from './components/Testintro2.jsx';
+import Profile from './components/Profile';
+import Certify from './components/Certify';
+import Certify2 from './components/Certify2';
+import Certify3 from './components/Certify3';
+import Testintro2 from './components/Testintro2';
 import Scroll from './Scroll';
-import Report from './components/Report.jsx';
-import Forgotpass from './components/Forgotpass.jsx';
-import Otp from './components/Otp.jsx';
-import Confirmpass from './components/Confirmpass.jsx';
-import Resetdone from './components/Resetdone.jsx';
+import Report from './components/Report';
+import Forgotpass from './components/Forgotpass';
+import Otp from './components/Otp';
+import Confirmpass from './components/Confirmpass';
+import Resetdone from './components/Resetdone';
+import Editor from './components/Editor';
+import CustomCursor from './components/CustomCursor'; // Import the Custom Cursor
+import './index.css'; // Ensure this points to your CSS file
 
 function App() {
-  
   return (
     <>
     <GoogleOAuthProvider clientId='817860106596-lfombupsre85gug8361n208iu2j8amm4.apps.googleusercontent.com'>
@@ -34,6 +35,7 @@ function App() {
         <Route path='/Profile' element={<Profile />} />
         <Route path='/profile' element={<Profile />} />
         <Route path="/learn" element={<Learn />} />
+        <Route path="/project/:pid" element={<Editor />} />
         <Route path="/Certify" element={<Certify />} />
         <Route path="/Certify2" element={<Certify2 />} />
         <Route path="/Certify3" element={<Certify3 />} />
@@ -55,6 +57,7 @@ function App() {
       </Routes>
       </Router>
       </GoogleOAuthProvider>
+      <CustomCursor /> {/* Add the Custom Cursor Component */}
     </>
   );
 }

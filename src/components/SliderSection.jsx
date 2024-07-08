@@ -1,5 +1,3 @@
-"use client";
-// import { motion } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import firstslide from "../assets/slide1.svg"
@@ -7,6 +5,7 @@ import secondslide from "../assets/slide2.svg"
 import thirdslide from "../assets/slide3.svg"
 import { cn } from "./globe";
 import BlurIn from "./BlurIn";
+import earthbg from "../assets/earthbg.svg";
 
 const slides = [
   {
@@ -15,7 +14,6 @@ const slides = [
     title: "World's First GenAI Upskilling Platform that makes you the unicorn in the job market",
     content:
       "In today’s competitive job market, standing out is more critical than ever and we make sure you stand out well .",
-    image: firstslide,
   },
   {
     id: 2,
@@ -23,7 +21,6 @@ const slides = [
     title: "Skills are needed everywhere, from tech giants to startups, from Bangalore to Silicon Valley.",
     content:
       "TCx ensures you gain practical, real-world and Gen ai skills that employers demand.",
-    image: secondslide,
   },
   {
     id: 3,
@@ -31,9 +28,7 @@ const slides = [
     title: "Coming from the house of TechCurators.",
     content:
       " A TC Group of companies bringing knowledge and expertise of 15000+ professionals making you job-ready every minute of the year. ",
-    image: thirdslide,
   },
-  
 ]
 
 const SliderSection = () => {
@@ -67,15 +62,16 @@ const SliderSection = () => {
   }
 
   return (
-    <div className="overflow-x-hidden z-auto h-full ">
-      <div className="max-w-screen-xl mx-auto md:p-12 p-8 ">
-        
-      <BlurIn word="Why TCx?"/>
+    <div className="relative overflow-x-hidden z-auto h-full">
+      <div
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
+        style={{ backgroundImage: `url(${earthbg})` }}
+      ></div>
+      <div className="relative max-w-screen-xl mx-auto md:p-12 p-8">
+        <BlurIn word="Why TCx?" />
         <div>
           {slides.map((slide, index) => (
-            <div key={slide.id} className="inline-flex ">
-              
-            </div>
+            <div key={slide.id} className="inline-flex "></div>
           ))}
         </div>
         <div className="flex flex-col items-center justify-center h-full">
@@ -92,14 +88,6 @@ const SliderSection = () => {
                     className="absolute top-0 left-0 w-full h-full"
                   >
                     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16 mt-5">
-                      <div className="h-64 overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-96">
-                        <img
-                          alt="image"
-                          src={slide.image}
-                          loading="eager"
-                          className="h-full w-full lg:object-cover object-contain object-center"
-                        />
-                      </div>
                       <div className="lg:py-24">
                         <h2 className="text-3xl text-white font-semibold sm:text-4xl">
                           {slide.title}
@@ -118,4 +106,4 @@ const SliderSection = () => {
   )
 }
 
-export default SliderSection
+export default SliderSection

@@ -97,6 +97,61 @@ html {
   z-index: 2; /* Ensure this is above the video but below the content if any */
 }
 
+/* styles.css */
+/* .orange-dotted-cursor {
+  cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxMCAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8Y2lyY2xlIGN4PSI1IiBjeT0iNSIgcj0iMi41IiBmaWxsPSJvcmFuZ2UiIC8+Cjwvc3ZnPgo='), auto;
+} */
+
+
+/* index.css or cursor.css */
+
+/* Hide the default cursor */
+body, html {
+  cursor: none;
+}
+
+/* Main orange dotted cursor */
+.cursor-dot {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background-color: orange;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Light orange trailing dot */
+.cursor-trail {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background-color: rgba(255, 165, 0, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease-out;
+}
+
+/* Green neon effect when hovering over links or buttons */
+.cursor-dot.cursor-pointer {
+  background-color: #D6FF3C;
+  box-shadow: 0 0 10px #D6FF3C;
+}
+
+/* index.css or cursor.css */
+
+/* Override the default cursor for interactive elements */
+a, button, [role="button"], [role="link"], .pointer {
+  cursor: none; /* Prevent the default hand cursor */
+}
+
+
+
+
 /*
  .video-tag {
   position: absolute;

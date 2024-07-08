@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { motion, useAnimation } from "framer-motion";
+import React, { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useInView } from "react-intersection-observer";
-import demo from "../assets/logoipsum.svg";
 import women from "../assets/women.webm";
 import Footer from "./Footer.jsx";
 import Navbar from "./Navbar.jsx";
@@ -21,6 +20,60 @@ import amazon from "../assets/logos_amazon.svg";
 import sap from "../assets/logos_sap.svg";
 import tc from "../assets/logos_tc.svg";
 import ts from "../assets/logos_transc.svg";
+
+const questionsAndAnswers = [
+  {
+    question: "Ace your AI game?",
+    answer:
+      "Our Generative AI and machine learning courses are skill-based and packed with real-world resources, putting you in the driver seat to implement AI concepts effectively.",
+  },
+  {
+    question: "Make AI applications?",
+    answer:
+      "Immerse yourself in AI-focused live projects and gain hands-on experience by working on real-world applications.",
+  },
+  {
+    question: "Become an AI Expert?",
+    answer: "Test your GenAI proficiency in 19 mins",
+  },
+  {
+    question: "Connect with AI Enthusiasts?",
+    answer:
+      "Being part of a community makes learning more fun and effective.",
+  },
+];
+
+const Card = ({ question, answer, isHovered, setHoveredIndex, index }) => {
+  return (
+    <div
+      data-aos="fade-up"
+      data-aos-duration="1000"
+      className={`relative flex flex-col items-center justify-center bg-gradient-to-r from-orange-500 via-black to-black text-white border border-gray-500 rounded-xl p-4 h-96 w-80 transition-transform duration-300 transform ${
+        isHovered === index ? "scale-95 z-10" : "scale-90"
+      } shadow-lg`}
+      onMouseEnter={() => setHoveredIndex(index)}
+      onMouseLeave={() => setHoveredIndex(null)}
+    >
+      <div
+        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
+          isHovered === index ? "opacity-0" : "opacity-100"
+        } p-4`} // Added padding here
+      >
+        <p className="text-lg text-center">{question}</p>
+      </div>
+      <div
+        className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-300 ${
+          isHovered === index ? "opacity-100" : "opacity-0"
+        } p-4`} // Added padding here
+      >
+        <p className="text-lg text-center">{answer}</p>
+        <button className="mt-4 bg-white text-black rounded-xl py-2 px-4 shadow-md hover:bg-gray-200 transition-all duration-300">
+          Learn More
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const settings = {
   infinite: true,
@@ -76,166 +129,19 @@ const metrics = [
   },
 ];
 
-const HoverCard = ({
-  id,
-  index,
-  question,
-  answer,
-  isHovered,
-  setHoveredIndex,
-}) => {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    threshold: 0.1,
-  });
-  const [allowAnimation, setAllowAnimation] = useState(window.innerWidth > 600);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setAllowAnimation(window.innerWidth > 600);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (inView) {
-      if (allowAnimation) {
-        controls.start({
-          y: 0,
-          opacity: 1,
-          transition: { duration: 0.5, delay: index * 0.2 },
-        });
-      } else {
-        controls.start({
-          y: 0,
-          opacity: 1,
-        });
-      }
-    } else {
-      controls.start({ y: 50, opacity: 0, transition: { duration: 0.5 } });
-    }
-  }, [controls, inView, index, allowAnimation]);
-
-  const glassStyle = {
-    background: "rgba(255, 255, 255, 0.2)",
-    backdropFilter: "blur(10px)",
-    borderRadius: "15px",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-    border: "1px solid rgba(255, 255, 255, 0.18)",
-    position: "relative",
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      animate={controls}
-      initial={{ y: 50, opacity: 0 }}
-      onMouseEnter={() => setHoveredIndex(id)}
-      onMouseLeave={() => setHoveredIndex(null)}
-      className="p-2 transition-transform duration-500"
-      style={{ transform: isHovered ? "scale(1.1)" : "scale(1)" }}
-    >
-      <div
-        className={`relative flex flex-1 flex-col rounded-xl justify-between items-center text-white h-72 w-60 p-6 md:h-80 md:w-72 lg:h-96 lg:w-80 overflow-hidden`}
-        style={glassStyle}
-        id={`card-${id}`}
-      >
-        <div className="absolute inset-0">
-          <div className="glitter" />
-          <div className="glitter" />
-          <div className="glitter" />
-        </div>
-        <div className="flex flex-col gap-6 md:gap-8 items-center w-full h-full relative z-10">
-          <p
-            className={`absolute text-lg md:text-xl lg:text-2xl text-center transition-opacity duration-500 ${
-              isHovered ? "opacity-0" : "opacity-100"
-            }`}
-          >
-            {question}
-          </p>
-          <p
-            className={`absolute text-base md:text-lg lg:text-xl text-center transition-opacity duration-500 ${
-              isHovered ? "opacity-100" : "opacity-0"
-            }`}
-            style={{
-              transform: isHovered ? "translateY(0)" : "translateY(100%)",
-            }}
-          >
-            {answer}
-          </p>
-          <button
-            className={`absolute bottom-4 text-base bg-white opacity-70 text-black py-2 px-4 rounded transition-opacity duration-500 ${
-              isHovered ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            Learn More
-          </button>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
 const FadeInSection = ({ children }) => {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({ threshold: 0.1 });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-
-  const variants = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-
   return (
-    <motion.div
-      ref={ref}
-      initial="hidden"
-      animate={controls}
-      variants={variants}
-      className="w-full"
-    >
+    <div data-aos="fade-up" data-aos-duration="1000" className="w-full">
       {children}
-    </motion.div>
+    </div>
   );
 };
 
 function Hero() {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-
-  const cards = [
-    {
-      id: 1,
-      question: "Ace your AI game?",
-      answer:
-        "Our Generative AI and machine learning courses are skill-based and packed with real-world resources, putting you in the driver seat to implement AI concepts effectively.",
-    },
-    {
-      id: 2,
-      question: "Make AI applications?",
-      answer:
-        "Immerse yourself in AI-focused live projects and gain hands-on experience by working on real-world applications.",
-    },
-    {
-      id: 3,
-      question: "Become an AI Expert?",
-      answer: "Test your GenAI proficiency in 19 mins",
-    },
-    {
-      id: 4,
-      question: "Connect with AI Enthusiasts?",
-      answer:
-        "Being part of a community makes learning more fun and effective.",
-    },
-  ];
+  useEffect(() => {
+    AOS.init();
+    AOS.refresh();
+  }, []);
 
   const formatter = (value) => (
     <CountUp
@@ -254,6 +160,8 @@ function Hero() {
     "Coming from the house of TechCurators, a TC Group of companies bringing knowledge and expertise of 15000+ professionals making you job-ready every minute of the year.",
   ];
 
+  const [hoveredIndex, setHoveredIndex] = useState(null);
+
   return (
     <>
       <Navbar />
@@ -267,7 +175,7 @@ function Hero() {
         />
 
         <div className="relative z-10 flex flex-col justify-center items-center md:items-start text-center md:text-left w-full h-full px-8 md:px-16 lg:px-32">
-          <div className="py-6 mt-16 md:mt-8 ">
+          <div className="py-6 mt-16 md:mt-8 text-center md:text-left">
             <TypeAnimation
               sequence={["Become an AI Prodigy", 2000, "", 1000]}
               wrapper="span"
@@ -276,7 +184,7 @@ function Hero() {
               repeat={Infinity}
             />
           </div>
-          <p className="text-gray-200 text-3xl mt-4 md:mt-6 lg:mt-8">
+          <p className="text-gray-200 text-2xl md:text-3xl mt-4 md:mt-6 lg:mt-8">
             Don’t just be a professional, <br />
             Be an AI Professional.
           </p>
@@ -321,7 +229,11 @@ function Hero() {
         <div className="max-w-full mx-auto sm:px-6 lg:px-8">
           <div className="relative shadow-xl sm:rounded-2xl sm:overflow-hidden">
             <div className="relative px-4 py-16 sm:px-6 sm:py-24 lg:pt-44 lg:px-8">
-              <div className="relative text-center mt-20 text-white text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+              <div
+                className="relative text-center mt-20 text-white text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+              >
                 <div className="absolute inset-0 flex justify-center items-center -z-10">
                   <div className="relative w-[450px] h-[450px]">
                     <div className="absolute inset-0 rounded-full border border-gray-500 animate-orbit1">
@@ -345,26 +257,40 @@ function Hero() {
                   Transform your future
                 </h1>
               </div>
-              <p className="mt-6 max-w-lg mx-auto text-center text-xl text-gray-400 sm:max-w-3xl">
+              <p
+                className="mt-6 max-w-lg mx-auto text-center text-xl text-gray-400 sm:max-w-3xl"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+              >
                 Every company will be an AI Company, thus, We are making
                 everyone an AI Expert. Dive into a world where learning is
                 linked directly to your career progression and transform your
                 skills in GenAI.
               </p>
-              <div className="mt-8 sm:mt-12">
+              <div
+                className="mt-8 sm:mt-12"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+              >
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                   {metrics &&
                     metrics.map((m, i) => (
                       <div
                         className="flex flex-col px-4 space-y-2 text-center items-center justify-center text-orange-600"
                         key={i}
+                        data-aos="fade-up"
+                        data-aos-duration="1000"
                       >
                         <p className="order-last text-xl font-medium text-gray-300">
                           {m.emphasis}
                         </p>
                         <p className="text-4xl font-extrabold md:text-5xl">
                           <span className="flex items-center">
-                            <Statistic formatter={formatter} value={m.stat} />+{" "}
+                            <Statistic
+                              formatter={formatter}
+                              value={m.stat}
+                            />
+                            +{" "}
                           </span>
                         </p>
                       </div>
@@ -493,7 +419,8 @@ function Hero() {
           </p>
           <div className="flex flex-col md:hidden">
             <p className="text-2xl font-semibold">
-            Master countless skills, endless assessments and real-world projects with TCx
+              Master countless skills, endless assessments and real-world
+              projects with TCx
             </p>
             <p className="sm:text-lg mt-5 text-gray-500 max-w-prose">
               Step into the future with the world's first GenAI upskilling
@@ -506,16 +433,15 @@ function Hero() {
         </div>
       </div>
 
-      <div className="flex justify-center w-full mt-6 mb-20 overflow-hidden">
-        <div className="grid md:grid-cols-4 grid-cols-1 gap-4 w-[90%] mt-6">
-          {cards.map((card, index) => (
-            <HoverCard
-              key={card.id}
-              id={card.id}
+      <div className="min-h-screen bg-black flex items-center justify-center p-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {questionsAndAnswers.map((qa, index) => (
+            <Card
+              key={index}
               index={index}
-              question={card.question}
-              answer={card.answer}
-              isHovered={hoveredIndex === card.id}
+              question={qa.question}
+              answer={qa.answer}
+              isHovered={hoveredIndex}
               setHoveredIndex={setHoveredIndex}
             />
           ))}
@@ -524,14 +450,19 @@ function Hero() {
 
       <SliderSection />
 
-      <Marquee speed={50} gradient={false} style={{ color: "white" }}>
-        <img src={microsoft} alt="demo" className="h-48 w-48" style={{ margin: "0 58px" }} />
-        <img src={google} alt="demo" className="h-48 w-48" style={{ margin: "0 58px" }} />
-        <img src={amazon} alt="demo" className="h-16 w-48" style={{ margin: "0 58px" }} />
-        <img src={sap} alt="demo" className="h-40 w-48" style={{ margin: "0 58px" }} />
-        <img src={tc} alt="demo" className="h-40 w-48" style={{ margin: "0 58px" }} />
-        <img src={ts} alt="demo" className="h-40 w-48" style={{ margin: "0 58px" }} />
-      </Marquee>
+      <div className="relative flex flex-col items-center mt-12 mb-20">
+        <h2 className="text-gray-500 text-2xl md:text-4xl font-semibold mb-6">
+          Our Learners work at world class companies
+        </h2>
+        <Marquee speed={50} gradient={false} className="w-full">
+          <img src={microsoft} alt="Microsoft" className="h-48 w-48 mx-6" />
+          <img src={google} alt="Google" className="h-48 w-48 mx-6" />
+          <img src={amazon} alt="Amazon" className="h-16 w-48 mx-6" />
+          <img src={sap} alt="SAP" className="h-40 w-48 mx-6" />
+          <img src={tc} alt="TC" className="h-40 w-48 mx-6" />
+          <img src={ts} alt="TS" className="h-40 w-48 mx-6" />
+        </Marquee>
+      </div>
 
       <div className="flex justify-center w-full mt-28 mb-20">
         <FadeInSection>
@@ -561,10 +492,8 @@ function Hero() {
           className=" top-0 left-0 w-[80%] rounded-2xl h-[80%] object-cover"
         />
       </div>
-
       <Footer />
     </>
   );
 }
-
 export default Hero;

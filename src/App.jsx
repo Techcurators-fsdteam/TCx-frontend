@@ -35,7 +35,7 @@ function App() {
         <Route path='/Profile' element={<Profile />} />
         <Route path='/profile' element={<Profile />} />
         <Route path="/learn" element={<Learn />} />
-        <Route path="/editor" element={<Editor />} />
+        <Route path="/project/:pid" element={<Editor />} />
         <Route path="/Certify" element={<Certify />} />
         <Route path="/Certify2" element={<Certify2 />} />
         <Route path="/Certify3" element={<Certify3 />} />

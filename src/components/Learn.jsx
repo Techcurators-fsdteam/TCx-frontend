@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link as Li } from "react-router-dom";
 import { Link } from "react-scroll";
 import courseImage from "../assets/courseImage.svg";
 import Footer from "./Footer";
-// import Header from "./Header";
+import { getAllProjects } from "../api/axios";
+import { useNavigate } from "react-router-dom";
+
+
 import Navbar from "./Navbar";
+import { useUser } from "../store/UserContext";
 
 const courses = [
   {
@@ -99,92 +103,41 @@ const courses = [
   },
   ];
   
-  const liveCourses = [
-  {
-  id: 1,
-  title: "Netflix's ML Model",
-  link: "https://youtu.be/OKmv9sUrvk8",
-  },
-  {
-  id: 2,
-  title: "Evolution of Recsys",
-  link: "https://youtu.be/lgoyJn7MsH8",
-  },
-  {
-  id: 3,
-  title: "Rock vs Mine Prediction",
-  link: "https://youtu.be/fiz1ORTBGpY?si=7t2Uaqg1OnByFqKk",
-  },
-  {
-  id: 4,
-  title: "Heart Disease Prediction",
-  link: "https://youtu.be/qmqCYC-MBQo?si=lpzQ16VdqQ6WJ2M2",
-  },
-  {
-  id: 5,
-  title: "Multi-Armed Bandit Strategies",
-  link: "https://youtu.be/2A5f3GrX0dA",
-  },
-  {
-  id: 6,
-  title: "Scalable Query-Item Model",
-  link: "https://youtu.be/o-pZk5R0TZg",
-  },
-  {
-  id: 7,
-  title: "Meituan's Recsys Model",
-  link: "https://youtu.be/UhpbTSbi3lI",
-  },
-  {
-  id: 8,
-  title: "LinkedIn's CTR Model",
-  link: "https://youtu.be/7l0HLYVFEuU",
-  },
-  {
-  id: 9,
-  title: "Twitter's Recsys Algorithm",
-  link: "https://youtu.be/IhGq9jgcxFM",
-  },
-  {
-  id: 10,
-  title: "eBay's Language Model",
-  link: "https://youtu.be/h51nbWr7feo",
-  },
-  {
-  id: 11,
-  title: "Bert Entity Embeddings",
-  link: "https://youtu.be/v-0J7o-nDBE",
-  },
-  {
-  id: 12,
-  title: "Build Voice AI Assistant",
-  link: "https://www.udemy.com/course/alan-ai-course/",
-  },
-  {
-  id: 13,
-  title: "Dynamic Pricing Strategy",
-  link: "https://youtu.be/a_CXpnsvPa0",
-  },
-  {
-  id: 14,
-  title: "Train Product Embeddings",
-  link: "https://youtu.be/DN4S96oHRhE",
-  },
-  {
-  id: 15,
-  title: "Approximate Nearest Neighbour",
-  link: "https://youtu.be/DSQOrBTqmYA",
-  },
-  {
-  id: 16,
-  title: "Diverse Recommender Systems",
-  link: "https://youtu.be/laTxgnzjfR0",
-  },
-  ];
+  
 
 function Learn() {
   const [visibleCourses, setVisibleCourses] = useState(3);
   const [visibleLiveCourses, setVisibleLiveCourses] = useState(3);
+  const [projects, setProjects] = useState([]);
+  const navigate = useNavigate();
+  const {fetchUserDetails}=useUser();
+
+
+  useEffect(() => {
+    fetchAllProjects();
+  }, []);
+
+  const fetchAllProjects = async () => {
+    try {
+      const data = await getAllProjects();
+      setProjects(data);
+    } catch (error) {
+      console.error('Failed to fetch projects', error);
+    }
+  };
+
+  const goToProjectPage = (pid) => {
+    return async () => {
+      const result = await fetchUserDetails();
+      if (result === 0) {
+        alert("You need to login to access this page");
+        navigate("/login");
+      } else {
+        navigate(`/project/${pid}`, { state: { pid } });
+      }
+    };
+  };
+  
 
   const loadMoreCourses = () => {
     setVisibleCourses((prevVisibleCourses) => prevVisibleCourses + 3);
@@ -268,8 +221,8 @@ function Learn() {
 
       <div className="text-black flex flex-col justify-center items-center text-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20">
         <div className="flex flex-wrap gap-6 justify-center w-[90%] md:w-[80%] bg-white rounded-xl p-6 sm:p-8 md:p-10">
-          {courses &&
-            courses.slice(0, visibleCourses).map((course) => (
+          {
+            courses?.slice(0, visibleCourses).map((course) => (
               <div
                 key={course.id}
                 className="bg-[#3F3F3F] rounded-xl h-60 w-full sm:w-[45%] md:w-[30%] flex flex-col justify-between p-4 md:p-6"
@@ -332,10 +285,10 @@ function Learn() {
 
       <div className="text-black flex flex-col justify-center items-center text-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20">
         <div className="flex flex-wrap gap-6 justify-center w-[90%] md:w-[80%] bg-white rounded-xl p-6 sm:p-8 md:p-10">
-          {liveCourses &&
-            liveCourses.slice(0, visibleLiveCourses).map((course) => (
+          {
+            projects?.map((course) => (
               <div
-                key={course.id}
+                key={course.pid}
                 className="bg-[#3F3F3F] rounded-xl h-60 w-full sm:w-[45%] md:w-[30%] flex flex-col justify-between p-4 md:p-6"
               >
                 <div className="flex items-center gap-4 text-white">
@@ -348,17 +301,17 @@ function Learn() {
                     {course.title}
                   </h2>
                 </div>
-                <a
-                  href={course.link}
+                <button
+                  onClick={goToProjectPage(course.pid)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4"
                 >
                   Learn now
-                </a>
+                </button>
               </div>
             ))}
-          {visibleLiveCourses < liveCourses.length && (
+          {visibleLiveCourses < projects.length && (
             <button
               onClick={loadMoreLiveCourses}
               className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-2"

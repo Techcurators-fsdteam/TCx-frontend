@@ -1,7 +1,8 @@
 import axios from "axios";
+import { URL } from "./url";
 
 const apiClient = axios.create({
-  baseURL: "https://api.tcx.academy/api",
+  baseURL:  URL ,
   withCredentials: true,
 });
 

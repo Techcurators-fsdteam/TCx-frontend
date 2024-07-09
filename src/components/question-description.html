@@ -4,7 +4,6 @@
   <div>
       <h2 class="text-xl mb-4">Description</h2>
       <p>This project guides you through building and deploying an AI voice chatbot that understands and responds to voice commands in real-time. The primary goal is to help language learners practice their speaking skills in an engaging way.</p>
-      <p>Upon completing this tutorial, you will have created an app like the one demonstrated in the accompanying demo and video links.</p>
   </div>
   
   <div>
@@ -16,11 +15,11 @@
       <h2 class="text-xl mb-4">Libraries and Dependencies</h2>
       <p>To build our chatbot, we will use the following libraries:</p>
       <ul>
-          <li><strong>Gradio</strong>: For creating the web interface. (<a href="https://gradio.app/docs/">Documentation</a>)</li>
-          <li><strong>Transformers</strong>: For the chatbot model. (<a href="https://huggingface.co/transformers/">Documentation</a>)</li>
-          <li><strong>SpeechRecognition</strong>: For converting speech to text. (<a href="https://pypi.org/project/SpeechRecognition/">Documentation</a>)</li>
-          <li><strong>mtranslate</strong>: For translating text to English. (<a href="https://pypi.org/project/mtranslate/">Documentation</a>)</li>
-          <li><strong>gTTS</strong>: For converting text to speech. (<a href="https://pypi.org/project/gTTS/">Documentation</a>)</li>
+          <li><strong>Gradio</strong>: For creating the web interface. (<a href="https://gradio.app/docs/">docs</a>)</li>
+          <li><strong>Transformers</strong>: For the chatbot model. (<a href="https://huggingface.co/transformers/">docs</a>)</li>
+          <li><strong>SpeechRecognition</strong>: For converting speech to text. (<a href="https://pypi.org/project/SpeechRecognition/">docs</a>)</li>
+          <li><strong>mtranslate</strong>: For translating text to English. (<a href="https://pypi.org/project/mtranslate/">docs</a>)</li>
+          <li><strong>gTTS</strong>: For converting text to speech. (<a href="https://pypi.org/project/gTTS/">docs</a>)</li>
       </ul>
   </div>
   
@@ -29,95 +28,115 @@
       
       <h3 class="text-lg mt-4 mb-2">1. Set Up the Environment</h3>
       <p>Create a <code>requirements.txt</code> file with the necessary dependencies:</p>
-      <pre><code>transformers==4.26.1
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>transformers==4.26.1
 torch==1.13.1
 SpeechRecognition==3.8.1
 mtranslate==1.8
 gtts==2.2.4
 gradio==3.5</code></pre>
+      </div>
       <p>Install the packages using the command:</p>
-      <pre><code>pip install -r requirements.txt</code></pre>
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>pip install -r requirements.txt</code></pre>
+      </div>
       
       <h3 class="text-lg mt-4 mb-2">2. Import Necessary Libraries</h3>
-      <pre><code>from gradio import Audio, Interface, Textbox
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>from gradio import Audio, Interface, Textbox
 from typing import Tuple
 from utils import (TextGenerationPipeline, from_en_translation,
-                 html_audio_autoplay, stt, to_en_translation, tts,
-                 tts_to_bytesio)</code></pre>
+                   html_audio_autoplay, stt, to_en_translation, tts,
+                   tts_to_bytesio)</code></pre>
+      </div>
       
       <h3 class="text-lg mt-4 mb-2">3. Create Functions</h3>
       
       <h4 class="text-md mt-4 mb-2">Speech to Text Function:</h4>
       <p>The interaction with the app begins with the user's voice input. Gradio helps us receive it as an audio object. This function converts speech into text.</p>
-      <pre><code>def stt(audio, language):
-  recognizer = sr.Recognizer()
-  with sr.AudioFile(audio) as source:
-      audio_data = recognizer.record(source)
-  return recognizer.recognize_google(audio_data, language=language)</code></pre>
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>def stt(audio, language):
+    recognizer = sr.Recognizer()
+    with sr.AudioFile(audio) as source:
+        audio_data = recognizer.record(source)
+    return recognizer.recognize_google(audio_data, language=language)</code></pre>
+      </div>
       
       <h4 class="text-md mt-4 mb-2">Translator Function:</h4>
       <p>If you want to use the app in English, you can skip this step.</p>
-      <pre><code>def to_en_translation(text, language):
-  return mtranslate.translate(text, "en", language)
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>def to_en_translation(text, language):
+    return mtranslate.translate(text, "en", language)
 
 def from_en_translation(text, language):
-  return mtranslate.translate(text, language, "en")</code></pre>
+    return mtranslate.translate(text, language, "en")</code></pre>
+      </div>
       
       <h4 class="text-md mt-4 mb-2">Response Generation Pipeline:</h4>
       <p>This pipeline generates responses from user input.</p>
-      <pre><code>class TextGenerationPipeline:
-  def __init__(self, max_length):
-      self.max_length = max_length
-      self.model = transformers.pipeline("text-generation", model="facebook/blenderbot-400M-distill")
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>class TextGenerationPipeline:
+    def __init__(self, max_length):
+        self.max_length = max_length
+        self.model = transformers.pipeline("text-generation", model="facebook/blenderbot-400M-distill")
 
-  def __call__(self, text):
-      return self.model(text, max_length=self.max_length, num_return_sequences=1)[0]['generated_text']</code></pre>
+    def __call__(self, text):
+        return self.model(text, max_length=self.max_length, num_return_sequences=1)[0]['generated_text']</code></pre>
+      </div>
       
       <h4 class="text-md mt-4 mb-2">Text to Speech:</h4>
       <p>It converts the bot’s generated text response into audio.</p>
-      <pre><code>def tts(text, language):
-  tts = gTTS(text=text, lang=language)
-  tts.save("response.mp3")
-  return "response.mp3"</code></pre>
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>def tts(text, language):
+    tts = gTTS(text=text, lang=language)
+    tts.save("response.mp3")
+    return "response.mp3"</code></pre>
+      </div>
       
       <h4 class="text-md mt-4 mb-2">Autoplay Audio in Gradio Web App:</h4>
       <p>Since Gradio does not have a built-in function to autoplay audio, we manipulate it with some HTML code tricks.</p>
-      <pre><code>def tts_to_bytesio(tts):
-  with open(tts, "rb") as f:
-      return f.read()
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>def tts_to_bytesio(tts):
+    with open(tts, "rb") as f:
+        return f.read()
 
 def html_audio_autoplay(audio):
-  audio_data = base64.b64encode(audio).decode()
-  return f'<audio controls autoplay><source src="data:audio/mpeg;base64,{audio_data}" type="audio/mpeg"></audio>'</code></pre>
+    audio_data = base64.b64encode(audio).decode()
+    return f'<audio controls autoplay><source src="data:audio/mpeg;base64,{audio_data}" type="audio/mpeg"></audio>'</code></pre>
+      </div>
       
       <h3 class="text-lg mt-4 mb-2">4. Define the Main Function</h3>
       <p>Combine all functionalities into a main function that processes user input and generates responses.</p>
-      <pre><code>max_answer_length = 100
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>max_answer_length = 100
 desired_language = "hi"
 response_generator_pipe = TextGenerationPipeline(max_length=max_answer_length)
 
 def main(audio: object) -> Tuple[str, str, str, object]:
-  user_speech_text = stt(audio, desired_language)
-  translated_text = to_en_translation(user_speech_text, desired_language)
-  bot_response_en = response_generator_pipe(translated_text)
-  bot_response_de = from_en_translation(bot_response_en, desired_language)
-  bot_voice = tts(bot_response_de, desired_language)
-  bot_voice_bytes = tts_to_bytesio(bot_voice)
-  html = html_audio_autoplay(bot_voice_bytes)
-  return user_speech_text, bot_response_de, bot_response_en, html</code></pre>
+    user_speech_text = stt(audio, desired_language)
+    translated_text = to_en_translation(user_speech_text, desired_language)
+    bot_response_en = response_generator_pipe(translated_text)
+    bot_response_de = from_en_translation(bot_response_en, desired_language)
+    bot_voice = tts(bot_response_de, desired_language)
+    bot_voice_bytes = tts_to_bytesio(bot_voice)
+    html = html_audio_autoplay(bot_voice_bytes)
+    return user_speech_text, bot_response_de, bot_response_en, html</code></pre>
+      </div>
       
       <h3 class="text-lg mt-4 mb-2">5. Build the Web Interface with Gradio</h3>
       <p>This Gradio interface includes one input and several output elements, as well as some options for controlling the behavior of the interface.</p>
-      <pre><code>Interface(
-  fn=main,
-  inputs=[Audio(type="filepath")],
-  outputs=[Textbox(label="You said: "),
-           Textbox(label="AI said (Hindi): "),
-           Textbox(label="AI said (English): "),
-           "html"],
-  live=True,
-  allow_flagging="never",
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>Interface(
+    fn=main,
+    inputs=[Audio(type="filepath")],
+    outputs=[Textbox(label="You said: "),
+             Textbox(label="AI said (Hindi): "),
+             Textbox(label="AI said (English): "),
+             "html"],
+    live=True,
+    allow_flagging="never",
 ).launch(share=True, debug=True)</code></pre>
+      </div>
   </div>
   
   <div>
@@ -172,35 +191,37 @@ def main(audio: object) -> Tuple[str, str, str, object]:
   
   <div>
       <h2 class="text-xl mb-4">Example Code</h2>
-      <pre><code>from gradio import Audio, Interface, Textbox
+      <div style="background-color: #2d2d2d; padding: 10px; border-radius: 5px; color: #f8f8f2;">
+        <pre><code>from gradio import Audio, Interface, Textbox
 from typing import Tuple
 from utils import (TextGenerationPipeline, from_en_translation,
-                 html_audio_autoplay, stt, to_en_translation, tts,
-                 tts_to_bytesio)
+                   html_audio_autoplay, stt, to_en_translation, tts,
+                   tts_to_bytesio)
 
 max_answer_length = 100
 desired_language = "hi"
 response_generator_pipe = TextGenerationPipeline(max_length=max_answer_length)
 
 def main(audio: object) -> Tuple[str, str, str, object]:
-  user_speech_text = stt(audio, desired_language)
-  translated_text = to_en_translation(user_speech_text, desired_language)
-  bot_response_en = response_generator_pipe(translated_text)
-  bot_response_de = from_en_translation(bot_response_en, desired_language)
-  bot_voice = tts(bot_response_de, desired_language)
-  bot_voice_bytes = tts_to_bytesio(bot_voice)
-  html = html_audio_autoplay(bot_voice_bytes)
-  return user_speech_text, bot_response_de, bot_response_en, html
+    user_speech_text = stt(audio, desired_language)
+    translated_text = to_en_translation(user_speech_text, desired_language)
+    bot_response_en = response_generator_pipe(translated_text)
+    bot_response_de = from_en_translation(bot_response_en, desired_language)
+    bot_voice = tts(bot_response_de, desired_language)
+    bot_voice_bytes = tts_to_bytesio(bot_voice)
+    html = html_audio_autoplay(bot_voice_bytes)
+    return user_speech_text, bot_response_de, bot_response_en, html
 
 Interface(
-  fn=main,
-  inputs=[Audio(type="filepath")],
-  outputs=[Textbox(label="You said: "),
-           Textbox(label="AI said (Hindi): "),
-           Textbox(label="AI said (English): "),
-           "html"],
-  live=True,
-  allow_flagging="never",
+    fn=main,
+    inputs=[Audio(type="filepath")],
+    outputs=[Textbox(label="You said: "),
+             Textbox(label="AI said (Hindi): "),
+             Textbox(label="AI said (English): "),
+             "html"],
+    live=True,
+    allow_flagging="never",
 ).launch(share=True, debug=True)</code></pre>
+      </div>
   </div>
 </div>

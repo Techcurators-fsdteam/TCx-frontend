@@ -110,7 +110,7 @@ function Learn() {
   const [visibleLiveCourses, setVisibleLiveCourses] = useState(3);
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
-  const {fetchUserDetails}=useUser();
+  const {fetchUserDetails,user}=useUser();
 
 
   useEffect(() => {
@@ -134,9 +134,9 @@ function Learn() {
         navigate("/login");
       } else {
         navigate(`/project/${pid}`, { state: { pid } });
-      }
     };
   };
+} 
   
 
   const loadMoreCourses = () => {

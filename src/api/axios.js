@@ -2,7 +2,7 @@ import axios from "axios";
 import { URL } from "./url";
 
 const apiClient = axios.create({
-  baseURL:  URL ,
+  baseURL: URL,
   withCredentials: true,
 });
 
@@ -94,7 +94,7 @@ export async function ResetPassword(email, password) {
 
 export async function getAllProjects() {
   try {
-    const response = await apiClient.get("/projects");
+    const response = await apiClient.get("/projects/projects");
     return response.data;
   } catch (error) {
     console.error("Error fetching all projects:", error);
@@ -104,10 +104,35 @@ export async function getAllProjects() {
 
 export async function getProjectByPid(pid) {
   try {
-    const response = await apiClient.get(`/projects/${pid}`);
+    const response = await apiClient.get(`/projects/projects/${pid}`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching project with pid ${pid}:`, error);
     throw error; // Rethrow to handle exceptions where this function is called
   }
 }
+
+export const submitProject = async (gradioLink, pid, username) => {
+  try {
+    const response = await apiClient.post("/projects/submit", {
+      gradioLink,
+      pid,
+      username,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    if (error.response) {
+      // Server responded with a status other than 200 range
+      return error.response;
+    } else if (error.request) {
+      // Request was made but no response received
+      console.error("Error request:", error.request);
+      throw new Error("No response from the server");
+    } else {
+      // Something happened in setting up the request
+      console.error("Error message:", error.message);
+      throw new Error(error.message);
+    }
+  }
+};

@@ -1,7 +1,10 @@
 // App.js
 import React from 'react';
+import { Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Hero from './components/Hero';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import Learn from './components/Learn';
 import Login from './components/Login';
 import Practicetest1 from './components/Practicetest1';
@@ -58,6 +61,7 @@ function App() {
       </Router>
       </GoogleOAuthProvider>
       <CustomCursor /> {/* Add the Custom Cursor Component */}
+      <ToastContainer />
     </>
   );
 }

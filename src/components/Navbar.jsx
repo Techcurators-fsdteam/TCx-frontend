@@ -158,6 +158,7 @@ function Navbar() {
           {dropdownOpen && (
             <div className="absolute right-0 mt-12 w-48 bg-black text-white rounded-lg shadow-xl z-10">
               <div className="py-1">
+                <p className="ml-[30%]">Stars: {user.stars} ⭐</p>
                 <button
                   onClick={handleProfile}
                   className="w-full px-4 py-2 text-left text-sm hover:bg-gray-700 focus:outline-none"

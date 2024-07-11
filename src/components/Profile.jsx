@@ -78,7 +78,7 @@ function Profile() {
                     {user.firstName} {user.lasName}
                   </p>
                   <p className="text-sm md:text-base mb-1 ml-2">
-                    @{user.username}
+                    @{user.email.split("@")[0]}
                   </p>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getQues, getQuestions, submitAnswers } from "../api/axios";
 import { useUser } from "../store/UserContext";
+import BouncingDotsLoader from "./Loaders/Bouncing";
 
 export default function Test(props) {
   const location = useLocation();
@@ -11,35 +12,36 @@ export default function Test(props) {
   const [currIndex, setCurrIndex] = useState(0);
   const [finish, setFinish] = useState(false);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
-  const [clearDisabled, setClearDisabled] = useState(true); // Initially clear button is disabled
+  const [clearDisabled, setClearDisabled] = useState(true);
   const [timeLeft, setTimeLeft] = useState(300); // 300 seconds (5 minutes)
   const [timerRunning, setTimerRunning] = useState(true);
-  const { fName, lName, domain,experience,testId } = location.state || {};
+  const { fName, lName, domain, experience, testId } = location.state || {};
   const [score, setScore] = useState(0);
-  const {user,setAppData}=useUser();
-  const [testid,setTestId]=useState()
-  
+  const { user, setAppData } = useUser();
+  const [testid, setTestId] = useState();
+  const [loading, setLoading] = useState(false)
+
 
   useEffect(() => {
-    if(fName && lName && testId){
-      console.log(fName,lName,testId)
-        async function fetchData(){
-          try{
-            const data=await getQuestions(testId);
-            console.log(data)
-            setQues(data.selectedQuestions)
-            setTimeLeft(data.duration*60)
-            setTestId(data.testId)
-            setSelectedAnswers(Array(data.selectedQuestions.length).fill(""));
-          }
-          catch(err){
-            alert(err)
-          }
+    if (fName && lName && testId) {
+
+      async function fetchData() {
+        try {
+          const data = await getQuestions(testId);
+          console.log(data)
+          setQues(data.selectedQuestions)
+          setTimeLeft(data.duration * 60)
+          setTestId(data.testId)
+          setSelectedAnswers(Array(data.selectedQuestions.length).fill(""));
         }
-        fetchData();
-        
+        catch (err) {
+          alert(err)
+        }
+      }
+      fetchData();
+
     }
-    else if(domain && experience){
+    else if (domain && experience) {
       async function fetchData() {
         try {
           if (fName && lName && domain && experience) {
@@ -59,13 +61,13 @@ export default function Test(props) {
           console.error("Error fetching data:", error);
         }
       }
-  
+
       fetchData();
     }
-    else{
+    else {
       alert("Invalid Input")
     }
-    
+
   }, [fName, lName, domain, experience]);
 
   useEffect(() => {
@@ -110,9 +112,9 @@ export default function Test(props) {
     return () => clearInterval(interval);
   }, [timerRunning, timeLeft]);
 
-  const handleFinalSubmit =async () => {
-    // console.log(selectedAnswers);
-    if(domain && experience){
+  const handleFinalSubmit = async () => {
+    setLoading(true)
+    if (domain && experience) {
       let calculatedScore = 0;
       for (let i = 0; i < selectedAnswers.length; i++) {
         if (selectedAnswers[i] === ques[i].answer) {
@@ -122,21 +124,21 @@ export default function Test(props) {
       setScore(calculatedScore);
       navigate("/result", { state: { fName, lName, score: calculatedScore } });
     }
-    else if(testId){
-      let answers=[]
-      for(let i=0;i<ques.length;i++){
-          const questionId=ques[i]._id;
-          const selectedOption=selectedAnswers[i];
-          const data={questionId,selectedOption};
-          answers.push(data);
+    else if (testId) {
+      let answers = []
+      for (let i = 0; i < ques.length; i++) {
+        const questionId = ques[i]._id;
+        const selectedOption = selectedAnswers[i];
+        const data = { questionId, selectedOption };
+        answers.push(data);
       }
-      const result=await submitAnswers(testid,answers,`${fName} ${lName}`)
+      const result = await submitAnswers(testid, answers, `${fName} ${lName}`,user.username)
       setAppData(result)
-      navigate('/testReport',{state:{ques:ques,answers:selectedAnswers}})
-      
-      
+      navigate('/testReport', { state: { ques: ques, answers: selectedAnswers } })
+
+
     }
-    
+    setLoading(false)
   };
 
   const next = () => {
@@ -223,75 +225,78 @@ export default function Test(props) {
       ); // Return null if testId is falsy
     }
   };
-  
+
 
   return (
     <>
-      {/* <Header /> */}
-      <div className="flex justify-center mt-24 w-full p-4">
-        <div className="w-full md:w-[80%] bg-white rounded-2xl p-20 relative">
-          <div className="absolute top-4 right-4">
-            <p className="text-black text-lg">
-              Time Remaining: {Math.floor(timeLeft / 60)}:
-              {timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}
-            </p>
+      {loading ?<BouncingDotsLoader/>: 
+      <>
+        {/* <Header /> */}
+        <div className="flex justify-center mt-24 w-full p-4">
+          <div className="w-full md:w-[80%] bg-white rounded-2xl p-20 relative">
+            <div className="absolute top-4 right-4">
+              <p className="text-black text-lg">
+                Time Remaining: {Math.floor(timeLeft / 60)}:
+                {timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}
+              </p>
+            </div>
+            {ques.length > 0 && (
+              <>
+                {renderQuestion(ques[currIndex], currIndex)}
+                {finish ? (
+                  <div className="flex justify-between">
+                    <button
+                      onClick={prev}
+                      className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                    >
+                      Previous
+                    </button>
+                    <div>
+                      <button
+                        onClick={handleClearSelection}
+                        className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                        disabled={clearDisabled}
+                      >
+                        Clear Selection
+                      </button>
+                      <button
+                        onClick={handleFinalSubmit}
+                        className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                      >
+                        {selectedAnswers[currIndex] ? "Submit" : "Skip and Submit"}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex justify-between">
+                    <button
+                      onClick={prev}
+                      className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                    >
+                      Previous
+                    </button>
+                    <div>
+                      <button
+                        onClick={handleClearSelection}
+                        className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                        disabled={clearDisabled}
+                      >
+                        Clear Selection
+                      </button>
+                      <button
+                        onClick={next}
+                        className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                      >
+                        {selectedAnswers[currIndex] ? "Next" : "Skip and Next"}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
           </div>
-          {ques.length > 0 && (
-            <>
-              {renderQuestion(ques[currIndex], currIndex)}
-              {finish ? (
-                <div className="flex justify-between">
-                  <button
-                    onClick={prev}
-                    className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                  >
-                    Previous
-                  </button>
-                  <div>
-                    <button
-                      onClick={handleClearSelection}
-                      className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                      disabled={clearDisabled}
-                    >
-                      Clear Selection
-                    </button>
-                    <button
-                      onClick={handleFinalSubmit}
-                      className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                    >
-                      {selectedAnswers[currIndex] ? "Submit" : "Skip and Submit"}
-                    </button>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex justify-between">
-                  <button
-                    onClick={prev}
-                    className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                  >
-                    Previous
-                  </button>
-                  <div>
-                    <button
-                      onClick={handleClearSelection}
-                      className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                      disabled={clearDisabled}
-                    >
-                      Clear Selection
-                    </button>
-                    <button
-                      onClick={next}
-                      className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                    >
-                      {selectedAnswers[currIndex] ? "Next" : "Skip and Next"}
-                    </button>
-                  </div>
-                </div>
-              )}
-            </>
-          )}
         </div>
-      </div>
+      </>}
     </>
   );
 }

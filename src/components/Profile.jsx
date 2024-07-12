@@ -48,7 +48,7 @@ function Profile() {
     <>
       <div className="video-background">
         <video autoPlay muted loop playsInline className="video-tag" src={profileBG} />
-          
+
       </div>
       <div className="flex justify-center text-center py-8">
         <div className="flex flex-wrap w-[90%] md:w-[80%] lg:w-[70%] z-10 xl:w-[70%] gap-4">
@@ -173,18 +173,26 @@ function Profile() {
                   Certificates
                 </p>
               </div>
-              <div className="flex flex-wrap justify-start gap-4">
-                <img
-                  src={cert1}
-                  alt="Certificate 1"
-                  className="h-32 w-32 sm:h-28 sm:w-28 md:h-24 md:w-24 lg:h-40 lg:w-40 rounded-md"
-                />
-                <img
-                  src={cert2}
-                  alt="Certificate 2"
-                  className="h-32 w-32 sm:h-28 sm:w-28 md:h-24 md:w-24 lg:h-40 lg:w-40 rounded-md"
-                />
-              </div>
+              {user.certificates && user.certificates.length > 0 ? (
+                <div className="flex flex-wrap justify-start gap-4">
+                  {user.certificates.map((cert, index) => (
+                    <a key={index} href={cert.link} target="_blank" rel="noopener noreferrer">
+                      <img
+                        src={cert.link} // Assuming certificate images are named by their IDs
+                        alt="Certificate"
+                        className="h-24 w-32 sm:h-20 sm:w-28 md:h-16 md:w-24 lg:h-28 lg:w-40 rounded-md"
+                      />
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center mt-4">
+                  <p>No certificates yet. Ready to earn one?</p>
+                  <Link to="/certify" className="text-[#FF7C1D] hover:text-[#FF7C1D]">
+                    Certify Now
+                  </Link>
+                </div>
+              )}
             </div>
 
             <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6 mb-4">

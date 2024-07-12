@@ -15,6 +15,7 @@
     "aos": "^2.3.4",
     "axios": "^1.7.2",
     "framer-motion": "^11.2.11",
+    "jspdf": "^2.5.1",
     "react": "^18.2.0",
     "react-components": "^0.5.1",
     "react-countup": "^6.5.3",

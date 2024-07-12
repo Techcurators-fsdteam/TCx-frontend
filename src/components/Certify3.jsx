@@ -2,15 +2,34 @@ import React from "react";
 // import Header from './Header';
 import Navbar from "./Navbar";
 import cert3 from "../assets/image container.svg";
+import jsPDF from "jspdf";
 import { useUser } from "../store/UserContext";
 import { Link } from "react-router-dom";
 
 function Certify3() {
-  const {getAppData}=useUser()
-  const {score,passed,cert}=getAppData();
+  const { getAppData } = useUser()
+  const { score, passed, certificateLink } = getAppData();
+  const cert=certificateLink;
+  const downloadPdf = () => {
+    // Create a new jsPDF instance
+    const doc = new jsPDF({
+      orientation: "portrait",
+      unit: "px",
+      format: [500, 500]
+    });
+
+    // Image URL or base64 string
+    const imageUrl = "path_to_your_image.jpg";
+
+    // Add image to PDF
+    doc.addImage(imageUrl, 'JPEG', 10, 10, 480, 480);
+
+    // Save the PDF
+    doc.save('download.pdf');
+  };
   return (
-    <>{passed?<>
-      
+    <>{passed ? <>
+
       {/* Header and Navbar */}
       <div className="flex items-center justify-center w-full mt-12">
         <Navbar />
@@ -27,9 +46,9 @@ function Certify3() {
             <p className="mb-6 text-xl md:mb-10">
               You have successfully passed the certification test.
             </p>
-            <Link to={cert} className="border-2 border-orange-600 text-orange-600 px-8 py-4 rounded-lg">
+            <button onClick={downloadPdf} className="border-2 border-orange-600 text-orange-600 px-8 py-4 rounded-lg">
               Download Certificate
-            </Link>
+            </button>
           </div>
 
           {/* Image Section */}
@@ -42,8 +61,8 @@ function Certify3() {
           </div>
         </div>
       </div>
-    </>:<>
-      
+    </> : <>
+
       {/* Header and Navbar */}
       <div className="flex items-center justify-center w-full mt-12">
         <Navbar />
@@ -76,7 +95,7 @@ function Certify3() {
         </div>
       </div>
     </>}</>
-    
+
   );
 }
 

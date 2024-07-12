@@ -52,12 +52,13 @@ export const getQuestions = async (testId) => {
   }
 };
 
-export const submitAnswers = async (testId, answers, name) => {
+export const submitAnswers = async (testId, answers, name, username) => {
   try {
     const response = await apiClient.post("/certify/submit-answers", {
       testId,
       answers,
       name,
+      username,
     });
     return response.data;
   } catch (error) {

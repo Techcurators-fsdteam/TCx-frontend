@@ -166,8 +166,8 @@ function Learn() {
 
       <div className="flex justify-center w-full">
         <div className="w-[90%] mt-4 sm:mt-8 md:mt-10 text-white">
-          <ul className="flex flex-col sm:flex-row justify-evenly items-center font-semibold text-base sm:text-lg md:text-xl">
-            <li className="py-2 sm:py-0 sm:px-4 hover:text-[#FF7C1D] transition-colors duration-300 cursor-pointer">
+          <ul className="flex flex-col sm:flex-row justify-evenly items-center font-semibold text-base sm:text-lg md:text-2xl">
+            <li className="py-4 learnNav sm:py-0 sm:px-4 md:px-0 hover:text-[#FF7C1D]  transition-colors duration-300 cursor-pointer">
               <Link
                 to="coursesSection"
                 smooth={true}
@@ -178,7 +178,7 @@ function Learn() {
               </Link>
             </li>
 
-            <li className="py-2 sm:py-0 sm:px-4 hover:text-[#FF7C1D] transition-colors duration-300 cursor-pointer">
+            <li className="py-4 learnNav sm:py-0 sm:px-4 md:px-0 hover:text-[#FF7C1D]  transition-colors duration-300 cursor-pointer">
               <Link
                 to="projectsSection"
                 smooth={true}
@@ -189,7 +189,7 @@ function Learn() {
               </Link>
             </li>
 
-            <li className="py-2 sm:py-0 sm:px-4 hover:text-[#FF7C1D] transition-colors duration-300 cursor-pointer">
+            <li className="py-6 learnNav sm:py-0 sm:px-4 md:px-0 hover:text-[#FF7C1D]  transition-colors duration-300 cursor-pointer">
               <Link to="testsSection" smooth={true} duration={500} offset={-50}>
                 Practice Test
               </Link>

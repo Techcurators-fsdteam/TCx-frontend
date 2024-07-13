@@ -71,7 +71,7 @@ function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-[100vw] flex items-center justify-between md:h-16 h-fit bg-black px-2 md:px-4 z-50 transition duration-300 ${
+      className={`fixed top-0 left-0 w-[100vw] flex items-center justify-between md:h-16 h-fit bg-black px-2 md:px-8 z-50 transition duration-300 ${
         isScrolled ? "bg-opacity-70 backdrop-blur-md" : ""
       }`}
     >

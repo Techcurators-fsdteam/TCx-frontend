@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import AOS from "aos";
+import Footercard from "./Footercard.jsx";
 import "aos/dist/aos.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -20,60 +21,7 @@ import amazon from "../assets/logos_amazon.svg";
 import sap from "../assets/logos_sap.svg";
 import tc from "../assets/logos_tc.svg";
 import ts from "../assets/logos_transc.svg";
-
-const questionsAndAnswers = [
-  {
-    question: "Ace your AI game?",
-    answer:
-      "Our Generative AI and machine learning courses are skill-based and packed with real-world resources, putting you in the driver seat to implement AI concepts effectively.",
-  },
-  {
-    question: "Make AI applications?",
-    answer:
-      "Immerse yourself in AI-focused live projects and gain hands-on experience by working on real-world applications.",
-  },
-  {
-    question: "Become an AI Expert?",
-    answer: "Test your GenAI proficiency in 19 mins",
-  },
-  {
-    question: "Connect with AI Enthusiasts?",
-    answer:
-      "Being part of a community makes learning more fun and effective.",
-  },
-];
-
-const Card = ({ question, answer, isHovered, setHoveredIndex, index }) => {
-  return (
-    <div
-      data-aos="fade-up"
-      data-aos-duration="1000"
-      className={`relative flex flex-col items-center justify-center bg-gradient-to-r from-orange-500 via-black to-black text-white border border-gray-500 rounded-xl p-4 h-96 w-80 transition-transform duration-300 transform ${
-        isHovered === index ? "scale-95 z-10" : "scale-90"
-      } shadow-lg`}
-      onMouseEnter={() => setHoveredIndex(index)}
-      onMouseLeave={() => setHoveredIndex(null)}
-    >
-      <div
-        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
-          isHovered === index ? "opacity-0" : "opacity-100"
-        } p-4`} // Added padding here
-      >
-        <p className="text-lg text-center">{question}</p>
-      </div>
-      <div
-        className={`absolute inset-0 flex flex-col items-center justify-center transition-opacity duration-300 ${
-          isHovered === index ? "opacity-100" : "opacity-0"
-        } p-4`} // Added padding here
-      >
-        <p className="text-lg text-center">{answer}</p>
-        <button className="mt-4 bg-white text-black rounded-xl py-2 px-4 shadow-md hover:bg-gray-200 transition-all duration-300">
-          Learn More
-        </button>
-      </div>
-    </div>
-  );
-};
+import anm from "../assets/anm.webm";
 
 const settings = {
   infinite: true,
@@ -137,6 +85,34 @@ const FadeInSection = ({ children }) => {
   );
 };
 
+const Card = ({ question, answer }) => {
+  return (
+    <div
+      className="group relative block h-64 sm:h-80 lg:h-96 mb-20"
+      data-aos="fade-up"
+      data-aos-duration="1000"
+    >
+      <span className="absolute inset-0 border-2 rounded-lg border-dashed border-gray-500"></span>
+      <div className="absolute inset-0 z-0">
+        <video
+          src={anm}
+          autoPlay
+          loop
+          muted
+          className="w-full h-full object-cover rounded-lg"
+        />
+      </div>
+      <div className="relative justify-center items-center flex h-full transform text-white border-2 border-black rounded-lg bg-gray-800 backdrop-blur-md bg-opacity-50 transition-transform ">
+        <div className="p-4 !pt-0 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center">
+          <h2 className="mt-4 text-xl font-medium sm:text-2xl">{question}</h2>
+          <p className="mt-4 text-sm sm:text-base">{answer}</p>
+          <p className="mt-8 font-bold cursor-pointer">Learn More</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 function Hero() {
   useEffect(() => {
     AOS.init();
@@ -160,7 +136,27 @@ function Hero() {
     "Coming from the house of TechCurators, a TC Group of companies bringing knowledge and expertise of 15000+ professionals making you job-ready every minute of the year.",
   ];
 
-  const [hoveredIndex, setHoveredIndex] = useState(null);
+  const questionsAndAnswers = [
+    {
+      question: "Ace your AI game?",
+      answer:
+        "Our Generative AI and machine learning courses are skill-based and packed with real-world resources, putting you in the driver seat to implement AI concepts effectively.",
+    },
+    {
+      question: "Make AI applications?",
+      answer:
+        "Immerse yourself in AI-focused live projects and gain hands-on experience by working on real-world applications.",
+    },
+    {
+      question: "Become an AI Expert?",
+      answer: "Test your GenAI proficiency in 19 mins",
+    },
+    {
+      question: "Connect with AI Enthusiasts?",
+      answer:
+        "Being part of a community makes learning more fun and effective.",
+    },
+  ];
 
   return (
     <>
@@ -286,10 +282,7 @@ function Hero() {
                         </p>
                         <p className="text-4xl font-extrabold md:text-5xl">
                           <span className="flex items-center">
-                            <Statistic
-                              formatter={formatter}
-                              value={m.stat}
-                            />
+                            <Statistic formatter={formatter} value={m.stat} />
                             +{" "}
                           </span>
                         </p>
@@ -433,17 +426,10 @@ function Hero() {
         </div>
       </div>
 
-      <div className="min-h-screen bg-black flex items-center justify-center p-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="hidden md:block">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto p-8">
           {questionsAndAnswers.map((qa, index) => (
-            <Card
-              key={index}
-              index={index}
-              question={qa.question}
-              answer={qa.answer}
-              isHovered={hoveredIndex}
-              setHoveredIndex={setHoveredIndex}
-            />
+            <Card key={index} question={qa.question} answer={qa.answer} />
           ))}
         </div>
       </div>
@@ -464,11 +450,23 @@ function Hero() {
         </Marquee>
       </div>
 
-      <div className="flex justify-center w-full mt-28 mb-20">
+      
+
+      {/* <div className="flex justify-center items-center h-screen bg-black overflow-hidden">
+        <video
+          src={women}
+          autoPlay
+          loop
+          muted
+          className=" top-0 left-0 w-[80%] rounded-2xl h-[80%] object-cover"
+        />
+      </div> */}
+        <div className="bg-black">
+        <div className="flex justify-center w-full mt-28 mb-20">
         <FadeInSection>
           <div className="flex flex-col justify-center lg:flex-row w-[90%] mx-auto gap-4 lg:gap-0">
             <div className="flex flex-col text-center justify-center items-center ">
-              <p className="text-3xl text-white sm:text-4xl md:text-5xl text-center ">
+              <p className="text-3xl text-white text-light sm:text-4xl md:text-5xl text-center ">
                 Future-proof your career today
               </p>
               <p className="font-light text-gray-500 text-lg sm:text-xl md:text-2xl lg:text-xl text-center mt-4">
@@ -482,16 +480,12 @@ function Hero() {
           </div>
         </FadeInSection>
       </div>
+        <Footercard />
+        </div>
+        
 
-      <div className="flex justify-center items-center h-screen bg-black overflow-hidden">
-        <video
-          src={women}
-          autoPlay
-          loop
-          muted
-          className=" top-0 left-0 w-[80%] rounded-2xl h-[80%] object-cover"
-        />
-      </div>
+        
+      
       <Footer />
     </>
   );

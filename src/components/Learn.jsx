@@ -185,13 +185,13 @@ function Learn() {
                 duration={500}
                 offset={-50}
               >
-                Live projects
+                Live Projects
               </Link>
             </li>
 
             <li className="py-2 sm:py-0 sm:px-4 hover:text-[#FF7C1D] transition-colors duration-300 cursor-pointer">
               <Link to="testsSection" smooth={true} duration={500} offset={-50}>
-                Practice test
+                Practice Test
               </Link>
             </li>
           </ul>
@@ -269,10 +269,10 @@ function Learn() {
         id="projectsSection"
         className="text-[#FF7C1D] flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20"
       >
-        <div className="flex w-full max-w-screen-xl justify-end items-end text-right md:px-6 lg:px-4 px-8">
+        <div className="flex w-full max-w-screen-xl lg:px-0 px-8">
           <div>
             <p className="text-2xl  sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">
-              Live projects
+              Live Projects
             </p>
             <p className="text-white text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
               Gain deeper insights with ai-driven analytics that{" "}
@@ -328,10 +328,10 @@ function Learn() {
         id="testsSection"
         className="text-[#FF7C1D] flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20 mb-10"
       >
-        <div className="flex flex-col md:flex-row w-full max-w-screen-xl items-start md:items-center gap-6 md:gap-8 lg:gap-10">
+        <div className="flex-row sm:flex w-full max-w-screen-xl flex-wrap lg:px-0 px-8">
           <div className="flex-1">
             <p className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">
-              Practice test
+              Practice Test
             </p>
             <p className="text-white text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
               Benefit from practice tests that adapt to your learning{" "}
@@ -339,7 +339,7 @@ function Learn() {
               pace and focus on areas needing improvement.
             </p>
           </div>
-          <div>
+          <div className="flex">
             <Li
               to="/Practicetest1"
               className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4 md:mt-0 self-center md:self-start"

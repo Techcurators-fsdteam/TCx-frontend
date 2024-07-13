@@ -60,10 +60,10 @@ const text="Master countless skills, endless assessments and real-world projects
             );
           })}
         </p>
-        {/* <p className=" sm:text-lg md:text-lg lg:text-xl xl:text-2xl text-gray-500 max-w-prose">
+        <p className=" sm:text-lg md:text-lg lg:text-xl xl:text-2xl text-gray-500 max-w-prose">
         Step into the future with the world's first GenAI upskilling platform, designed to make you job-ready. Whether you're a beginner or an experienced professional, TCx offers resources that guide you through building, training, and implementing advanced AI models.
-        </p> */}
-        <div className="relative w-[88%] bg-black opacity-80 border border-transparent rounded-xl p-4 gradient-border">
+        </p>
+        {/* <div className="relative w-[88%] bg-black opacity-80 border border-transparent rounded-xl p-4 gradient-border">
   <Marquee>
     <img src={one} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
     <img src={two} className="h-16 w-16 border border-gray-500 p-2 rounded-xl mx-6" style={{ borderWidth: '0.5px' }}></img>
@@ -112,7 +112,7 @@ const text="Master countless skills, endless assessments and real-world projects
       bottom: 0;
     }
   `}</style>
-</div>
+</div> */}
 
      
       </div>

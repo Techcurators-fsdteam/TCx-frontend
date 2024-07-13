@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Split from "react-split";
 import Navbar from "./Navbar";
 import { getProjectByPid } from "../api/axios";
 import { useParams } from "react-router-dom";
@@ -84,8 +85,19 @@ const Editor = () => {
         <Navbar />
       </div>
       <div className="flex justify-center items-center h-screen bg-black text-white">
-        <div className="flex flex-row w-full h-full">
-          <div className="flex flex-1 flex-col bg-gray-900 p-4">
+        <Split
+          sizes={[50, 50]}
+          minSize={100}
+          expandToMin={false}
+          gutterSize={10}
+          gutterAlign="center"
+          snapOffset={30}
+          dragInterval={1}
+          direction="horizontal"
+          cursor="col-resize"
+          className="flex w-full h-full"
+        >
+          <div className="flex flex-1 flex-col bg-gray-900 p-4 overflow-auto">
             <div
               className="text-white mt-20 h-[80vh] overflow-y-scroll"
               dangerouslySetInnerHTML={{ __html: htmlContent }}
@@ -114,8 +126,7 @@ const Editor = () => {
               sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
             ></iframe>
           </div>
-
-        </div>
+        </Split>
       </div>
     </>
   );

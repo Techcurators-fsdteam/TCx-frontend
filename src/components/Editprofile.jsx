@@ -33,8 +33,8 @@ const countryCodes = [
 ];
 
 
-function EditProfileForm({profile,onClose}) {
-  const {user,fetchUserDetails}=useUser()
+function EditProfileForm({ profile, onClose }) {
+  const { user, fetchUserDetails } = useUser()
   // const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [country, setCountry] = useState('');
@@ -54,12 +54,12 @@ function EditProfileForm({profile,onClose}) {
     event.preventDefault();
 
     const data = {
-      username:user.username,
+      username: user.username,
       phone,
       location: `${state},${country}`,
-      
+
     };
-   
+
 
     try {
       const response = await axios.post(`${URL}/profile/profile`, data);
@@ -67,7 +67,7 @@ function EditProfileForm({profile,onClose}) {
       if (response.status === 201) {
         console.log('Profile data updated successfully');
 
-        
+
         // Handle success (e.g., show a notification, redirect, etc.)
       } else {
         console.error('Failed to update profile data', response);
@@ -82,17 +82,17 @@ function EditProfileForm({profile,onClose}) {
   };
 
   return (
-    <div className='flex justify-center text-center px-4'>
-      <div className='w-full md:w-[80%] lg:w-[60%] xl:w-[50%] bg-[#1F202A] mt-10 rounded-xl p-6'>
-        <div className='w-full'>
+    <div className='flex justify-center text-center w-[400px]'>
+      <div className='w-full flex justify-center items-center md:w-[100%] lg:w-[100%] xl:w-[100%] bg-[#1F202A] mt-10 rounded-xl p-6'>
+        <div className='w-full flex flex-col items-center'>
           <div className='flex justify-between items-center mb-6'>
             <p className='text-lg sm:text-xl md:text-2xl font-extralight text-[#FF7C1D]'>
               Edit Your Profile
             </p>
           </div>
-          
+
           <form className='space-y-4' onSubmit={handleSubmit}>
-           
+
 
             {/* Phone Number */}
             <div className='flex flex-col text-left'>
@@ -100,28 +100,29 @@ function EditProfileForm({profile,onClose}) {
               <div className='flex space-x-2'>
                 <select
                   id='country-code'
-                  className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
+                  className='p-2 rounded-md  bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D]'
                   onChange={handleCountryCodeChange}
                 >
                   {countryCodes.map(({ code, country }) => (
                     <option key={code} value={code}>{code} {country}</option>
                   ))}
                 </select>
-                <input
+                
+              </div>
+              <input
                   type='tel'
                   required
                   id='phone'
                   maxLength={10}
-                  className='flex-grow p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
+                  className='flex-grow p-2 mt-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
                   placeholder='Enter your phone number'
                   value={phone}
                   onChange={handlePhoneChange}
                 />
-              </div>
             </div>
 
-             {/* state */}
-             <div className='flex flex-col text-left'>
+            {/* state */}
+            <div className='flex flex-col text-left'>
               <label className='text-white mb-2 text-xl' htmlFor='state'>State</label>
               <input
                 type='text'
@@ -148,7 +149,7 @@ function EditProfileForm({profile,onClose}) {
               />
             </div>
 
-           
+
 
             {/* Submit Button */}
             <div className='flex justify-center mt-6'>

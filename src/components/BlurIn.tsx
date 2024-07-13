@@ -15,8 +15,8 @@ interface BlurIntProps {
 
 const BlurIn = ({ word, className, variant, duration = 2 }: BlurIntProps) => {
   const { ref, inView } = useInView({
-    threshold: 0.1, // Adjust this value as needed
-    triggerOnce: true, // Trigger animation only once
+    threshold: 0.3, 
+    triggerOnce: false, 
   });
 
   const defaultVariants = {

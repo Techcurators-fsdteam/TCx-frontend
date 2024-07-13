@@ -50,14 +50,14 @@ function CertificationPage() {
               Take your test
             </button>
           </div>
-          <div className="flex-1 flex justify-center items-center mt-6 md:mt-0">
+          <div className="flex-1 flex justify-end items-end mt-6 md:mt-0">
             <img src={cert2pic} alt="Certification Illustration" className="w-full max-w-sm md:max-w-md lg:max-w-lg" />
           </div>
         </div>
       </div>
 
       <div className="bg-[#111827] py-10">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Left Column: Heading */}
           <div className="flex flex-col justify-center">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium text-white">

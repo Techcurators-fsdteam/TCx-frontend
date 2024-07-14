@@ -102,13 +102,12 @@ const Footercard = () => {
           id={`card-${index}`}
           className={`card ${isSticky ? 'sticky top-12' : 'relative'}`}
           style={{
-            height: '100vh',
+            height: '95vh',
           }}
         >
-          <div className="mx-auto h-[100%]" style={{ width: '90%' }}>
-            <div className="grid grid-cols-1 bg-white p-10 rounded-[2rem] lg:grid-cols-10 gap-4 h-full"
-            >
-              <div className="relative z-10 lg:col-span-3">
+          <div className="mx-auto h-full w-[90%] p-4 sm:p-8 lg:p-10">
+            <div className="grid grid-cols-1 bg-white p-6 rounded-[2rem] xl:grid-cols-10 gap-4 h-full">
+              <div className="relative z-10 lg:col-span-3 hidden xl:block">
                 <div className="absolute inset-0">
                   <img
                     alt=""
@@ -118,16 +117,16 @@ const Footercard = () => {
                 </div>
               </div>
 
-              <div className="relative flex  rounded-[2rem] bg-white lg:col-span-7">
-                <div className="p-16 sm:p-24 lg:p-32 w-full" style={{ lineHeight: '2' }}>
+              <div className="relative flex items-center rounded-[2rem] bg-white lg:col-span-7" style={{ minHeight: '100%' }}>
+                <div className="p-6 sm:p-12 lg:p-16 w-full" style={{ lineHeight: '2' }}>
                   <h2 className="text-xl text-orange-500 font-bold sm:text-2xl">
                     {card.mainHeading}
                   </h2>
-                  <h3 className="mt-2 text-5xl font-semibold text-black">
+                  <h3 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-semibold text-black">
                     {card.subHeading}
                   </h3>
-                  <p className="mt-4 text-gray-600 text-xl">{card.paragraph}</p>
-                  <ul className="mt-4 text-gray-600 text-xl list-disc list-inside">
+                  <p className="mt-4 text-gray-600 text-lg sm:text-xl">{card.paragraph}</p>
+                  <ul className="mt-4 text-gray-600 text-lg sm:text-xl list-disc list-inside">
                     {card.points.map((point, idx) => (
                       <li key={idx}>{point}</li>
                     ))}

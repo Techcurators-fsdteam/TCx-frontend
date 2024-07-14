@@ -17,6 +17,7 @@
     "framer-motion": "^11.2.11",
     "gsap": "^3.12.5",
     "jspdf": "^2.5.1",
+    "pdfmake": "^0.2.10",
     "react": "^18.2.0",
     "react-components": "^0.5.1",
     "react-countup": "^6.5.3",
@@ -33,6 +34,7 @@
     "react-split": "^2.0.14",
     "react-toastify": "^10.0.5",
     "react-type-animation": "^3.2.0",
+    "rollup": "^4.18.1",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.11"
   },

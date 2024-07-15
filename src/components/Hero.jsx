@@ -1,3 +1,4 @@
+import Spline from '@splinetool/react-spline';
 import React, { useEffect } from "react";
 import AOS from "aos";
 import Footercard from "./Footercard.jsx";
@@ -162,28 +163,48 @@ function Hero() {
     <>
       <Navbar />
       <div className="relative flex justify-center items-center h-screen bg-black overflow-hidden">
-        <video
+        {/* <video
           src={herovid}
           autoPlay
           loop
           muted
           className="absolute top-0 left-0 w-full h-full object-cover"
-        />
+        /> */}
+        {/* <Spline className='absolute top-0 left-0 w-full h-full object-cover' scene="https://prod.spline.design/N0RNwqcLY81zWZ7Q/scene.splinecode" /> */}
 
-        <div className="relative z-10 flex flex-col justify-center items-center md:items-start text-center md:text-left w-full h-full px-8 md:px-16 lg:px-32">
-          <div className="py-6 mt-16 md:mt-8 text-center md:text-left">
+        {/* <Spline className='absolute top-0 left-0 w-full h-full object-cover' scene="https://prod.spline.design/jMuduscGafjvcL2c/scene.splinecode" /> */}
+
+        {/* <Spline className='absolute top-0 left-0 w-full h-full object-cover' scene="https://prod.spline.design/TiVz3FjdpCRKxR9x/scene.splinecode" /> */}
+
+        <Spline className='absolute top-0 left-0 w-full h-full object-cover' scene="https://prod.spline.design/Nnyj7pOjYRurGASD/scene.splinecode" />
+
+
+        <div className="relative z-10 flex flex-col justify-center items-center  text-center  w-full h-full px-8 md:px-16 lg:px-32">
+          {/* <div className=" mt-16 md:mt-8 text-center md:text-left">
             <TypeAnimation
               sequence={["Become an AI Prodigy", 2000, "", 1000]}
               wrapper="span"
               speed={20}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500"
+              className="text-4xl md:text-5xl lg:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500"
               repeat={Infinity}
             />
-          </div>
-          <p className="text-gray-200 text-2xl md:text-3xl mt-4 md:mt-6 lg:mt-8">
-            Don’t just be a professional, <br />
+            
+          </div> */}
+          <div
+            // className="fade-in-up"
+            data-aos="fade-up"
+            data-aos-duration="2000"
+          >
+            <p className="text-4xl p-4 md:text-5xl lg:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500">
+              Become an AI Prodigy
+            </p>
+            <p className="text-gray-300 text-2xl md:text-3xl mt-4 ">
+              Don’t just be a professional,
+            </p>
+            <p className="text-gray-300 text-2xl md:text-3xl mt-4 ">
             Be an AI Professional.
-          </p>
+            </p>
+          </div>
           <div>
             <a
               href="#"
@@ -213,6 +234,21 @@ function Hero() {
                 }
                 100% {
                   left: 150%;
+                }
+              }
+              .fade-in-up {
+                opacity: 0;
+                animation: fadeInUp 1s forwards;
+              }
+
+              @keyframes fadeInUp {
+                0% {
+                  opacity: 0;
+                  transform: translateY(20px);
+                }
+                100% {
+                  opacity: 1;
+                  transform: translateY(0);
                 }
               }
             `}</style>
@@ -437,20 +473,43 @@ function Hero() {
       <SliderSection />
 
       <div className="relative flex flex-col items-center mt-12 mb-20">
-        <h2 className="text-gray-500 text-2xl md:text-4xl font-semibold mb-6">
-          Our Learners work at world class companies
-        </h2>
-        <Marquee speed={50} gradient={false} className="w-full">
-          <img src={microsoft} alt="Microsoft" className="h-48 w-48 mx-6" />
-          <img src={google} alt="Google" className="h-48 w-48 mx-6" />
-          <img src={amazon} alt="Amazon" className="h-16 w-48 mx-6" />
-          <img src={sap} alt="SAP" className="h-40 w-48 mx-6" />
-          <img src={tc} alt="TC" className="h-40 w-48 mx-6" />
-          <img src={ts} alt="TS" className="h-40 w-48 mx-6" />
-        </Marquee>
-      </div>
+  <h2 className="text-gray-500 text-2xl md:text-4xl font-semibold mb-6 text-center">
+    Our Learners work at world class companies
+  </h2>
+  <Marquee speed={50} gradient={false} className="w-full">
+    <img
+      src={microsoft}
+      alt="Microsoft"
+      className="h-24 w-24 sm:h-48 sm:w-48 mx-2 sm:mx-6"
+    />
+    <img
+      src={google}
+      alt="Google"
+      className="h-24 w-24 sm:h-48 sm:w-48 mx-2 sm:mx-6"
+    />
+    <img
+      src={amazon}
+      alt="Amazon"
+      className="h-8 w-24 sm:h-16 sm:w-48 mx-2 sm:mx-6"
+    />
+    <img
+      src={sap}
+      alt="SAP"
+      className="h-20 w-24 sm:h-40 sm:w-48 mx-2 sm:mx-6"
+    />
+    <img
+      src={tc}
+      alt="TC"
+      className="h-20 w-24 sm:h-40 sm:w-48 mx-2 sm:mx-6"
+    />
+    <img
+      src={ts}
+      alt="TS"
+      className="h-20 w-24 sm:h-40 sm:w-48 mx-2 sm:mx-6"
+    />
+  </Marquee>
+</div>
 
-      
 
       {/* <div className="flex justify-center items-center h-screen bg-black overflow-hidden">
         <video
@@ -479,6 +538,8 @@ function Hero() {
             </div>
           </div>
         </FadeInSection>
+        
+
       </div>
         <Footercard />
         </div>

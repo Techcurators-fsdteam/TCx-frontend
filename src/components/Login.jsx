@@ -43,7 +43,9 @@ function Login() {
     axios
       .post(`${URL}/auth/googleLogin`, profile)
       .then((res) => {
-        document.cookie = `token=${res.data.accessToken};  path=/`;
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (24 * 60 * 60 * 1000));
+        document.cookie = `token=${res.data.accessToken}; expires=${expires.toUTCString()};  path=/`;
         navigate("/");
       })
       .then(() => fetchUserDetails());
@@ -74,7 +76,9 @@ function Login() {
     login(data)
       .then((res) => {
         if (res.token !== undefined) {
-          document.cookie = `token=${res.token};  path=/`;
+          const expires = new Date();
+          expires.setTime(expires.getTime() + (24 * 60 * 60 * 1000));
+          document.cookie = `token=${res.token};  expires=${expires.toUTCString()};  path=/`;
           navigate("/");
         }
       })

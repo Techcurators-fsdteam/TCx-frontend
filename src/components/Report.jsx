@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 const Report = () => {
   const location = useLocation();
   const { ques, answers } = location.state;
-  console.log(ques, answers);
   return (
     <section className="flex flex-col w-full justify-center ">
       {ques.map((question, index) => (
@@ -20,7 +19,7 @@ const Report = () => {
 };
 
 const RenderQuestion = ({ question, answers, index }) => {
-  console.log(answers);
+  
   return (
     <div
       key={index}
@@ -34,9 +33,8 @@ const RenderQuestion = ({ question, answers, index }) => {
         {question.options.map((option, optionIndex) => (
           <div
             key={optionIndex}
-            className={`flex items-center px-4 rounded-2xl text-xl ${
-              option.isCorrect ? "bg-green-700" : ""
-            }`}
+            className={`flex items-center px-4 rounded-2xl text-xl ${option.isCorrect ? "bg-green-700" : ""
+              }`}
           >
             <input
               type="radio"

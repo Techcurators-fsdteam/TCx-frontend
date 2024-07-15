@@ -2,14 +2,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-:root{
+
+:root {
   background-color: black;
   font-family: "Lexend", sans-serif;
+  cursor: auto;
 }
+
+body::-webkit-scrollbar{
+  width: 12px;
+}
+body::-webkit-scrollbar-track{
+  background: transparent;
+    border-radius: 10px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+  border: 3px solid #2a2a2a;
+}
+
+.learnNav {
+  border: none;
+  position: relative;
+  color: #f8f8f8;
+  cursor: pointer;
+  padding-bottom: 20px;
+  /* font-size: 2rem; */
+}
+
+.learnNav:hover {
+  border: none !important;
+}
+
+.learnNav:hover {
+  border-bottom: 5px solid #FF7C1D;
+}
+
+.learnNav::after {
+  content: '';
+  position: absolute;
+  width: 0px;
+  height: 5px;
+  left: 0;
+  bottom: -10%;
+  background-color: #FF7C1D;
+
+  transition: all ease-in-out .2s;
+}
+
+.learnNav:hover::after {
+  width: 100%;
+  left: 0;
+  bottom: -10%;
+}
+
 .tooltip {
   position: absolute;
-  background-color: #000; 
-  color: #fff;           
+  background-color: #000;
+  color: #fff;
   text-align: center;
   padding: 5px 10px;
   border-radius: 6px;
@@ -25,9 +76,11 @@
 .glowing-border:focus {
   box-shadow: 0 0 2px #f97316, 0 0 4px #f97316, 0 0 6px #f97316;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 /* CSS for the Glare Animation */
 .glare-effect {
   position: relative;
@@ -44,13 +97,14 @@ html {
   background: rgba(255, 255, 255, 0.3);
   transform: rotate(45deg);
   transition: all 0.3s ease-in-out;
-  animation: glare 2s infinite linear; 
+  animation: glare 2s infinite linear;
 }
 
 @keyframes glare {
   0% {
     transform: translate(-100%, -50%) rotate(45deg);
   }
+
   100% {
     transform: translate(100%, 50%) rotate(45deg);
   }
@@ -59,11 +113,13 @@ html {
 .glare-effect:hover {
   box-shadow: 0 0 15px rgba(214, 255, 60, 0.6);
 }
+
 /* index.css */
 @keyframes neon {
   0% {
     box-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14, 0 0 80px #39ff14, 0 0 160px #39ff14;
   }
+
   100% {
     box-shadow: 0 0 15px #39ff14, 0 0 30px #39ff14, 0 0 60px #39ff14, 0 0 80px #39ff14, 0 0 100px #39ff14, 0 0 200px #39ff14;
   }
@@ -77,25 +133,14 @@ html {
 
 
 
- .video-background {
-  position: fixed;
-  top: -4px;
-  right: 0;
-  bottom: 0;
-  left: 0;
+.starry-background {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: black;
   overflow: hidden;
-  z-index: 1; 
-} 
-.video-background::before {
-  content: ''; /* Necessary to display the pseudo-element */
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7); /* Black with 50% opacity */
-  z-index: 2; /* Ensure this is above the video but below the content if any */
 }
+
 
 /* styles.css */
 /* .orange-dotted-cursor {
@@ -134,8 +179,8 @@ html {
   z-index: 999;
   transform: translate(-50%, -50%);
   transition: transform 0.2s ease-out;
-} */ */
-
+} */
+*/
 /* Green neon effect when hovering over links or buttons 
 .cursor-dot.cursor-pointer {
   background-color: #D6FF3C;
@@ -152,6 +197,7 @@ html {
   0% {
     transform: translateX(100%);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -161,6 +207,7 @@ html {
   0% {
     transform: translateY(100%);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -204,7 +251,7 @@ html {
   align-items: center;
 }
 
-.bouncing-loader > div {
+.bouncing-loader>div {
   width: 32px;
   height: 32px;
   margin: 3px 6px;
@@ -222,11 +269,11 @@ html {
   }
 }
 
-.bouncing-loader > div:nth-child(2) {
+.bouncing-loader>div:nth-child(2) {
   animation-delay: 0.2s;
 }
 
-.bouncing-loader > div:nth-child(3) {
+.bouncing-loader>div:nth-child(3) {
   animation-delay: 0.4s;
 }
 

@@ -4,11 +4,13 @@ import profileBG from "../assets/profileBG.webm"
 import { RxCross2 as Cross } from "react-icons/rx";
 import { RiDeleteBin6Line as DeleteIcon } from "react-icons/ri";
 import { CiPhone } from "react-icons/ci";
+import { useRef } from "react";
 // import { FaCloudDownloadAlt } from "react-icons/fa";
 import { IoCloudDownload as FaCloudDownloadAlt } from "react-icons/io5";
 import { IoLocationOutline } from "react-icons/io5";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
+import gsap from "gsap";
 import cert1 from "../assets/cert1.svg";
 import cert2 from "../assets/cert2.svg";
 import certificate from "../assets/certificate.svg";
@@ -28,7 +30,7 @@ import AddSkill from "./AddSkills";
 
 function Profile() {
   const { user, fetchUserDetails } = useUser();
-
+  const starRef = useRef();
   const [isEducationModalOpen, setEducationModalOpen] = useState(false);
   const [isWorkModalOpen, setWorkModalOpen] = useState(false);
   const [isLinkModalOpen, setLinkModalOpen] = useState(false);
@@ -40,17 +42,53 @@ function Profile() {
     fetchUserDetails();
   }, []);
 
+  useEffect(() => {
+    if (starRef.current) {  // Ensure that starRef.current is not undefined
+      for (let i = 0; i < 50; i++) {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        const duration = 0.5 + Math.random() * 1.5;
+        const delay = Math.random() * 2;
+
+        const star = document.createElement("div");
+        star.style.position = 'absolute';
+        star.style.left = `${x}px`;
+        star.style.top = `${y}px`;
+        star.style.width = '2px';
+        star.style.height = '2px';
+        star.style.background = 'white';
+        star.style.borderRadius = '50%';
+
+        starRef.current.appendChild(star);  // Appending child to the ref's current DOM node
+
+        gsap.fromTo(star, {
+          opacity: 0
+        }, {
+          opacity: 1,
+          repeat: -1,
+          yoyo: true,
+          duration: duration,
+          delay: delay,
+          ease: 'power1.inOut'
+        });
+      }
+    }
+  }, [starRef.current]);
+
   if (!user) {
     return <p>Loading...</p>;
   }
+  
+
+
 
   return (
     <>
-      <div className="video-background">
+      {/* <div className="video-background">
         <video autoPlay muted loop playsInline className="video-tag" src={profileBG} />
-          
-      </div>
-      <div className="flex justify-center text-center py-8">
+
+      </div> */}
+      <div ref={starRef}  className="starry-background flex justify-center text-center py-8">
         <div className="flex flex-wrap w-[90%] md:w-[80%] lg:w-[70%] z-10 xl:w-[70%] gap-4">
           {/* Left Profile Box */}
           <div className="w-full md:w-[45%] lg:w-[30%] mt-6 flex flex-col gap-4">
@@ -78,7 +116,7 @@ function Profile() {
                     {user.firstName} {user.lasName}
                   </p>
                   <p className="text-sm md:text-base mb-1 ml-2">
-                    @{user.username}
+                    @{user.email.split("@")[0]}
                   </p>
                 </div>
               </div>
@@ -173,18 +211,26 @@ function Profile() {
                   Certificates
                 </p>
               </div>
-              <div className="flex flex-wrap justify-start gap-4">
-                <img
-                  src={cert1}
-                  alt="Certificate 1"
-                  className="h-32 w-32 sm:h-28 sm:w-28 md:h-24 md:w-24 lg:h-40 lg:w-40 rounded-md"
-                />
-                <img
-                  src={cert2}
-                  alt="Certificate 2"
-                  className="h-32 w-32 sm:h-28 sm:w-28 md:h-24 md:w-24 lg:h-40 lg:w-40 rounded-md"
-                />
-              </div>
+              {user.certificates && user.certificates.length > 0 ? (
+                <div className="flex flex-wrap justify-start gap-4">
+                  {user.certificates.map((cert, index) => (
+                    <a key={index} href={cert.link} target="_blank" rel="noopener noreferrer">
+                      <img
+                        src={cert.link} // Assuming certificate images are named by their IDs
+                        alt="Certificate"
+                        className="h-24 w-32 sm:h-20 sm:w-28 md:h-16 md:w-24 lg:h-28 lg:w-40 rounded-md"
+                      />
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center mt-4">
+                  <p>No certificates yet. Ready to earn one?</p>
+                  <Link to="/certify" className="text-[#FF7C1D] hover:text-[#FF7C1D]">
+                    Certify Now
+                  </Link>
+                </div>
+              )}
             </div>
 
             <div className="bg-[#303031] text-white text-left rounded-xl p-4 sm:p-6 mb-4">

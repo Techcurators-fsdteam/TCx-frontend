@@ -9,13 +9,15 @@
   cursor: auto;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   width: 12px;
 }
-body::-webkit-scrollbar-track{
+
+body::-webkit-scrollbar-track {
   background: transparent;
-    border-radius: 10px;
+  border-radius: 10px;
 }
+
 body::-webkit-scrollbar-thumb {
   background-color: #555;
   border-radius: 10px;
@@ -276,5 +278,3 @@ html {
 .bouncing-loader>div:nth-child(3) {
   animation-delay: 0.4s;
 }
-
-

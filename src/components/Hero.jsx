@@ -548,7 +548,7 @@ function Hero() {
 
         </div>
       </div>
-      <div style={{ backgroundImage: `url(${bg3})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className='dynamicBG' style={{ backgroundImage: `url(${bg3})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           <Footercard />
         </div>
       <Footer />

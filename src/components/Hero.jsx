@@ -23,7 +23,9 @@ import amazon from "../assets/logos_amazon.svg";
 import sap from "../assets/logos_sap.svg";
 import tc from "../assets/logos_tc.svg";
 import ts from "../assets/logos_transc.svg";
+import bg3 from "../assets/bg3.svg";
 import anm from "../assets/anm.webm";
+import Bento from "./Bento.jsx";
 
 const settings = {
   infinite: true,
@@ -87,33 +89,33 @@ const FadeInSection = ({ children }) => {
   );
 };
 
-const Card = ({ question, answer }) => {
-  return (
-    <div
-      className="group relative block h-64 sm:h-80 lg:h-96 mb-20"
-      data-aos="fade-up"
-      data-aos-duration="1000"
-    >
-      <span className="absolute inset-0 border-2 rounded-lg border-dashed border-gray-500"></span>
-      <div className="absolute inset-0 z-0">
-        <video
-          src={anm}
-          autoPlay
-          loop
-          muted
-          className="w-full h-full object-cover rounded-lg"
-        />
-      </div>
-      <div className="relative justify-center items-center flex h-full transform text-white border-2 border-black rounded-lg bg-gray-800 backdrop-blur-md bg-opacity-50 transition-transform ">
-        <div className="p-4 !pt-0 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center">
-          <h2 className="mt-4 text-xl font-medium sm:text-2xl">{question}</h2>
-          <p className="mt-4 text-sm sm:text-base">{answer}</p>
-          <p className="mt-8 font-bold cursor-pointer">Learn More</p>
-        </div>
-      </div>
-    </div>
-  );
-};
+// const Card = ({ question, answer }) => {
+//   return (
+//     <div
+//       className="group relative block h-64 sm:h-80 lg:h-96 mb-20"
+//       data-aos="fade-up"
+//       data-aos-duration="1000"
+//     >
+//       <span className="absolute inset-0 border-2 rounded-lg border-dashed border-gray-500"></span>
+//       <div className="absolute inset-0 z-0">
+//         <video
+//           src={anm}
+//           autoPlay
+//           loop
+//           muted
+//           className="w-full h-full object-cover rounded-lg"
+//         />
+//       </div>
+//       <div className="relative justify-center items-center flex h-full transform text-white border-2 border-black rounded-lg bg-gray-800 backdrop-blur-md bg-opacity-50 transition-transform ">
+//         <div className="p-4 !pt-0 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center">
+//           <h2 className="mt-4 text-xl font-medium sm:text-2xl">{question}</h2>
+//           <p className="mt-4 text-sm sm:text-base">{answer}</p>
+//           <p className="mt-8 font-bold cursor-pointer">Learn More</p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 function Hero() {
   useEffect(() => {
@@ -138,27 +140,27 @@ function Hero() {
     "Coming from the house of TechCurators, a TC Group of companies bringing knowledge and expertise of 15000+ professionals making you job-ready every minute of the year.",
   ];
 
-  const questionsAndAnswers = [
-    {
-      question: "Ace your AI game?",
-      answer:
-        "Our Generative AI and machine learning courses are skill-based and packed with real-world resources, putting you in the driver seat to implement AI concepts effectively.",
-    },
-    {
-      question: "Make AI applications?",
-      answer:
-        "Immerse yourself in AI-focused live projects and gain hands-on experience by working on real-world applications.",
-    },
-    {
-      question: "Become an AI Expert?",
-      answer: "Test your GenAI proficiency in 19 mins",
-    },
-    {
-      question: "Connect with AI Enthusiasts?",
-      answer:
-        "Being part of a community makes learning more fun and effective.",
-    },
-  ];
+  // const questionsAndAnswers = [
+  //   {
+  //     question: "Ace your AI game?",
+  //     answer:
+  //       "Our Generative AI and machine learning courses are skill-based and packed with real-world resources, putting you in the driver seat to implement AI concepts effectively.",
+  //   },
+  //   {
+  //     question: "Make AI applications?",
+  //     answer:
+  //       "Immerse yourself in AI-focused live projects and gain hands-on experience by working on real-world applications.",
+  //   },
+  //   {
+  //     question: "Become an AI Expert?",
+  //     answer: "Test your GenAI proficiency in 19 mins",
+  //   },
+  //   {
+  //     question: "Connect with AI Enthusiasts?",
+  //     answer:
+  //       "Being part of a community makes learning more fun and effective.",
+  //   },
+  // ];
 
   return (
     <>
@@ -268,7 +270,7 @@ function Hero() {
                 data-aos-duration="1000"
               >
                 <div className="absolute inset-0 flex justify-center items-center -z-10">
-                  <div className="relative w-[450px] h-[450px]">
+                  <div className="relative w-[450px] overflow-hidden h-[450px]">
                     <div className="absolute inset-0 rounded-full border border-gray-500 animate-orbit1">
                       <div className="star small-star star1" />
                       <div className="star large-star star2" />
@@ -463,13 +465,16 @@ function Hero() {
         </div>
       </div>
 
-      <div className="hidden md:block">
+      {/* <div className="hidden md:block">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto p-8">
           {questionsAndAnswers.map((qa, index) => (
             <Card key={index} question={qa.question} answer={qa.answer} />
           ))}
         </div>
-      </div>
+      </div> */}
+
+      <Bento />
+      
 
       <SliderSection />
 
@@ -542,12 +547,10 @@ function Hero() {
 
 
         </div>
-        <Footercard />
       </div>
-
-
-
-
+      <div style={{ backgroundImage: `url(${bg3})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          <Footercard />
+        </div>
       <Footer />
     </>
   );

@@ -26,6 +26,7 @@ import Resetdone from './components/Resetdone';
 import Editor from './components/Editor';
 import CustomCursor from './components/CustomCursor'; // Import the Custom Cursor
 import './index.css'; // Ensure this points to your CSS file
+import ProblemTable from './components/ProblemTable';
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
             <Route path='/testIntro2' element={<Testintro2 />} />
             <Route path='/testReport' element={<Report />} />
             <Route path='/certificate' element={<Certify3 />} />
+            <Route path='/problems' element={<ProblemTable/>}/>
           </Routes>
         </Router>
       </GoogleOAuthProvider>

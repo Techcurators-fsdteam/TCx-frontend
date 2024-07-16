@@ -13,6 +13,7 @@ import { TypeAnimation } from "react-type-animation";
 import Marquee from "react-fast-marquee";
 import herovid from "../assets/herovid.webm";
 import { Statistic } from "antd";
+import { Link } from 'react-router-dom';
 import CountUp from "react-countup";
 import TextRevealByWord from "./textReveal";
 import SliderSection from "./SliderSection.jsx";
@@ -22,7 +23,9 @@ import amazon from "../assets/logos_amazon.svg";
 import sap from "../assets/logos_sap.svg";
 import tc from "../assets/logos_tc.svg";
 import ts from "../assets/logos_transc.svg";
+import bg3 from "../assets/bg3.svg";
 import anm from "../assets/anm.webm";
+import Bento from "./Bento.jsx";
 
 const settings = {
   infinite: true,
@@ -86,33 +89,33 @@ const FadeInSection = ({ children }) => {
   );
 };
 
-const Card = ({ question, answer }) => {
-  return (
-    <div
-      className="group relative block h-64 sm:h-80 lg:h-96 mb-20"
-      data-aos="fade-up"
-      data-aos-duration="1000"
-    >
-      <span className="absolute inset-0 border-2 rounded-lg border-dashed border-gray-500"></span>
-      <div className="absolute inset-0 z-0">
-        <video
-          src={anm}
-          autoPlay
-          loop
-          muted
-          className="w-full h-full object-cover rounded-lg"
-        />
-      </div>
-      <div className="relative justify-center items-center flex h-full transform text-white border-2 border-black rounded-lg bg-gray-800 backdrop-blur-md bg-opacity-50 transition-transform ">
-        <div className="p-4 !pt-0 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center">
-          <h2 className="mt-4 text-xl font-medium sm:text-2xl">{question}</h2>
-          <p className="mt-4 text-sm sm:text-base">{answer}</p>
-          <p className="mt-8 font-bold cursor-pointer">Learn More</p>
-        </div>
-      </div>
-    </div>
-  );
-};
+// const Card = ({ question, answer }) => {
+//   return (
+//     <div
+//       className="group relative block h-64 sm:h-80 lg:h-96 mb-20"
+//       data-aos="fade-up"
+//       data-aos-duration="1000"
+//     >
+//       <span className="absolute inset-0 border-2 rounded-lg border-dashed border-gray-500"></span>
+//       <div className="absolute inset-0 z-0">
+//         <video
+//           src={anm}
+//           autoPlay
+//           loop
+//           muted
+//           className="w-full h-full object-cover rounded-lg"
+//         />
+//       </div>
+//       <div className="relative justify-center items-center flex h-full transform text-white border-2 border-black rounded-lg bg-gray-800 backdrop-blur-md bg-opacity-50 transition-transform ">
+//         <div className="p-4 !pt-0 sm:p-6 lg:p-8 flex flex-col items-center justify-center text-center">
+//           <h2 className="mt-4 text-xl font-medium sm:text-2xl">{question}</h2>
+//           <p className="mt-4 text-sm sm:text-base">{answer}</p>
+//           <p className="mt-8 font-bold cursor-pointer">Learn More</p>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 function Hero() {
   useEffect(() => {
@@ -137,27 +140,27 @@ function Hero() {
     "Coming from the house of TechCurators, a TC Group of companies bringing knowledge and expertise of 15000+ professionals making you job-ready every minute of the year.",
   ];
 
-  const questionsAndAnswers = [
-    {
-      question: "Ace your AI game?",
-      answer:
-        "Our Generative AI and machine learning courses are skill-based and packed with real-world resources, putting you in the driver seat to implement AI concepts effectively.",
-    },
-    {
-      question: "Make AI applications?",
-      answer:
-        "Immerse yourself in AI-focused live projects and gain hands-on experience by working on real-world applications.",
-    },
-    {
-      question: "Become an AI Expert?",
-      answer: "Test your GenAI proficiency in 19 mins",
-    },
-    {
-      question: "Connect with AI Enthusiasts?",
-      answer:
-        "Being part of a community makes learning more fun and effective.",
-    },
-  ];
+  // const questionsAndAnswers = [
+  //   {
+  //     question: "Ace your AI game?",
+  //     answer:
+  //       "Our Generative AI and machine learning courses are skill-based and packed with real-world resources, putting you in the driver seat to implement AI concepts effectively.",
+  //   },
+  //   {
+  //     question: "Make AI applications?",
+  //     answer:
+  //       "Immerse yourself in AI-focused live projects and gain hands-on experience by working on real-world applications.",
+  //   },
+  //   {
+  //     question: "Become an AI Expert?",
+  //     answer: "Test your GenAI proficiency in 19 mins",
+  //   },
+  //   {
+  //     question: "Connect with AI Enthusiasts?",
+  //     answer:
+  //       "Being part of a community makes learning more fun and effective.",
+  //   },
+  // ];
 
   return (
     <>
@@ -202,16 +205,16 @@ function Hero() {
               Don’t just be a professional,
             </p>
             <p className="text-gray-300 text-2xl md:text-3xl mt-4 ">
-            Be an AI Professional.
+              Be an AI Professional.
             </p>
           </div>
           <div>
-            <a
-              href="#"
+            <Link
+              to='/login'
               className="inline-block bg-[#D6FF3C] text-black rounded-full py-2 px-4 sm:py-3 sm:px-5 mt-6 md:mt-8 lg:mt-10 glare-effect"
             >
               Start Learning Today
-            </a>
+            </Link>
             <style jsx>{`
               .glare-effect {
                 position: relative;
@@ -267,7 +270,7 @@ function Hero() {
                 data-aos-duration="1000"
               >
                 <div className="absolute inset-0 flex justify-center items-center -z-10">
-                  <div className="relative w-[450px] h-[450px]">
+                  <div className="relative w-[450px] overflow-hidden h-[450px]">
                     <div className="absolute inset-0 rounded-full border border-gray-500 animate-orbit1">
                       <div className="star small-star star1" />
                       <div className="star large-star star2" />
@@ -462,53 +465,56 @@ function Hero() {
         </div>
       </div>
 
-      <div className="hidden md:block">
+      {/* <div className="hidden md:block">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto p-8">
           {questionsAndAnswers.map((qa, index) => (
             <Card key={index} question={qa.question} answer={qa.answer} />
           ))}
         </div>
-      </div>
+      </div> */}
+
+      <Bento />
+      
 
       <SliderSection />
 
       <div className="relative flex flex-col items-center mt-12 mb-20">
-  <h2 className="text-gray-500 text-2xl md:text-4xl font-semibold mb-6 text-center">
-    Our Learners work at world class companies
-  </h2>
-  <Marquee speed={50} gradient={false} className="w-full">
-    <img
-      src={microsoft}
-      alt="Microsoft"
-      className="h-24 w-24 sm:h-48 sm:w-48 mx-2 sm:mx-6"
-    />
-    <img
-      src={google}
-      alt="Google"
-      className="h-24 w-24 sm:h-48 sm:w-48 mx-2 sm:mx-6"
-    />
-    <img
-      src={amazon}
-      alt="Amazon"
-      className="h-8 w-24 sm:h-16 sm:w-48 mx-2 sm:mx-6"
-    />
-    <img
-      src={sap}
-      alt="SAP"
-      className="h-20 w-24 sm:h-40 sm:w-48 mx-2 sm:mx-6"
-    />
-    <img
-      src={tc}
-      alt="TC"
-      className="h-20 w-24 sm:h-40 sm:w-48 mx-2 sm:mx-6"
-    />
-    <img
-      src={ts}
-      alt="TS"
-      className="h-20 w-24 sm:h-40 sm:w-48 mx-2 sm:mx-6"
-    />
-  </Marquee>
-</div>
+        <h2 className="text-gray-500 text-2xl md:text-4xl font-semibold mb-6 text-center">
+          Our Learners work at world class companies
+        </h2>
+        <Marquee speed={50} gradient={false} className="w-full">
+          <img
+            src={microsoft}
+            alt="Microsoft"
+            className="h-24 w-24 sm:h-48 sm:w-48 mx-2 sm:mx-6"
+          />
+          <img
+            src={google}
+            alt="Google"
+            className="h-24 w-24 sm:h-48 sm:w-48 mx-2 sm:mx-6"
+          />
+          <img
+            src={amazon}
+            alt="Amazon"
+            className="h-8 w-24 sm:h-16 sm:w-48 mx-2 sm:mx-6"
+          />
+          <img
+            src={sap}
+            alt="SAP"
+            className="h-20 w-24 sm:h-40 sm:w-48 mx-2 sm:mx-6"
+          />
+          <img
+            src={tc}
+            alt="TC"
+            className="h-20 w-24 sm:h-40 sm:w-48 mx-2 sm:mx-6"
+          />
+          <img
+            src={ts}
+            alt="TS"
+            className="h-20 w-24 sm:h-40 sm:w-48 mx-2 sm:mx-6"
+          />
+        </Marquee>
+      </div>
 
 
       {/* <div className="flex justify-center items-center h-screen bg-black overflow-hidden">
@@ -520,33 +526,31 @@ function Hero() {
           className=" top-0 left-0 w-[80%] rounded-2xl h-[80%] object-cover"
         />
       </div> */}
-        <div className="bg-black">
+      <div className="bg-black">
         <div className="flex justify-center w-full mt-28 mb-20">
-        <FadeInSection>
-          <div className="flex flex-col justify-center lg:flex-row w-[90%] mx-auto gap-4 lg:gap-0">
-            <div className="flex flex-col text-center justify-center items-center ">
-              <p className="text-3xl text-white text-light sm:text-4xl md:text-5xl text-center ">
-                Future-proof your career today
-              </p>
-              <p className="font-light text-gray-500 text-lg sm:text-xl md:text-2xl lg:text-xl text-center mt-4">
-                Don’t let the fear of layoffs hold you back. With TCx, you’ll
-                gain the knowledge and skills to navigate and lead in an
-                AI-driven world. Equip yourself with the skills and knowledge to
-                thrive in the AI era. Sign up now and take the first step
-                towards an empowered, secure, and exciting future
-              </p>
+          <FadeInSection>
+            <div className="flex flex-col justify-center lg:flex-row w-[90%] mx-auto gap-4 lg:gap-0">
+              <div className="flex flex-col text-center justify-center items-center ">
+                <p className="text-3xl text-white text-light sm:text-4xl md:text-5xl text-center ">
+                  Future-proof your career today
+                </p>
+                <p className="font-light text-gray-500 text-lg sm:text-xl md:text-2xl lg:text-xl text-center mt-4">
+                  Don’t let the fear of layoffs hold you back. With TCx, you’ll
+                  gain the knowledge and skills to navigate and lead in an
+                  AI-driven world. Equip yourself with the skills and knowledge to
+                  thrive in the AI era. Sign up now and take the first step
+                  towards an empowered, secure, and exciting future
+                </p>
+              </div>
             </div>
-          </div>
-        </FadeInSection>
-        
+          </FadeInSection>
 
-      </div>
-        <Footercard />
+
         </div>
-        
-
-        
-      
+      </div>
+      <div style={{ backgroundImage: `url(${bg3})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          <Footercard />
+        </div>
       <Footer />
     </>
   );

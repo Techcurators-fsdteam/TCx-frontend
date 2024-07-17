@@ -485,7 +485,7 @@ function Hero() {
         </h2>
         <Marquee speed={50} gradient={false} className="w-full">
           <img
-            src='{microsoft}'
+            src={microsoft}
             alt="Microsoft"
             className="h-24 w-24 sm:h-48 sm:w-48 mx-2 sm:mx-6"
           />

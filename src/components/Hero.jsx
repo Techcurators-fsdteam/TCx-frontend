@@ -517,15 +517,7 @@ function Hero() {
       </div>
 
 
-      {/* <div className="flex justify-center items-center h-screen bg-black overflow-hidden">
-        <video
-          src={women}
-          autoPlay
-          loop
-          muted
-          className=" top-0 left-0 w-[80%] rounded-2xl h-[80%] object-cover"
-        />
-      </div> */}
+      
       <div className="bg-black">
         <div className="flex justify-center w-full mt-28 mb-20">
           <FadeInSection>
@@ -551,6 +543,15 @@ function Hero() {
       <div style={{ backgroundImage: `url(${bg3})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           <Footercard />
         </div>
+        <div className="flex justify-center items-center h-screen bg-black overflow-hidden">
+        <video
+          src={women}
+          autoPlay
+          loop
+          muted
+          className=" top-0 left-0 w-lvw  rounded-2xl  object-contain"
+        />
+      </div>
       <Footer />
     </>
   );

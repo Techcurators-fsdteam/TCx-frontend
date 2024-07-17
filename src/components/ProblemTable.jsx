@@ -51,13 +51,14 @@ const ProblemTable = () => {
     useEffect(() => {
         const getAllChallenges = async () => {
             try {
-                const data = await fetchAllChallenges();
-                if (Array.isArray(data)) {
-                    setProblems(data);
+                const response = await fetchAllChallenges();
+                if (Array.isArray(response.data)) {
+                    setProblems(response.data);
+                    
 
                     // Extract unique topics and difficulties from data
-                    const topics = [...new Set(data.map(problem => problem.topic))];
-                    const difficulties = [...new Set(data.map(problem => problem.difficultyLevel))];
+                    const topics = [...new Set(response.data.map(problem => problem.topic))];
+                    const difficulties = [...new Set(response.data.map(problem => problem.difficultyLevel))];
                     setUniqueTopics(topics);
                     setUniqueDifficulties(difficulties);
                 }

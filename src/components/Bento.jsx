@@ -38,7 +38,7 @@ const Bento = () => {
     <div
       className='w-full min-h-screen py-10'
       style={{
-        backgroundImage: `url(${bg2})`,
+        backgroundImage: 'linear-gradient(to right,rgba(0,0,0,0.5),rgba(108, 71, 47,0.5),rgba(67, 46, 70,0.5),rgba(27, 21, 93,0.5),rgba(0,0,0,0.5))',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',

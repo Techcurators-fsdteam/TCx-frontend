@@ -196,7 +196,7 @@ html {
 /* Add this to your CSS file or inside a <style> tag in your component file */
 
 .dynamicBG {
-  background-image: url('./assets/bg3.svg');
+  background-image: linear-gradient(#6C472F,#432E46,#1B155D,0.5);
 }
 
 @keyframes slideIn {

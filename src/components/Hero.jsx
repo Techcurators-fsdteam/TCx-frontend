@@ -1,6 +1,7 @@
 import Spline from '@splinetool/react-spline';
 import React, { useEffect } from "react";
 import AOS from "aos";
+import '../index.css'
 import Footercard from "./Footercard.jsx";
 import "aos/dist/aos.css";
 import "slick-carousel/slick/slick.css";
@@ -484,7 +485,7 @@ function Hero() {
         </h2>
         <Marquee speed={50} gradient={false} className="w-full">
           <img
-            src={microsoft}
+            src='{microsoft}'
             alt="Microsoft"
             className="h-24 w-24 sm:h-48 sm:w-48 mx-2 sm:mx-6"
           />
@@ -548,7 +549,7 @@ function Hero() {
 
         </div>
       </div>
-      <div  style={{ backgroundImage: `url(https://images.unsplash.com/photo-1718027808460-7069cf0ca9ae?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className='dynamicBG' style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5),rgba(108, 71, 47,0.5),rgba(67, 46, 70,0.5),rgba(27, 21, 93,0.5),rgba(0,0,0,0.5))', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <Footercard />
       </div>
       <Footer />

@@ -137,3 +137,24 @@ export const submitProject = async (gradioLink, pid, username) => {
     }
   }
 };
+
+export const fetchAllChallenges = async () => {
+  try {
+    const response = await apiClient.get("/coding/tests");
+    return response;
+  } catch (error) {
+    console.error("Error fetching all challenges:", error);
+    throw error;
+  }
+};
+
+// Fetch challenge by ID
+export const fetchChallenge = async (testId) => {
+  try {
+    const response = await apiClient.get(`/coding/tests/${testId}`);
+    return response;
+  } catch (error) {
+    console.error(`Error fetching challenge with ID ${testId}:`, error);
+    throw error;
+  }
+};

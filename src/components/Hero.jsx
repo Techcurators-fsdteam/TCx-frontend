@@ -1,6 +1,7 @@
 import Spline from '@splinetool/react-spline';
 import React, { useEffect } from "react";
 import AOS from "aos";
+import '../index.css'
 import Footercard from "./Footercard.jsx";
 import "aos/dist/aos.css";
 import "slick-carousel/slick/slick.css";
@@ -474,7 +475,7 @@ function Hero() {
       </div> */}
 
       <Bento />
-      
+
 
       <SliderSection />
 
@@ -484,7 +485,7 @@ function Hero() {
         </h2>
         <Marquee speed={50} gradient={false} className="w-full">
           <img
-            src={microsoft}
+            src='{microsoft}'
             alt="Microsoft"
             className="h-24 w-24 sm:h-48 sm:w-48 mx-2 sm:mx-6"
           />
@@ -540,17 +541,8 @@ function Hero() {
 
         </div>
       </div>
-      <div style={{ backgroundImage: `url(${bg3})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-          <Footercard />
-        </div>
-        <div className="flex justify-center items-center h-screen bg-black overflow-hidden">
-        <video
-          src={women}
-          autoPlay
-          loop
-          muted
-          className=" top-0 left-0 w-lvw  rounded-2xl  object-contain"
-        />
+      <div className='dynamicBG' style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5),rgba(108, 71, 47,0.5),rgba(67, 46, 70,0.5),rgba(27, 21, 93,0.5),rgba(0,0,0,0.5))', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <Footercard />
       </div>
       <Footer />
     </>

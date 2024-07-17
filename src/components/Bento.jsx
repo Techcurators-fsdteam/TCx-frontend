@@ -44,7 +44,7 @@ const Bento = () => {
         backgroundRepeat: 'no-repeat',
       }}
     >
-      <div className='w-[90%] mx-auto'>
+      <div className='w-[90%] mx-auto '>
         <div className='flex flex-wrap'>
           {cards.map((card, index) => (
             <div key={index} className={`${card.width} p-2`}>

@@ -13,9 +13,9 @@ interface BlurIntProps {
   duration?: number;
 }
 
-const BlurIn = ({ word, className, variant, duration = 2 }: BlurIntProps) => {
+const BlurIn = ({ word, className, variant, duration = 1 }: BlurIntProps) => {
   const { ref, inView } = useInView({
-    threshold: 0.3, 
+    threshold: 0.2, 
     triggerOnce: false, 
   });
 

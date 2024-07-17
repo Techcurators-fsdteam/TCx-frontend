@@ -485,7 +485,7 @@ function Hero() {
         </h2>
         <Marquee speed={50} gradient={false} className="w-full">
           <img
-            src='{microsoft}'
+            src={microsoft}
             alt="Microsoft"
             className="h-24 w-24 sm:h-48 sm:w-48 mx-2 sm:mx-6"
           />
@@ -518,15 +518,7 @@ function Hero() {
       </div>
 
 
-      {/* <div className="flex justify-center items-center h-screen bg-black overflow-hidden">
-        <video
-          src={women}
-          autoPlay
-          loop
-          muted
-          className=" top-0 left-0 w-[80%] rounded-2xl h-[80%] object-cover"
-        />
-      </div> */}
+      
       <div className="bg-black">
         <div className="flex justify-center w-full mt-28 mb-20">
           <FadeInSection>

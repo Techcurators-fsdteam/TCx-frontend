@@ -4,6 +4,7 @@ import figmacert from '../assets/figmacert.svg';
 import figmaachieve from '../assets/figmaachieve.svg';
 import figmastudy from '../assets/figmastudy.svg';
 import figmaobserve from '../assets/figmaobserve.svg';
+import cardbg from '../assets/cardbg.svg';
 
 
 const cardContent = [
@@ -115,7 +116,15 @@ const Footercard = () => {
           }}
         >
           <div className="mx-auto h-full w-[90%] p-4 sm:p-6 md:p-8 lg:p-10">
-            <div className="grid grid-cols-1 bg-white p-4 sm:p-6 md:p-8 lg:p-10 rounded-[2rem] xl:grid-cols-10 gap-4 h-full">
+            <div
+            style={{
+            height: '100vh',
+            transition: 'transform 0.3s ease-out, opacity 0.3s ease-out',
+            backgroundImage: `url(${cardbg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+             className="grid grid-cols-1  p-4 sm:p-6 md:p-8 lg:p-10 rounded-[2rem] xl:grid-cols-10 gap-4 h-full">
               <div className="relative z-10 lg:col-span-3 hidden xl:block">
                 <div className="absolute inset-0">
                   <img
@@ -126,7 +135,7 @@ const Footercard = () => {
                 </div>
               </div>
 
-              <div className="relative flex items-center rounded-[2rem] bg-white lg:col-span-7" style={{ minHeight: '100%' }}>
+              <div className="relative flex items-center rounded-[2rem] lg:col-span-7" style={{ minHeight: '100%' }}>
                 <div className="p-4 sm:p-6 md:p-8 lg:p-10 w-full" style={{ lineHeight: '1.5' }}>
                   <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl text-orange-500 font-bold">
                     {card.mainHeading}

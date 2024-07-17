@@ -62,7 +62,7 @@ const SliderSection = () => {
   }
 
   return (
-    <div className="relative overflow-x-hidden z-auto h-full">
+    <div className="relative overflow-x-hidden z-auto h-full mt-20 mb-20">
       <div
         className="absolute top-0 left-0 w-full h-full bg-cover bg-center"
         style={{ backgroundImage: `url(${earthbg})` }}

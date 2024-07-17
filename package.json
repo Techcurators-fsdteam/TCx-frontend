@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
     "@react-oauth/google": "^0.12.1",
     "@splinetool/react-spline": "^4.0.0",
     "@splinetool/runtime": "^1.9.0",
@@ -20,6 +21,7 @@
     "gsap": "^3.12.5",
     "jspdf": "^2.5.1",
     "pdfmake": "^0.2.10",
+    "pyodide": "^0.26.1",
     "react": "^18.2.0",
     "react-components": "^0.5.1",
     "react-countup": "^6.5.3",
@@ -38,7 +40,8 @@
     "react-type-animation": "^3.2.0",
     "rollup": "^4.18.1",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

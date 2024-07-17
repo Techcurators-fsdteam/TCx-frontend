@@ -84,7 +84,7 @@ const SliderSection = () => {
                     initial={{ opacity: 0, x: 100 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -100 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.1 }}
                     className="absolute top-0 left-0 w-full h-full"
                   >
                     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-16 mt-5">

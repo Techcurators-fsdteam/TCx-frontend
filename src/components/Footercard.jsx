@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import cardTick from '../assets/cardtick.svg'; // Ensure the path is correct
+import cardTick from '../assets/cardtick.svg';
+import figmacert from '../assets/figmacert.svg';
+import figmaachieve from '../assets/figmaachieve.svg';
+import figmastudy from '../assets/figmastudy.svg';
+import figmaobserve from '../assets/figmaobserve.svg';
+
 
 const cardContent = [
   {
@@ -11,7 +16,7 @@ const cardContent = [
       "Say goodbye to the frustration of missing crucial steps",
       "Build your skills with hands-on practice sessions",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&auto=format&fit=crop&w=1770&q=80",
+    imageUrl: figmaobserve,
   },
   {
     mainHeading: "Learn Seamlessly",
@@ -22,7 +27,7 @@ const cardContent = [
       "Forget about installation issues and system compatibility",
       "Showcase your talent and master your Gen AI skills",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&auto=format&fit=crop&w=1770&q=80",
+    imageUrl: figmastudy,
   },
   {
     mainHeading: "Earn and Showcase Your Expertise",
@@ -33,7 +38,7 @@ const cardContent = [
       "Gain the credentials to secure top job roles in the industry",
       "Showcase your proficiency on our prestigious TC Group stage",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&auto=format&fit=crop&w=1770&q=80",
+    imageUrl: figmacert,
   },
   {
     mainHeading: "Rise to the Top",
@@ -44,7 +49,7 @@ const cardContent = [
       "Enjoy free access to our top paid courses",
       "Win exciting goodies and more",
     ],
-    imageUrl: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&auto=format&fit=crop&w=1770&q=80",
+    imageUrl:figmaachieve ,
   },
 ];
 
@@ -116,7 +121,7 @@ const Footercard = () => {
                   <img
                     alt=""
                     src={card.imageUrl}
-                    className="h-full w-full object-cover rounded-[2rem]"
+                    className="h-full w-full object-contain  rounded-[2rem]"
                   />
                 </div>
               </div>

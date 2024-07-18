@@ -16,8 +16,7 @@ export default function CertTest() {
   const [timeLeft, setTimeLeft] = useState(300);
   const [timerRunning, setTimerRunning] = useState(true);
   const { fName, lName, testId } = location.state || {};
-  const [score, setScore] = useState(0);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -29,6 +28,21 @@ export default function CertTest() {
     }
     fetchData();
   }, [testId]);
+
+  useEffect(() => {
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch((err) => {
+          alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+    toggleFullScreen();
+  }, [])
 
   useEffect(() => {
     if (currIndex === ques.length - 1) {
@@ -51,146 +65,115 @@ export default function CertTest() {
     return () => clearInterval(interval);
   }, [timerRunning, timeLeft]);
 
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      if (selectedAnswers.some(answer => answer !== "")) { // Check if there's any interaction
+        // Standard for most browsers
+        event.preventDefault();
+        // Chrome requires returnValue to be set
+        event.returnValue = 'If you reload this page, page ki maa chud jayegi';
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [selectedAnswers]); // Ensure this effect runs when selectedAnswers changes
+
+
+
+
   const handleFinalSubmit = async () => {
-    setLoading(true);
-    console.log("Loading")
-    const results = await submitAnswers(testId, selectedAnswers.map((answer, index) => ({
-      questionId: ques[index]._id,
-      selectedOption: answer
-    })), `${fName} ${lName}`);
-    navigate('/result', { state: results });
-    setLoading(false)
-    console.log("Loaded")
+    if (!loading) {
+      setLoading(true);
+      const results = await submitAnswers(testId, selectedAnswers.map((answer, index) => ({
+        questionId: ques[index]._id,
+        selectedOption: answer
+      })), `${fName} ${lName}`);
+      navigate('/result', { state: results });
+      setLoading(false);
+    }
   };
 
   const next = () => {
     if (currIndex < ques.length - 1) {
       setCurrIndex(currIndex + 1);
     }
-    setClearDisabled(true); // Disable clear button when moving to the next question
+    setClearDisabled(true);
   };
 
   const prev = () => {
     if (currIndex > 0) {
       setCurrIndex(currIndex - 1);
     }
-    setClearDisabled(true); // Disable clear button when moving to the previous question
+    setClearDisabled(true);
   };
 
   const handleOptionChange = (index, selectedOption) => {
     const updatedSelectedAnswers = [...selectedAnswers];
     updatedSelectedAnswers[index] = selectedOption;
     setSelectedAnswers(updatedSelectedAnswers);
-    setClearDisabled(false); // Enable clear button when an option is selected
+    setClearDisabled(false);
   };
 
   const handleClearSelection = () => {
-    setSelectedAnswers((prevAnswers) => {
-      const updatedAnswers = [...prevAnswers];
-      updatedAnswers[currIndex] = ""; // Clear the selected answer
-      return updatedAnswers;
-    });
-    setClearDisabled(true); // Disable clear button after clearing the answer
+    const updatedAnswers = [...selectedAnswers];
+    updatedAnswers[currIndex] = "";
+    setSelectedAnswers(updatedAnswers);
+    setClearDisabled(true);
   };
 
-  const renderQuestion = (question, index) => {
-    return (
-      <div key={index}>
-        <p className="text-black mb-4">
-          <span className="text-xl font-semibold">Question {index + 1}:</span>{" "}
-          {question.question}
-        </p>
-        <div className="flex flex-col mb-4">
-          {question.options.map((option, optionIndex) => (
-            <div key={optionIndex} className="flex items-center">
-              <input
-                type="radio"
-                id={`option_${index}_${optionIndex}`}
-                name={`question_${index}`}
-                value={option}
-                checked={selectedAnswers[index] === option}
-                onChange={() => handleOptionChange(index, option)}
-              />
-              <label htmlFor={`option_${index}_${optionIndex}`} className="ml-2">
-                {option}
-              </label>
-            </div>
-          ))}
-        </div>
+  const renderQuestion = (question, index) => (
+    <div key={index}>
+      <p className="text-black mb-4">
+        <span className="text-xl font-semibold">Question {index + 1}:</span> {question.question}
+      </p>
+      <div className="flex flex-col mb-4">
+        {question.options.map((option, optionIndex) => (
+          <div key={optionIndex} className="flex items-center">
+            <input
+              type="radio"
+              id={`option_${index}_${optionIndex}`}
+              name={`question_${index}`}
+              value={option}
+              checked={selectedAnswers[index] === option}
+              onChange={() => handleOptionChange(index, option)}
+            />
+            <label htmlFor={`option_${index}_${optionIndex}`} className="ml-2">{option}</label>
+          </div>
+        ))}
       </div>
-    );
-  };
+    </div>
+  );
 
   return (
-    <>
-      {loading ? <BouncingDotsLoader /> :
+    <div className="container mx-auto px-4">
+      {loading ? <BouncingDotsLoader /> : (
         <>
-          {/* <Header /> */}
-          <div className="flex justify-center mt-24 w-full p-4">
-            <div className="w-full md:w-[80%] bg-white rounded-2xl p-20 relative">
-              <div className="absolute top-4 right-4">
-                <p className="text-black text-lg">
-                  Time Remaining: {Math.floor(timeLeft / 60)}:
-                  {timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}
-                </p>
-              </div>
+          <div className="mt-10">
+            <p className="text-2xl font-bold">Certification Test</p>
+            <p className="text-lg">Good luck, {fName} {lName}!</p>
+            <div className="mt-4">
               {ques.length > 0 && (
                 <>
                   {renderQuestion(ques[currIndex], currIndex)}
-                  {finish ? (
-                    <div className="flex justify-between">
-                      <button
-                        onClick={prev}
-                        className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                      >
-                        Previous
-                      </button>
-                      <div>
-                        <button
-                          onClick={handleClearSelection}
-                          className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                          disabled={clearDisabled}
-                        >
-                          Clear Selection
-                        </button>
-                        <button
-                          onClick={handleFinalSubmit}
-                          className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                        >
-                          {selectedAnswers[currIndex] ? "Submit" : "Skip and Submit"}
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="flex justify-between">
-                      <button
-                        onClick={prev}
-                        className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                      >
-                        Previous
-                      </button>
-                      <div>
-                        <button
-                          onClick={handleClearSelection}
-                          className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                          disabled={clearDisabled}
-                        >
-                          Clear Selection
-                        </button>
-                        <button
-                          onClick={next}
-                          className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                        >
-                          {selectedAnswers[currIndex] ? "Next" : "Skip and Next"}
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                  <div className="flex justify-between mt-4">
+                    <button onClick={prev} className="bg-gray-500 text-white px-4 py-2 rounded">Previous</button>
+                    {finish ? (
+                      <button onClick={handleFinalSubmit} className="bg-blue-500 text-white px-4 py-2 rounded">Submit Test</button>
+                    ) : (
+                      <button onClick={next} className="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+                    )}
+                    <button onClick={handleClearSelection} disabled={clearDisabled} className="bg-red-500 text-white px-4 py-2 rounded">Clear</button>
+                  </div>
                 </>
               )}
             </div>
           </div>
-        </>}
-    </>
+        </>
+      )}
+    </div>
   );
 }

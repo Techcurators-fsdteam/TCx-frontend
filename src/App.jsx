@@ -27,6 +27,7 @@ import Editor from './components/Editor';
 import CustomCursor from './components/CustomCursor'; // Import the Custom Cursor
 import './index.css'; // Ensure this points to your CSS file
 import ProblemTable from './components/ProblemTable';
+import StudentDet from './components/StudentDet';
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
             {/* <Route path="/Header" element={<Header/>}/> */}
             <Route path="/test" element={<Test />} />
             <Route path="/Practicetest1" element={<Practicetest1 />} />
+            <Route path="/StudentDet" element={<StudentDet />} />
             <Route path='/result' element={<Result />} />
             <Route path='/certificationTest' element={<Certify3 />} />
             <Route path='/testIntro' element={<Certify2 />} />

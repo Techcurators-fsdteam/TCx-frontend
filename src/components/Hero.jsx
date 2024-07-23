@@ -525,7 +525,7 @@ function Hero() {
             <div className="flex flex-col justify-center lg:flex-row w-[90%] mx-auto gap-4 lg:gap-0">
               <div className="flex flex-col text-center justify-center items-center ">
                 <p className="text-3xl text-white font-extrabold sm:text-4xl md:text-5xl text-center ">
-                  Future-proof your career today
+                  Future-proof your career today !
                 </p>
                 <p className="font-light text-gray-500 text-lg sm:text-xl md:text-2xl lg:text-xl text-center mt-4">
                   Don’t let the fear of layoffs hold you back. With TCx, you’ll
@@ -541,7 +541,7 @@ function Hero() {
 
         </div>
       </div>
-      <div className='dynamicBG' style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5),rgba(108, 71, 47,0.5),rgba(67, 46, 70,0.5),rgba(27, 21, 93,0.5),rgba(0,0,0,0.5))', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div  style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5),rgba(108, 71, 47,0.5),rgba(67, 46, 70,0.5),rgba(27, 21, 93,0.5),rgba(0,0,0,0.5))', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <Footercard />
       </div>
       <Footer />

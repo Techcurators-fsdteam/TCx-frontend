@@ -7,6 +7,8 @@ import { getAllProjects } from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { useUser } from "../store/UserContext";
+import cardbg from "../assets/cardbg.svg";
+import Sei from "../assets/SEI.svg";
 
 const courses = [
   {
@@ -205,19 +207,27 @@ function Learn() {
       </div>
 
       <div className="text-black flex flex-col justify-center items-center text-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20">
-        <div className="flex flex-wrap gap-6 justify-center w-[90%] md:w-[80%] bg-white rounded-xl p-6 sm:p-8 md:p-10">
+        <div className="flex flex-wrap gap-6 justify-center w-[90%] md:w-[80%] rounded-xl p-6 sm:p-8 md:p-10"
+      style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           {courses?.slice(0, visibleCourses).map((course) => (
-            <div key={course.id} className="bg-[#3F3F3F] rounded-xl h-60 w-full sm:w-[45%] md:w-[30%] flex flex-col justify-between p-4 md:p-6">
+            <div key={course.id} className="bg-gray-900 rounded-xl h-60 w-full sm:w-[45%] md:w-[30%] flex flex-col justify-between p-4 md:p-6">
               <div className="flex items-center gap-4 text-white">
-                <img src={courseImage} alt="generative ai" className="h-8 w-8 md:h-10 md:w-10" />
+              
                 <h2 className="text-sm lg:text-md text-left">{course.title}</h2>
               </div>
               <p className="text-gray-300 text-left text-sm mt-2">
                 {course.desc.length > 80 ? course.desc.substring(0, 80) + "..." : course.desc}
               </p>
-              <a href={course.link} target="_blank" rel="noopener noreferrer" className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4">
-                Learn now
-              </a>
+              <div className="flex justify-evenly">
+                <a href={course.link} target="_blank" rel="noopener noreferrer" className="bg-gray-900 h-12 text-white border border-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4">
+                  Learn now
+                </a>
+                <img
+                  src={Sei}
+                  alt={"Image Not Found"}
+                  className="w-12 h-12 md:w-20 md:h-20 object-cover"
+                />
+              </div>
             </div>
           ))}
           {visibleCourses < courses.length && (
@@ -241,16 +251,24 @@ function Learn() {
       </div>
 
       <div className="text-black flex flex-col justify-center items-center text-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20">
-        <div className="flex flex-wrap gap-6 justify-center w-[90%] md:w-[80%] bg-white rounded-xl p-6 sm:p-8 md:p-10">
+        <div className="flex flex-wrap gap-6 justify-center w-[90%] md:w-[80%] rounded-xl p-6 sm:p-8 md:p-10"
+      style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           {projects?.map((course) => (
-            <div key={course.pid} className="bg-[#3F3F3F] rounded-xl h-60 w-full sm:w-[45%] md:w-[30%] flex flex-col justify-between p-4 md:p-6">
+            <div key={course.pid} className="bg-gray-900 rounded-xl h-60 w-full sm:w-[45%] md:w-[30%] flex flex-col justify-between p-4 md:p-6">
               <div className="flex items-center gap-4 text-white">
-                <img src={courseImage} alt="generative ai" className="h-8 w-8 md:h-10 md:w-10" />
+              
                 <h2 className="text-sm lg:text-md text-left">{course.title}</h2>
               </div>
-              <button onClick={goToProjectPage(course.pid)} className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4">
+              <div className="flex justify-evenly">
+              <button onClick={goToProjectPage(course.pid)} className="bg-gray-900 h-12 text-white border border-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4">
                 Learn now
               </button>
+              <img
+                      src={Sei}
+                      alt={"Image Not Found"}
+                      className="w-12 h-12 md:w-20 md:h-20 object-cover"
+                    />
+              </div>
             </div>
           ))}
           {visibleLiveCourses < projects.length && (
@@ -277,6 +295,11 @@ function Learn() {
           </div>
         </div>
       </div>
+      <div className="flex justify-center items-center">
+            <RouterLink to="/StudentDet" className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4 md:mt-0 self-center md:self-start">
+            Take Your Interview Test
+            </RouterLink>
+          </div>
       <Footer />
     </div>
   );

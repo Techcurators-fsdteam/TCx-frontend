@@ -28,8 +28,12 @@ import Editor from './components/Editor';
 import CustomCursor from './components/CustomCursor'; // Import the Custom Cursor
 import './index.css'; // Ensure this points to your CSS file
 import ProblemTable from './components/ProblemTable';
+<<<<<<< HEAD
 import PythonCodeEditor from './components/Coder';
 import StudentForm from './components/ApplyForm';
+=======
+import StudentDet from './components/StudentDet';
+>>>>>>> 7759fe348102948f84afdc34b21c8f55b44663e1
 
 function App() {
   return (
@@ -55,6 +59,7 @@ function App() {
             {/* <Route path="/Header" element={<Header/>}/> */}
             <Route path="/test" element={<Test />} />
             <Route path="/Practicetest1" element={<Practicetest1 />} />
+            <Route path="/StudentDet" element={<StudentDet />} />
             <Route path='/result' element={<Result />} />
             <Route path='/certificationTest' element={<Certify3 />} />
             <Route path='/testIntro' element={<Certify2 />} />

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import bg from "../assets/certifybg.svg";
+import cardbg from "../assets/cardbg.svg";
 import InfoIcon from "../assets/info-icon.svg";
 import Sei from "../assets/SEI.svg";
 import BouncingDotsLoader from "./Loaders/Bouncing";
@@ -84,7 +85,8 @@ function Certify() {
               className="flex flex-col md:flex-row w-full md:w-[90%] justify-center gap-4"
               style={{ marginTop: "-5%" }}
             >
-              <div className="rounded-xl bg-white p-6 shadow-md flex-1 max-w-xs md:max-w-sm mx-auto">
+              <div className="rounded-xl p-6 shadow-md flex-1 max-w-xs md:max-w-sm mx-auto"
+              style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <h1 className="text-xl font-bold text-black mb-4">
                   Stand out from the crowd
                 </h1>
@@ -94,7 +96,8 @@ function Certify() {
                 </p>
               </div>
 
-              <div className="rounded-xl bg-white p-6 shadow-md flex-1 max-w-xs md:max-w-sm mx-auto mt-4 md:mt-0">
+              <div className="rounded-xl  p-6 shadow-md flex-1 max-w-xs md:max-w-sm mx-auto mt-4 md:mt-0"
+              style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <h1 className="text-xl font-bold text-black mb-4">
                   Standardised Assessment
                 </h1>
@@ -105,7 +108,8 @@ function Certify() {
                 </p>
               </div>
 
-              <div className="rounded-lg bg-white p-6 shadow-md flex-1 max-w-xs md:max-w-sm mx-auto mt-4 md:mt-0">
+              <div className="rounded-lg  p-6 shadow-md flex-1 max-w-xs md:max-w-sm mx-auto mt-4 md:mt-0"
+              style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                 <h1 className="text-xl font-bold text-black mb-4">
                   Enrich your profile
                 </h1>
@@ -116,6 +120,21 @@ function Certify() {
               </div>
             </div>
           </div>
+
+          <div className="flex justify-center items-center mb-20">
+      <div
+        className="w-[90%] sm:w-[80%] flex flex-col justify-center items-center bg-gray-400 rounded-xl h-96"
+        style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+      >
+        <p className="text-lg sm:text-xl text-center text-black p-4">
+          Give Our AI-Powered Test and <br />
+          <span className="text-orange-500 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Check Your AI Proficiency</span>
+        </p>
+        <button className="mt-6 bg-white text-orange-500 border-2 border-orange-500 py-2 px-4 rounded-lg text-lg sm:text-xl">
+          Give Your Test Today
+        </button>
+      </div>
+    </div>
 
           {/* Roles Certification Section */}
           <div className="flex justify-center items-center mb-10">

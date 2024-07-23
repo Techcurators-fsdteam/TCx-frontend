@@ -6,6 +6,7 @@ import BouncingDotsLoader from './Loaders/Bouncing';
 
 export default function CertTest() {
   const { user } = useUser();
+  const [intro,setIntro]=useState(true);
   const location = useLocation();
   const navigate = useNavigate();
   const [ques, setQues] = useState([]);
@@ -92,7 +93,8 @@ export default function CertTest() {
         questionId: ques[index]._id,
         selectedOption: answer
       })), `${fName} ${lName}`);
-      navigate('/result', { state: results });
+      console.log(results)
+      navigate('/result', { state: { report: results } });
       setLoading(false);
     }
   };
@@ -177,3 +179,43 @@ export default function CertTest() {
     </div>
   );
 }
+
+
+const Testintro2 = ({fname,lname,setIntro,testName,duration,nq}) => {
+  return (
+    <>
+      <div className="min-h-screen flex flex-col md:flex-row p-4 bg-black">
+        <div className="flex flex-col w-full md:w-1/2 p-4">
+          <Link to="/">
+            <img src={logo} alt="Logo" className="w-20 h-20 mb-4" />
+          </Link>
+          <div className="flex flex-grow flex-col justify-center items-start text-left w-full space-y-4">
+            <p className="text-gray-400 text-2xl">Hey, <span className="text-orange-500">{fname} {lname}</span></p>
+            <p className="text-white text-3xl md:text-5xl leading-tight">Welcome to the {testName} role certification Test</p>
+            <p className="text-gray-500 text-lg">Test Duration: {duration} minutes</p>
+            <p className="text-gray-500 text-lg">No. of Questions: {nq}</p>
+          </div>
+        </div>
+        <div className="flex flex-col justify-center items-start w-full md:w-1/2 bg-gray-900 p-4 md:pl-10 rounded-lg mt-4 md:mt-0">
+          <p className="text-white mb-4 text-2xl md:text-5xl">Instructions:</p>
+          <div className="text-gray-400 mb-6 space-y-2 text-left">
+            <p>1. The test consists of {nq} questions.</p>
+            <p>2. The test is of {duration} minutes.</p>
+            <p>3. The test is of {marks} marks.</p>
+            <p>4. Each question carries {em} marks.</p>
+            <p>5. There is no negative marking.</p>
+            <p>6. The test will auto submit after {duration} minutes.</p>
+            <p>7. The test can be attempted only once.</p>
+            <p>8. The test will start as soon as you click on the start test button.</p>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4 w-full justify-start">
+            <button onClick={setIntro(false)} className="bg-orange-500 text-white p-2 rounded w-full md:w-auto">
+              Continue
+            </button>
+            
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

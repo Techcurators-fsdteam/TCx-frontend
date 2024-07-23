@@ -8,6 +8,7 @@ import BouncingDotsLoader from "./Loaders/Bouncing";
 export default function Test(props) {
   const location = useLocation();
   const navigate = useNavigate();
+  const [testing, setTesting] = useState(false)
   const [ques, setQues] = useState([]);
   const [currIndex, setCurrIndex] = useState(0);
   const [finish, setFinish] = useState(false);
@@ -15,12 +16,48 @@ export default function Test(props) {
   const [clearDisabled, setClearDisabled] = useState(true);
   const [timeLeft, setTimeLeft] = useState(300); // 300 seconds (5 minutes)
   const [timerRunning, setTimerRunning] = useState(true);
-  const { fName, lName, domain, experience, testId } = location.state || {};
+  // const { fName, lName, domain, experience, testId } = location.state || {};
+
+  const testData = JSON.parse(localStorage.getItem('testData'));
+  const { fName, lName, domain, experience, testId } = testData;
   const [score, setScore] = useState(0);
   const { user, setAppData } = useUser();
+  // console.log(user)
   const [testid, setTestId] = useState();
   const [loading, setLoading] = useState(false)
 
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        alert.log("Tab is no longer visible!");
+        handleFinalSubmit(user.username)
+      } else if (document.visibilityState === 'visible') {
+        console.log("Tab is in focus!");
+        // Perform tasks when the tab comes back into focus
+      }
+    };
+
+    document.addEventListener('resize', function () {
+      alert('Window size has changed');
+      handleFinalSubmit(user.username);
+      // this.window.close()
+    });
+
+
+    // Add event listener for visibility change
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.removeEventListener('resize', function () {
+        alert('Window size has changed');
+        handleFinalSubmit(user.username);
+        this.window.close()
+      })
+    };
+  }, []);
 
   useEffect(() => {
     if (fName && lName && testId) {
@@ -70,6 +107,7 @@ export default function Test(props) {
 
   }, [fName, lName, domain, experience]);
 
+
   useEffect(() => {
     if (currIndex === ques.length - 1) {
       setFinish(true);
@@ -104,7 +142,7 @@ export default function Test(props) {
     } else if (timeLeft === 0) {
       // Handle timer completion actions here
       console.log("Timer expired!");
-      handleFinalSubmit();
+      handleFinalSubmit(user.username);
       setTimerRunning(false);
       // You can add additional logic here, such as auto-submitting the quiz
     }
@@ -112,7 +150,7 @@ export default function Test(props) {
     return () => clearInterval(interval);
   }, [timerRunning, timeLeft]);
 
-  const handleFinalSubmit = async () => {
+  const handleFinalSubmit = async (username) => {
     setLoading(true)
     if (domain && experience) {
       let calculatedScore = 0;
@@ -132,14 +170,33 @@ export default function Test(props) {
         const data = { questionId, selectedOption };
         answers.push(data);
       }
-      const result = await submitAnswers(testid, answers, `${fName} ${lName}`,user.username)
+      console.log(user)
+      const result = await submitAnswers(testid, answers, `${fName} ${lName}`, user.username)
       setAppData(result)
-      navigate('/testReport', { state: { ques: ques, answers: selectedAnswers } })
+      console.log(result)
+      const data = { ques: ques, answers: selectedAnswers, report: result }
+      // navigate('/testReport', { state:  })
+      window.opener.postMessage({ type: 'testCompleted', data }, '*'); // Send message to parent window
+      window.close(); // Close the popup
 
 
     }
     setLoading(false)
   };
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        console.log("Tab is no longer visible! Auto-submitting test...");
+        handleFinalSubmit(user.username); // Auto-submit when the tab is no longer visible
+      }
+    };
+
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [handleFinalSubmit]);
+
 
   const next = () => {
     if (currIndex < ques.length - 1) {
@@ -170,6 +227,23 @@ export default function Test(props) {
     });
     setClearDisabled(true); // Disable clear button after clearing the answer
   };
+
+  const handleFullScreen = () => {
+    setTesting(false)
+    const elem = document.documentElement; // Reference to the document element
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen(); // Standard method
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+      elem.msRequestFullscreen();
+    }
+  };
+  // handleFullScreen()
+
+
 
   const renderQuestion = (question, index) => {
     // Conditional rendering: Only render if testId is truthy
@@ -229,74 +303,81 @@ export default function Test(props) {
 
   return (
     <>
-      {loading ?<BouncingDotsLoader/>: 
-      <>
-        {/* <Header /> */}
-        <div className="flex justify-center mt-24 w-full p-4">
-          <div className="w-full md:w-[80%] bg-white rounded-2xl p-20 relative">
-            <div className="absolute top-4 right-4">
-              <p className="text-black text-lg">
-                Time Remaining: {Math.floor(timeLeft / 60)}:
-                {timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}
-              </p>
-            </div>
-            {ques.length > 0 && (
-              <>
-                {renderQuestion(ques[currIndex], currIndex)}
-                {finish ? (
-                  <div className="flex justify-between">
-                    <button
-                      onClick={prev}
-                      className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                    >
-                      Previous
-                    </button>
-                    <div>
-                      <button
-                        onClick={handleClearSelection}
-                        className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                        disabled={clearDisabled}
-                      >
-                        Clear Selection
-                      </button>
-                      <button
-                        onClick={handleFinalSubmit}
-                        className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                      >
-                        {selectedAnswers[currIndex] ? "Submit" : "Skip and Submit"}
-                      </button>
-                    </div>
+      {testing ? <div className="w-full h-full flex justify-center items-center">
+        <button onClick={handleFullScreen} className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md">
+          Start Test
+        </button>
+      </div> :
+        <>
+          {loading ? <BouncingDotsLoader /> :
+            <>
+              {/* <Header /> */}
+              <div className="flex justify-center mt-24 w-full p-4">
+                <div className="w-full md:w-[80%] bg-white rounded-2xl p-20 relative">
+                  <div className="absolute top-4 right-4">
+                    <p className="text-black text-lg">
+                      Time Remaining: {Math.floor(timeLeft / 60)}:
+                      {timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}
+                    </p>
                   </div>
-                ) : (
-                  <div className="flex justify-between">
-                    <button
-                      onClick={prev}
-                      className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                    >
-                      Previous
-                    </button>
-                    <div>
-                      <button
-                        onClick={handleClearSelection}
-                        className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                        disabled={clearDisabled}
-                      >
-                        Clear Selection
-                      </button>
-                      <button
-                        onClick={next}
-                        className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
-                      >
-                        {selectedAnswers[currIndex] ? "Next" : "Skip and Next"}
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        </div>
-      </>}
+                  {ques.length > 0 && (
+                    <>
+                      {renderQuestion(ques[currIndex], currIndex)}
+                      {finish ? (
+                        <div className="flex justify-between">
+                          <button
+                            onClick={prev}
+                            className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                          >
+                            Previous
+                          </button>
+                          <div>
+                            <button
+                              onClick={handleClearSelection}
+                              className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                              disabled={clearDisabled}
+                            >
+                              Clear Selection
+                            </button>
+                            <button
+                              onClick={handleFinalSubmit}
+                              className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                            >
+                              {selectedAnswers[currIndex] ? "Submit" : "Skip and Submit"}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="flex justify-between">
+                          <button
+                            onClick={handleFullScreen}
+                            className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                          >
+                            Previous
+                          </button>
+                          <div>
+                            <button
+                              onClick={handleClearSelection}
+                              className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                              disabled={clearDisabled}
+                            >
+                              Clear Selection
+                            </button>
+                            <button
+                              onClick={next}
+                              className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
+                            >
+                              {selectedAnswers[currIndex] ? "Next" : "Skip and Next"}
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+            </>}
+        </>}
     </>
   );
 }

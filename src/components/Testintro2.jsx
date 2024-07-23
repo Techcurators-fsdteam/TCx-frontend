@@ -5,7 +5,7 @@ import logo from '../assets/logo.svg';
 const Testintro2 = () => {
   return (
     <>
-      <div className="min-h-screen flex flex-col md:flex-row p-4 bg-black">
+      <div className="min-h-screen flex flex-col md:flex-row p-4 ">
         <div className="flex flex-col w-full md:w-1/2 p-4">
           <Link to="/">
             <img src={logo} alt="Logo" className="w-20 h-20 mb-4" />

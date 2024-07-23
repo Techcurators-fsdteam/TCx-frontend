@@ -158,3 +158,12 @@ export const fetchChallenge = async (testId) => {
     throw error;
   }
 };
+
+export async function getDrives() {
+  try {
+    const response = await apiClient.get("/apply");
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}

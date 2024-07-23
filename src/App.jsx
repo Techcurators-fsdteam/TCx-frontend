@@ -21,6 +21,7 @@ import Scroll from './Scroll';
 import Report from './components/Report';
 import Forgotpass from './components/Forgotpass';
 import Otp from './components/Otp';
+import ApplyPage from './components/ApplyPage';
 import Confirmpass from './components/Confirmpass';
 import Resetdone from './components/Resetdone';
 import Editor from './components/Editor';
@@ -28,6 +29,7 @@ import CustomCursor from './components/CustomCursor'; // Import the Custom Curso
 import './index.css'; // Ensure this points to your CSS file
 import ProblemTable from './components/ProblemTable';
 import PythonCodeEditor from './components/Coder';
+import StudentForm from './components/ApplyForm';
 
 function App() {
   return (
@@ -60,6 +62,8 @@ function App() {
             <Route path='/testReport' element={<Report />} />
             <Route path='/certificate' element={<Certify3 />} />
             <Route path='/problems/:testId' element={<PythonCodeEditor />} />
+            <Route path='/apply' element={<ApplyPage/>}/>
+            <Route path='/application' element={<StudentForm/>}/>
           </Routes>
         </Router>
       </GoogleOAuthProvider>

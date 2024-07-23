@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import cert2pic from "../assets/cert2pic.svg";
 import tick from "../assets/tick.svg";
 import lkdn from "../assets/in.svg";
+import { useEffect } from "react";
 import pen from "../assets/pen.svg";
 import thumb from "../assets/thumb.svg";
 import bag from "../assets/bag.svg";
@@ -244,9 +245,25 @@ const NamePage = ({ testId }) => {
   const [lname, setLname] = useState();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.data.type === 'testCompleted') {
+        // console.log(event.data.data)
+        navigate('/testReport', { state: { ...event.data.data } });
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [navigate]);
+
+
   const handleOpenModal = () => {
     if (fname && lname) {
-      navigate('/test', { state: { fName: fname, lName: lname, testId: testId } })
+      // navigate('/test', { state: { fName: fname, lName: lname, testId: testId } })
+
+      localStorage.setItem('testData', JSON.stringify({ fName: fname, lName: lname, testId: testId }));
+      window.open('/test', "Test Page", `width=${window.screen.width},height=${window.screen.height},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
     }
     else {
       toast.error("Both First Name and Last Name is mandatory")
@@ -254,84 +271,86 @@ const NamePage = ({ testId }) => {
 
   }
   return (
-    <>
-      <div className="flex flex-col md:flex-row items-center md:items-start">
-        <img
-          src={pt}
-          alt="Practice Test"
-          className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 mb-4 md:mb-0"
-        />
-        <div className="ml-0 md:ml-6 text-center md:text-left">
-          <p className="text-black text-xl sm:text-2xl md:text-3xl pt-4 md:pt-6">
-            Practice Test
-          </p>
-          <p className="text-gray-400 text-sm sm:text-base md:text-lg">
-            300 seconds
-          </p>
+    <section className="flex w-[100%] h-[100vh] justify-center items-center ">
+      <div className="bg-white p-10 w-[50%] rounded-2xl">
+        <div className="flex flex-col md:flex-row items-center md:items-start ">
+          <img
+            src={pt}
+            alt="Practice Test"
+            className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-32 lg:h-32 mb-4 md:mb-0"
+          />
+          <div className="ml-0 md:ml-6 text-center md:text-left">
+            <p className="text-black text-xl sm:text-2xl md:text-3xl pt-4 md:pt-6">
+              Practice Test
+            </p>
+            <p className="text-gray-400 text-sm sm:text-base md:text-lg">
+              19 minutes
+            </p>
+          </div>
+        </div>
+
+        {/* Steps Section */}
+        <div className="flex justify-center items-center mt-6 md:mt-4 space-x-6 sm:space-x-8 lg:space-x-10">
+          {/* Step 1 */}
+          <div className="flex items-center space-x-2">
+            <p className="bg-[#FF7C1D] text-white w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full text-xs sm:text-sm md:text-base">
+              1
+            </p>
+            <p className="text-[#FF7C1D] text-sm sm:text-base md:text-lg">
+              Review Profile
+            </p>
+          </div>
+          <img
+            src={arrow}
+            alt="Arrow"
+            className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
+          />
+          {/* Step 2 */}
+          <div className="flex items-center space-x-2">
+            <p className="bg-[#8C8C8C] text-black w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full text-xs sm:text-sm md:text-base">
+              2
+            </p>
+            <p className="text-[#8C8C8C] text-sm sm:text-base md:text-lg">
+              Certification Test
+            </p>
+          </div>
+        </div>
+
+        {/* Input Fields */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 w-full">
+          <input
+            type="text"
+            required
+            value={fname}
+            onChange={(e) => {
+              setFname(e.target.value);
+            }}
+            placeholder="First name*"
+            className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
+          />
+          <input
+            type="text"
+            required
+            value={lname}
+            onChange={(e) => {
+              setLname(e.target.value);
+            }}
+            placeholder="Last name*"
+            className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
+          />
+        </div>
+
+        {/* Proceed Button */}
+        <div className="flex justify-center items-center mt-6 w-full">
+          <button
+            onClick={handleOpenModal}
+            className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 text-xs sm:text-sm md:text-base"
+          >
+            Proceed
+          </button>
         </div>
       </div>
-
-      {/* Steps Section */}
-      <div className="flex justify-center items-center mt-6 md:mt-4 space-x-6 sm:space-x-8 lg:space-x-10">
-        {/* Step 1 */}
-        <div className="flex items-center space-x-2">
-          <p className="bg-[#FF7C1D] text-white w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full text-xs sm:text-sm md:text-base">
-            1
-          </p>
-          <p className="text-[#FF7C1D] text-sm sm:text-base md:text-lg">
-            Review Profile
-          </p>
-        </div>
-        <img
-          src={arrow}
-          alt="Arrow"
-          className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
-        />
-        {/* Step 2 */}
-        <div className="flex items-center space-x-2">
-          <p className="bg-[#8C8C8C] text-black w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full text-xs sm:text-sm md:text-base">
-            2
-          </p>
-          <p className="text-[#8C8C8C] text-sm sm:text-base md:text-lg">
-            Certification Test
-          </p>
-        </div>
-      </div>
-
-      {/* Input Fields */}
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 w-full">
-        <input
-          type="text"
-          required
-          value={fname}
-          onChange={(e) => {
-            setFname(e.target.value);
-          }}
-          placeholder="First name*"
-          className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
-        />
-        <input
-          type="text"
-          required
-          value={lname}
-          onChange={(e) => {
-            setLname(e.target.value);
-          }}
-          placeholder="Last name*"
-          className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
-        />
-      </div>
-
-      {/* Proceed Button */}
-      <div className="flex justify-center items-center mt-6 w-full">
-        <button
-          onClick={handleOpenModal}
-          className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 text-xs sm:text-sm md:text-base"
-        >
-          Proceed
-        </button>
-      </div>
-    </>
+    </section>
   );
 };
 

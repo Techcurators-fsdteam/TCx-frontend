@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { URL } from '../api/url';
+
 import { useUser } from '../store/UserContext';
 
 const ResumeUploadPage = () => {
@@ -52,7 +54,7 @@ const ResumeUploadPage = () => {
     formData.append('username', user.username);
 
     try {
-      const response = await axios.post('http://api.tcx.academy/api/profile/resume', formData, {
+      const response = await axios.post(`${URL}/profile/resume`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

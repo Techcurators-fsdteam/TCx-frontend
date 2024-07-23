@@ -1,6 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import profileBG from "../assets/profileBG.webm"
+import profileBG from "../assets/profileBG.webm";
+import { URL } from '../api/url';
+
+import { TiEdit } from "react-icons/ti";
 import { RxCross2 as Cross } from "react-icons/rx";
 import { RiDeleteBin6Line as DeleteIcon } from "react-icons/ri";
 import { CiPhone } from "react-icons/ci";
@@ -78,7 +81,7 @@ function Profile() {
   if (!user) {
     return <p>Loading...</p>;
   }
-  
+
 
 
 
@@ -88,7 +91,7 @@ function Profile() {
         <video autoPlay muted loop playsInline className="video-tag" src={profileBG} />
 
       </div> */}
-      <div ref={starRef}  className="starry-background flex justify-center text-center py-8">
+      <div ref={starRef} className="starry-background flex justify-center text-center py-8">
         <div className="flex flex-wrap w-[90%] md:w-[80%] lg:w-[70%] z-10 xl:w-[70%] gap-4">
           {/* Left Profile Box */}
           <div className="w-full md:w-[45%] lg:w-[30%] mt-6 flex flex-col gap-4">
@@ -128,10 +131,10 @@ function Profile() {
                   Personal Information
                 </p>
                 <p
-                  className="text-[#1859F1] cursor-pointer"
+                  className="text-[#1859F1] font-light cursor-pointer"
                   onClick={() => setProfileModalOpen(true)}
                 >
-                  + Edit
+                  <TiEdit />
                 </p>
               </div>
               {user.email && (
@@ -163,7 +166,7 @@ function Profile() {
                     className="text-[#1859F1] cursor-pointer"
                     onClick={() => setResumeModalOpen(true)}
                   >
-                    + Add Resume
+                    <TiEdit />
                   </p>
                 </div>
 
@@ -213,7 +216,7 @@ function Profile() {
               </div>
               {user.certificates && user.certificates.length > 0 ? (
                 <div className="flex flex-wrap justify-start gap-4">
-                  {user.certificates.map((cert, index) => (
+                  {user.certificates.filter(cert => cert.link).length > 0 ? <>{user.certificates.filter(cert => cert.link).map((cert, index) => (
                     <a key={index} href={cert.link} target="_blank" rel="noopener noreferrer">
                       <img
                         src={cert.link} // Assuming certificate images are named by their IDs
@@ -222,6 +225,12 @@ function Profile() {
                       />
                     </a>
                   ))}
+                  </> : <div className="text-center w-full mt-4">
+                    <p>No certificates yet. Ready to earn one?</p>
+                    <Link to="/certify" className="text-[#FF7C1D] hover:text-[#FF7C1D]">
+                      Certify Now
+                    </Link>
+                  </div>}
                 </div>
               ) : (
                 <div className="text-center mt-4">
@@ -245,7 +254,7 @@ function Profile() {
                   className="text-[#1859F1] cursor-pointer"
                   onClick={() => setWorkModalOpen(true)}
                 >
-                  + Add Work Experience
+                  <TiEdit />
                 </p>
               </div>
               {user.workExp?.map((work) => {
@@ -265,7 +274,7 @@ function Profile() {
                   className="text-[#1859F1] cursor-pointer"
                   onClick={() => setEducationModalOpen(true)}
                 >
-                  + Add Education
+                  <TiEdit />
                 </p>
               </div>
               {user.education?.map((edu) => {
@@ -285,7 +294,7 @@ function Profile() {
                   className="text-[#1859F1] cursor-pointer"
                   onClick={() => setLinkModalOpen(true)}
                 >
-                  + Add Links
+                 <TiEdit />
                 </p>
               </div>
               {user.links ? (
@@ -313,7 +322,7 @@ function Profile() {
                   }}
                   className="text-[#1859F1] cursor-pointer"
                 >
-                  + Add Skills
+                 <TiEdit />
                 </button>
               </div>
               <div className="mt-2">
@@ -389,7 +398,7 @@ const LinkComponent = ({ link }) => {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        "http://api.tcx.academy/api/profile/links",
+        `${URL}/profile/links`,
         {
           data: {
             username: user.username,
@@ -450,7 +459,7 @@ function Skills({ skill }) {
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
-        "http://api.tcx.academy/api/profile/skills",
+        `${URL}/profile/skills`,
         {
           data: {
             username: user.username,
@@ -503,7 +512,7 @@ function WXP({ work }) {
   const handleDelete = async () => {
     try {
       // Replace with your API endpoint URL
-      const url = "http://api.tcx.academy/api/profile/workExp";
+      const url = `${URL}/profile/workExp`;
 
       const data = {
         workExpId: work.expId, // Assuming work object has an expId
@@ -601,7 +610,7 @@ function EDU({ edu }) {
   const handleDelete = async () => {
     try {
       // Replace with your API endpoint URL
-      const url = "http://api.tcx.academy/api/profile/education";
+      const url = `${URL}/profile/education`;
 
       // Replace with your username retrieval logic
       const username = "example_username"; // You need to retrieve this from your context or props

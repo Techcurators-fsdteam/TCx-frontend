@@ -12,7 +12,7 @@ function Navbar() {
     { name: "Learn", route: "/learn" },
     { name: "Certify", route: "/certify" },
     { name: "Blog", route: "/editor" },  // Updated route for Blog
-    { name: "Research", route: "/research" },
+    { name: "Apply", route: "/apply" },
     // { name: 'Start Learning Today', route: '/start-learning' },
   ];
 
@@ -124,7 +124,7 @@ function Navbar() {
             >
               {tab.name}
             </Link>
-            {["Blog", "Research", "Start Learning Today"].includes(
+            {["Blog"].includes(
               tab.name
             ) && (
               <div

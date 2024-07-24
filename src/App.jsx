@@ -28,12 +28,9 @@ import Editor from './components/Editor';
 import CustomCursor from './components/CustomCursor'; // Import the Custom Cursor
 import './index.css'; // Ensure this points to your CSS file
 import ProblemTable from './components/ProblemTable';
-<<<<<<< HEAD
-import PythonCodeEditor from './components/Coder';
-import StudentForm from './components/ApplyForm';
-=======
 import StudentDet from './components/StudentDet';
->>>>>>> 7759fe348102948f84afdc34b21c8f55b44663e1
+import StudentForm from './components/ApplyForm';
+import JobDescription from './components/JobDescription';
 
 function App() {
   return (
@@ -66,9 +63,10 @@ function App() {
             <Route path='/testIntro2' element={<Testintro2 />} />
             <Route path='/testReport' element={<Report />} />
             <Route path='/certificate' element={<Certify3 />} />
-            <Route path='/problems/:testId' element={<PythonCodeEditor />} />
+            {/*<Route path='/problems/:testId' element={<PythonCodeEditor />} />*/}
             <Route path='/apply' element={<ApplyPage/>}/>
             <Route path='/application' element={<StudentForm/>}/>
+            <Route path='/job-description' element={<JobDescription/>}/>
           </Routes>
         </Router>
       </GoogleOAuthProvider>

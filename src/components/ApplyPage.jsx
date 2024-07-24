@@ -28,6 +28,7 @@ function ApplyPage() {
     };
 
     const handleApplyClick = (job) => {
+        // console.log(job)
         const currentTime = new Date();
         const startTime = new Date(job.startTime);
         const endTime = new Date(job.endTime);

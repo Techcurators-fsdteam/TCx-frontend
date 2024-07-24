@@ -26,7 +26,7 @@ const JobDescription = () => {
     }
 
     const handleApplyClick = () => {
-        navigate('/application', { state: { testId: job.testId } });
+        navigate('/application', { state: { testId: job.testId,interviewId:job.interviewId } });
     };
 
     return (

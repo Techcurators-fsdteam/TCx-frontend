@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function StudentForm() {
     const location = useLocation();
-    const { testId } = location.state || {};
+    const { testId, interviewId } = location.state || {};
     const [formData, setFormData] = useState({
         fullName: '',
         contactNumber: '',
@@ -24,11 +25,37 @@ function StudentForm() {
             [name]: value
         }));
     };
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if (event.data.type === 'testCompleted') {
+                // console.log(event.data.data)
+                toast("Test Successfully Submitted")
+                navigate('/', { state: { ...event.data.data } });
+            }
+        };
+
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, [navigate]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData);
-        navigate('/next-page', { state: { formData, testId } });
+        // console.log(formData);
+        // navigate('/next-page', { state: { formData, testId } });
+        localStorage.setItem('testData', JSON.stringify({
+            fullName: formData.fullName,
+            contactNumber: formData.contactNumber,
+            emailId: formData.emailId,
+            universityCollege: formData.universityCollege,
+            rollNo: formData.rollNo,
+            branch: formData.branch,
+            resume: formData.resume,
+            linkedInProfile: formData.linkedInProfile,
+            campus: true,
+            testId: testId,
+            interviewId
+        }));
+        window.open('/test', "Test Page", `width=${window.screen.width},height=${window.screen.height},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
     };
 
     return (

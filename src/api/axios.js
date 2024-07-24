@@ -167,3 +167,52 @@ export async function getDrives() {
     return error;
   }
 }
+
+
+export const submitInterviewTest = async ({
+  fullName,
+  contactNumber,
+  emailId,
+  universityCollege,
+  rollNo,
+  branch,
+  resume,
+  linkedInProfile,
+  testid,
+  answers,
+  username,
+  interviewId,
+}) => {
+  console.log(fullName,
+    contactNumber,
+    emailId,
+    universityCollege,
+    rollNo,
+    branch,
+    resume,
+    linkedInProfile,
+    testid,
+    answers,
+    username,
+    interviewId,)
+  try {
+    const response = await apiClient.post("/apply/submitTest", {
+      fullName,
+      contactNumber,
+      emailId,
+      universityCollege,
+      rollNo,
+      branch,
+      resume,
+      linkedInProfile,
+      testId:testid,
+      answers,
+      username,
+      interviewId,
+    });
+    return response;
+  } catch (error) {
+    console.error("Error submitting interview test:", error);
+    throw error; // Rethrow to allow further error handling by the caller
+  }
+};

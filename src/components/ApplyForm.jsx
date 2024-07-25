@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function StudentForm() {
     const location = useLocation();
-    const { testId } = location.state || {};
+    const { testId, interviewId } = location.state || {};
     const [formData, setFormData] = useState({
         fullName: '',
         contactNumber: '',
@@ -31,6 +31,18 @@ function StudentForm() {
             [name]: value
         }));
     };
+    useEffect(() => {
+        const handleMessage = (event) => {
+            if (event.data.type === 'testCompleted') {
+                // console.log(event.data.data)
+                toast("Test Successfully Submitted")
+                navigate('/', { state: { ...event.data.data } });
+            }
+        };
+
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, [navigate]);
 
     const handleCheckboxChange = (e) => {
         const { name, checked } = e.target;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 // import Header from "./Header";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getQues, getQuestions, submitAnswers } from "../api/axios";
+import { getQues, getQuestions, submitAnswers, submitInterviewTest } from "../api/axios";
 import { useUser } from "../store/UserContext";
 import BouncingDotsLoader from "./Loaders/Bouncing";
 
@@ -19,7 +19,13 @@ export default function Test(props) {
   // const { fName, lName, domain, experience, testId } = location.state || {};
 
   const testData = JSON.parse(localStorage.getItem('testData'));
-  const { fName, lName, domain, experience, testId } = testData;
+  const { fName, lName, domain, experience, testId, fullName, contactNumber, emailId,
+    universityCollege,
+    rollNo,
+    branch,
+    campus,
+    resume,
+    linkedInProfile, interviewId } = testData;
   const [score, setScore] = useState(0);
   const { user, setAppData } = useUser();
   // console.log(user)
@@ -30,7 +36,7 @@ export default function Test(props) {
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
-        alert.log("Tab is no longer visible!");
+        alert("Tab is no longer visible!");
         handleFinalSubmit(user.username)
       } else if (document.visibilityState === 'visible') {
         console.log("Tab is in focus!");
@@ -60,7 +66,7 @@ export default function Test(props) {
   }, []);
 
   useEffect(() => {
-    if (fName && lName && testId) {
+    if (testId) {
 
       async function fetchData() {
         try {
@@ -163,23 +169,54 @@ export default function Test(props) {
       navigate("/result", { state: { fName, lName, score: calculatedScore } });
     }
     else if (testId) {
-      let answers = []
-      for (let i = 0; i < ques.length; i++) {
-        const questionId = ques[i]._id;
-        const selectedOption = selectedAnswers[i];
-        const data = { questionId, selectedOption };
-        answers.push(data);
+      if (campus == true) {
+        let answers = []
+        // console.log(user)
+        const username = user.username;
+        for (let i = 0; i < ques.length; i++) {
+          const questionId = ques[i]._id;
+          const selectedOption = selectedAnswers[i];
+          const data = { questionId, selectedOption };
+          answers.push(data);
+        }
+        console.log(answers)
+        const response = await submitInterviewTest({
+          fullName,
+          contactNumber,
+          emailId,
+          universityCollege,
+          rollNo,
+          branch,
+          resume,
+          linkedInProfile,
+          testid,
+          answers,
+          username,
+          interviewId
+        })
+        if (response.status === 201) {
+          window.opener.postMessage({ type: 'testCompleted' }, '*'); // Send message to parent window
+          window.close(); // Close the popup
+        }
       }
-      console.log(user)
-      const result = await submitAnswers(testid, answers, `${fName} ${lName}`, user.username)
-      setAppData(result)
-      console.log(result)
-      const data = { ques: ques, answers: selectedAnswers, report: result }
-      // navigate('/testReport', { state:  })
-      window.opener.postMessage({ type: 'testCompleted', data }, '*'); // Send message to parent window
-      window.close(); // Close the popup
+      else {
+        let answers = []
+        for (let i = 0; i < ques.length; i++) {
+          const questionId = ques[i]._id;
+          const selectedOption = selectedAnswers[i];
+          const data = { questionId, selectedOption };
+          answers.push(data);
+        }
+        console.log(user)
+        const result = await submitAnswers(testid, answers, `${fName} ${lName}`, user.username)
+        setAppData(result)
+        console.log(result)
+        const data = { ques: ques, answers: selectedAnswers, report: result }
+        // navigate('/testReport', { state:  })
+        window.opener.postMessage({ type: 'testCompleted', data }, '*'); // Send message to parent window
+        window.close(); // Close the popup
 
-
+      }
     }
     setLoading(false)
   };

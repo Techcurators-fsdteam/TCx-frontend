@@ -20,10 +20,12 @@ import { useNavigate } from "react-router-dom";
 // import arrow from "../assets/arrow.svg";
 import pt from "../assets/pt.svg";
 import { toast } from "react-toastify";
+import { useUser } from "../store/UserContext";
 
 function CertificationPage() {
   const location = useLocation();
-  const { testId, title } = location.state
+  const { testId, testName } = location.state
+  const title = testName + " Test";
   const navigate = useNavigate();
   const [name, setName] = useState(false);
   const [fname, setFname] = useState('');
@@ -36,7 +38,7 @@ function CertificationPage() {
 
   return (
     <>
-      {name ? <><NamePage testId={testId} /></> : <>
+      {name ? <><NamePage testId={testId} title={title} /></> : <>
         <Navbar />
         <div className="flex items-center justify-center w-full mt-12">
           <div className="flex flex-col md:flex-row bg-black text-white py-10 px-4 md:px-8 lg:px-16">
@@ -240,15 +242,18 @@ function CertificationPage() {
 }
 
 
-const NamePage = ({ testId }) => {
+const NamePage = ({ testId, title }) => {
   const [fname, setFname] = useState();
   const [lname, setLname] = useState();
   const navigate = useNavigate();
+  const { user } = useUser();
+  const [conf, setConf] = useState(false);
 
   useEffect(() => {
     const handleMessage = (event) => {
       if (event.data.type === 'testCompleted') {
         // console.log(event.data.data)
+        localStorage.setItem('testReport', JSON.stringify({ ...event.data.data }))
         navigate('/testReport', { state: { ...event.data.data } });
       }
     };
@@ -261,8 +266,8 @@ const NamePage = ({ testId }) => {
   const handleOpenModal = () => {
     if (fname && lname) {
       // navigate('/test', { state: { fName: fname, lName: lname, testId: testId } })
-
-      localStorage.setItem('testData', JSON.stringify({ fName: fname, lName: lname, testId: testId }));
+      console.log(user.username)
+      localStorage.setItem('testData', JSON.stringify({ fName: fname, lName: lname, testId: testId, username: user.username }));
       window.open('/test', "Test Page", `width=${window.screen.width},height=${window.screen.height},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
     }
     else {
@@ -273,82 +278,111 @@ const NamePage = ({ testId }) => {
   return (
     <section className="flex w-[100%] h-[100vh] justify-center items-center ">
       <div className="bg-white p-10 w-[50%] rounded-2xl">
-        <div className="flex flex-col md:flex-row items-center md:items-start ">
-          <img
-            src={pt}
-            alt="Practice Test"
-            className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-32 lg:h-32 mb-4 md:mb-0"
-          />
-          <div className="ml-0 md:ml-6 text-center md:text-left">
-            <p className="text-black text-xl sm:text-2xl md:text-3xl pt-4 md:pt-6">
-              Practice Test
-            </p>
-            <p className="text-gray-400 text-sm sm:text-base md:text-lg">
-              19 minutes
-            </p>
-          </div>
-        </div>
+        {
+          conf ? <>
+            <div className="flex flex-col">
+              <p className="text-black text-xl sm:text-2xl md:text-3xl pt-4 md:pt-6">
+                Are You Sure?
+              </p>
+              <hr />
+              <p className="text-gray-400 text-sm sm:text-base md:text-lg">
+                {fname} {lname} name will be displayed on your certificate
+                and cannot be changed later. Do you want to continue?
+              </p>
+            </div>
+            <div className="flex ml-[75%]">
+              <button
+                onClick={() => { setConf(false) }}
+                className="bg-white p-5 px-5 py-2  mt-3 border-gray-500 rounded-md"
+              >
+                Cancel
+              </button>
+              <button onClick={handleOpenModal} className="bg-[#FF7C1D] text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md">
+                Confirm
+              </button>
+            </div>
+          </> :
 
-        {/* Steps Section */}
-        <div className="flex justify-center items-center mt-6 md:mt-4 space-x-6 sm:space-x-8 lg:space-x-10">
-          {/* Step 1 */}
-          <div className="flex items-center space-x-2">
-            <p className="bg-[#FF7C1D] text-white w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full text-xs sm:text-sm md:text-base">
-              1
-            </p>
-            <p className="text-[#FF7C1D] text-sm sm:text-base md:text-lg">
-              Review Profile
-            </p>
-          </div>
-          <img
-            src={arrow}
-            alt="Arrow"
-            className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
-          />
-          {/* Step 2 */}
-          <div className="flex items-center space-x-2">
-            <p className="bg-[#8C8C8C] text-black w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full text-xs sm:text-sm md:text-base">
-              2
-            </p>
-            <p className="text-[#8C8C8C] text-sm sm:text-base md:text-lg">
-              Certification Test
-            </p>
-          </div>
-        </div>
+            <>
+              <div className="flex flex-col md:flex-row items-center md:items-start ">
+                <img
+                  src={pt}
+                  alt="Practice Test"
+                  className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-32 lg:h-32 mb-4 md:mb-0"
+                />
+                <div className="ml-0 md:ml-6 text-center md:text-left">
+                  <p className="text-black text-xl sm:text-2xl md:text-3xl pt-4 md:pt-6">
+                    {title}
+                  </p>
+                  <p className="text-gray-400 text-sm sm:text-base md:text-lg">
+                    19 minutes
+                  </p>
+                </div>
+              </div>
 
-        {/* Input Fields */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 w-full">
-          <input
-            type="text"
-            required
-            value={fname}
-            onChange={(e) => {
-              setFname(e.target.value);
-            }}
-            placeholder="First name*"
-            className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
-          />
-          <input
-            type="text"
-            required
-            value={lname}
-            onChange={(e) => {
-              setLname(e.target.value);
-            }}
-            placeholder="Last name*"
-            className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
-          />
-        </div>
+              {/* Steps Section */}
+              <div className="flex justify-center items-center mt-6 md:mt-4 space-x-6 sm:space-x-8 lg:space-x-10">
+                {/* Step 1 */}
+                <div className="flex items-center space-x-2">
+                  <p className="bg-[#FF7C1D] text-white w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full text-xs sm:text-sm md:text-base">
+                    1
+                  </p>
+                  <p className="text-[#FF7C1D] text-sm sm:text-base md:text-lg">
+                    Review Profile
+                  </p>
+                </div>
+                <img
+                  src={arrow}
+                  alt="Arrow"
+                  className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
+                />
+                {/* Step 2 */}
+                <div className="flex items-center space-x-2">
+                  <p className="bg-[#8C8C8C] text-black w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 flex items-center justify-center rounded-full text-xs sm:text-sm md:text-base">
+                    2
+                  </p>
+                  <p className="text-[#8C8C8C] text-sm sm:text-base md:text-lg">
+                    Certification Test
+                  </p>
+                </div>
+              </div>
 
-        {/* Proceed Button */}
-        <div className="flex justify-center items-center mt-6 w-full">
-          <button
-            onClick={handleOpenModal}
-            className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 text-xs sm:text-sm md:text-base"
-          >
-            Proceed
-          </button>
-        </div>
+              {/* Input Fields */}
+              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 w-full">
+                <input
+                  type="text"
+                  required
+                  value={fname}
+                  onChange={(e) => {
+                    setFname(e.target.value);
+                  }}
+                  placeholder="First name*"
+                  className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
+                />
+                <input
+                  type="text"
+                  required
+                  value={lname}
+                  onChange={(e) => {
+                    setLname(e.target.value);
+                  }}
+                  placeholder="Last name*"
+                  className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
+                />
+              </div>
+
+              {/* Proceed Button */}
+              <div className="flex justify-center items-center mt-6 w-full">
+                <button
+                  onClick={() => { setConf(true) }}
+                  className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 text-xs sm:text-sm md:text-base"
+                >
+                  Proceed
+                </button>
+              </div>
+            </>
+
+        }
       </div>
     </section>
   );

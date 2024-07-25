@@ -53,6 +53,7 @@ export const getQuestions = async (testId) => {
 };
 
 export const submitAnswers = async (testId, answers, name, username) => {
+  console.log(username);
   try {
     const response = await apiClient.post("/certify/submit-answers", {
       testId,
@@ -168,7 +169,6 @@ export async function getDrives() {
   }
 }
 
-
 export const submitInterviewTest = async ({
   fullName,
   contactNumber,
@@ -183,7 +183,8 @@ export const submitInterviewTest = async ({
   username,
   interviewId,
 }) => {
-  console.log(fullName,
+  console.log(
+    fullName,
     contactNumber,
     emailId,
     universityCollege,
@@ -194,7 +195,8 @@ export const submitInterviewTest = async ({
     testid,
     answers,
     username,
-    interviewId,)
+    interviewId
+  );
   try {
     const response = await apiClient.post("/apply/submitTest", {
       fullName,
@@ -205,7 +207,7 @@ export const submitInterviewTest = async ({
       branch,
       resume,
       linkedInProfile,
-      testId:testid,
+      testId: testid,
       answers,
       username,
       interviewId,

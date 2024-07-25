@@ -21,7 +21,7 @@ function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [logged, setLogged] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const { user } = useUser();
+  const { user,fetchUserDetails } = useUser();
 
   const [imageUrl, setImageUrl] = useState(
     "https://i.pinimg.com/236x/7a/2d/59/7a2d59b45f3221b020ed465f92e8d44e.jpg"
@@ -64,9 +64,12 @@ function Navbar() {
 
   const handleLogout = () => {
     document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    
     setLogged(false);
     setDropdownOpen(false);
     navigate("/login");
+
+    window.location.reload();
   };
 
   return (

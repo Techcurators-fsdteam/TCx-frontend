@@ -20,7 +20,7 @@ function Certify3() {
     });
 
     // Image URL or base64 string
-    const imageUrl = "path_to_your_image.jpg";
+    const imageUrl = cert;
 
     // Add image to PDF
     doc.addImage(imageUrl, 'JPEG', 10, 10, 480, 480);

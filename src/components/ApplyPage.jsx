@@ -4,10 +4,14 @@ import { getDrives } from '../api/axios';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import building from '../assets/building.svg';
+import { useUser } from '../store/UserContext';
+import { toast } from 'react-toastify';
 
 function ApplyPage() {
     const [visibleCount, setVisibleCount] = useState(4);
     const [jobs, setJobs] = useState([]);
+    const { user, fetchUserDetails } = useUser();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -21,25 +25,35 @@ function ApplyPage() {
         };
 
         fetchData();
+        fetchUserDetails();
     }, []);
+
 
     const showMore = () => {
         setVisibleCount(prevCount => prevCount + 3);
     };
 
     const handleApplyClick = (job) => {
-        // console.log(job)
-        const currentTime = new Date();
-        const startTime = new Date(job.startTime);
-        const endTime = new Date(job.endTime);
+        if (user) {
+            const currentTime = new Date();
+            const startTime = new Date(job.startTime);
+            const endTime = new Date(job.endTime);
 
-        // Comment out the alert
-        if (currentTime < startTime || currentTime > endTime) {
-            // alert("The test has not started or has already ended.");
+            if (currentTime < startTime || currentTime > endTime) {
+                toast.error("The test has not started or has already ended.");
+            } else {
+                if (user.interviews.includes(job.interviewId)) {
+                    toast.error("You have already applied for this job.");
+                } else {
+                    navigate('/job-description', { state: { job } });
+                }
+            }
+        } else {
+            toast.error("You need to log in first.");
+            navigate('/login');
         }
-
-        navigate('/job-description', { state: { job } });
     };
+
 
     return (
         <>

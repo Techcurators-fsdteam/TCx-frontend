@@ -25,7 +25,7 @@ export default function Test(props) {
     branch,
     campus,
     resume,
-    linkedInProfile, interviewId } = testData;
+    linkedInProfile, interviewId, username } = testData;
   const [score, setScore] = useState(0);
   const { user, setAppData } = useUser();
   // console.log(user)
@@ -37,7 +37,7 @@ export default function Test(props) {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
         alert("Tab is no longer visible!");
-        handleFinalSubmit(user.username)
+        handleFinalSubmit()
       } else if (document.visibilityState === 'visible') {
         console.log("Tab is in focus!");
         // Perform tasks when the tab comes back into focus
@@ -46,7 +46,7 @@ export default function Test(props) {
 
     document.addEventListener('resize', function () {
       alert('Window size has changed');
-      handleFinalSubmit(user.username);
+      handleFinalSubmit();
       // this.window.close()
     });
 
@@ -59,7 +59,7 @@ export default function Test(props) {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       document.removeEventListener('resize', function () {
         alert('Window size has changed');
-        handleFinalSubmit(user.username);
+        handleFinalSubmit();
         this.window.close()
       })
     };
@@ -71,7 +71,7 @@ export default function Test(props) {
       async function fetchData() {
         try {
           const data = await getQuestions(testId);
-          console.log(data)
+          // console.log(data)
           setQues(data.selectedQuestions)
           setTimeLeft(data.duration * 60)
           setTestId(data.testId)
@@ -91,7 +91,7 @@ export default function Test(props) {
             const data = await getQues({ fName, lName, domain, experience });
             setQues(data.randomQuestions); // Assuming 'randomQuestions' is the array containing questions
             setSelectedAnswers(Array(data.randomQuestions.length).fill(""));
-            console.log(data.randomQuestions);
+            // console.log(data.randomQuestions);
           } else {
             console.error("Missing required parameters:", {
               fName,
@@ -148,7 +148,7 @@ export default function Test(props) {
     } else if (timeLeft === 0) {
       // Handle timer completion actions here
       console.log("Timer expired!");
-      handleFinalSubmit(user.username);
+      handleFinalSubmit();
       setTimerRunning(false);
       // You can add additional logic here, such as auto-submitting the quiz
     }
@@ -156,7 +156,7 @@ export default function Test(props) {
     return () => clearInterval(interval);
   }, [timerRunning, timeLeft]);
 
-  const handleFinalSubmit = async (username) => {
+  const handleFinalSubmit = async () => {
     setLoading(true)
     if (domain && experience) {
       let calculatedScore = 0;
@@ -172,14 +172,13 @@ export default function Test(props) {
       if (campus == true) {
         let answers = []
         // console.log(user)
-        const username = user.username;
         for (let i = 0; i < ques.length; i++) {
           const questionId = ques[i]._id;
           const selectedOption = selectedAnswers[i];
           const data = { questionId, selectedOption };
           answers.push(data);
         }
-        console.log(answers)
+        // console.log(answers)
         const response = await submitInterviewTest({
           fullName,
           contactNumber,
@@ -189,7 +188,7 @@ export default function Test(props) {
           branch,
           resume,
           linkedInProfile,
-          testid,
+          testId,
           answers,
           username,
           interviewId
@@ -207,8 +206,8 @@ export default function Test(props) {
           const data = { questionId, selectedOption };
           answers.push(data);
         }
-        console.log(user)
-        const result = await submitAnswers(testid, answers, `${fName} ${lName}`, user.username)
+        console.log(testId)
+        const result = await submitAnswers(testId, answers, `${fName} ${lName}`, username)
         setAppData(result)
         console.log(result)
         const data = { ques: ques, answers: selectedAnswers, report: result }
@@ -225,7 +224,7 @@ export default function Test(props) {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
         console.log("Tab is no longer visible! Auto-submitting test...");
-        handleFinalSubmit(user.username); // Auto-submit when the tab is no longer visible
+        handleFinalSubmit(); // Auto-submit when the tab is no longer visible
       }
     };
 

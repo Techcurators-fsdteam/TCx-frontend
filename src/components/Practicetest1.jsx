@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import arrow from "../assets/arrow.svg";
 import pt from "../assets/pt.svg";
+import { useUser } from "../store/UserContext";
 // import Header from "./Header";
 
 
-const Domains=["web development","machine learning","data science","networking","blockchain","cybersecurity"]
+const Domains = ["web development", "machine learning", "data science", "networking", "blockchain", "cybersecurity"]
 
 function Practicetest1() {
   const [fname, setFname] = useState('');
@@ -14,11 +15,13 @@ function Practicetest1() {
   const [exp, setexp] = useState('');
   const [name, setName] = useState(false);
   const [conf, setConf] = useState(false);
+  const { user } = useUser();
 
-  const navigate=useNavigate()
-    function handleLinkClick(){
-        navigate("/test",{state:{fName:`${fname}`,lName:`${lname}`,domain:`${domain}`,experience:`${exp}`}})
-    }
+  const navigate = useNavigate()
+  function handleLinkClick() {
+    localStorage.setItem('testData', JSON.stringify({ fName: fname, lName: lname, domain: domain, experience: exp }));
+    window.open('/test', "Test Page", `width=${window.screen.width},height=${window.screen.height},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
+  }
 
   function handleSubmitModal() {
     setName(false);
@@ -99,20 +102,20 @@ function Practicetest1() {
 
               {/* Input Fields */}
               <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 w-full">
-              <select
+                <select
                   required
                   value={domain}
                   name="experience"
                   onChange={(e) => {
-                    setDomain  (e.target.value);
+                    setDomain(e.target.value);
                   }}
                   className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
                 >
                   <option value="" disabled>
                     Domain
                   </option>
-                  {Domains.map((domain)=>{
-                    return(
+                  {Domains.map((domain) => {
+                    return (
                       <option value={domain}>
                         {domain}
                       </option>
@@ -124,7 +127,7 @@ function Practicetest1() {
                   value={exp}
                   name="experience"
                   onChange={(e) => {
-                    setexp  (e.target.value);
+                    setexp(e.target.value);
                   }}
                   className="w-full sm:w-[45%] px-4 py-2 rounded-xl bg-gray-200 text-xs sm:text-sm md:text-base focus:outline-none glowing-border placeholder-orange-500"
                 >
@@ -140,8 +143,8 @@ function Practicetest1() {
               {/* Proceed Button */}
               <div className="flex justify-center items-center mt-6 w-full">
                 <button
-                onClick={handleLinkClick}
-                  
+                  onClick={handleLinkClick}
+
                   className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 text-xs sm:text-sm md:text-base"
                 >
                   Proceed

@@ -18,9 +18,9 @@ export default function Result() {
             </p>:<p className="text-white font-semibold text-3xl mt-[-10%]">
                 Uh Uh!!  you could not clear the test. Please try again after some time. Till then keep yourself motivated
             </p>}
-            <Link to="/" className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4">
+            <button onClick={()=>{window.close()}} className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4">
               Return to Home
-            </Link>
+            </button>
             
             
         

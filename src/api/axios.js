@@ -218,3 +218,17 @@ export const submitInterviewTest = async ({
     throw error; // Rethrow to allow further error handling by the caller
   }
 };
+
+
+
+export const newsLetter= async(email,name)=>{
+  try {
+    const response = await apiClient.post(`/newsLetter`,{
+      email,name
+    });
+    return response;
+  } catch (error) {
+    console.error(`Error sending Mail:`, error);
+    throw error;
+  }
+}

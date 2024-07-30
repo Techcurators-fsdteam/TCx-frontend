@@ -86,12 +86,12 @@ function Profile() {
 
 
   return (
-    <>
+    <section className="">
       {/* <div className="video-background">
         <video autoPlay muted loop playsInline className="video-tag" src={profileBG} />
 
       </div> */}
-      <div ref={starRef} className="starry-background flex justify-center text-center py-8">
+      <div ref={starRef} className="h-fit starry-background flex justify-center text-center py-8">
         <div className="flex flex-wrap w-[90%] md:w-[80%] lg:w-[70%] z-10 xl:w-[70%] gap-4">
           {/* Left Profile Box */}
           <div className="w-full md:w-[45%] lg:w-[30%] mt-6 flex flex-col gap-4">
@@ -294,7 +294,7 @@ function Profile() {
                   className="text-[#1859F1] cursor-pointer"
                   onClick={() => setLinkModalOpen(true)}
                 >
-                 <TiEdit />
+                  <TiEdit />
                 </p>
               </div>
               {user.links ? (
@@ -322,7 +322,7 @@ function Profile() {
                   }}
                   className="text-[#1859F1] cursor-pointer"
                 >
-                 <TiEdit />
+                  <TiEdit />
                 </button>
               </div>
               <div className="mt-2">
@@ -380,7 +380,7 @@ function Profile() {
           }}
         />
       </Modal>
-    </>
+    </section>
   );
 }
 

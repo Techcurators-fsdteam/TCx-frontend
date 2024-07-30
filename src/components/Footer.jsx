@@ -1,12 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import e1 from '../assets/ldin.svg';
 import e2 from '../assets/ig.svg';
 import e3 from '../assets/mail.svg';
 import e4 from '../assets/x.svg';
+import { newsLetter } from '../api/axios';
+import { toast } from 'react-toastify';
 
 const Footer = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const handleSubscribe = async (e) => {
+    e.preventDefault();
+    // Add your subscribe logic here, e.g., send data to the server
+    console.log('Subscribed with name:', name, 'and email:', email);
+    const response = await newsLetter(email, name)
+    console.log(response)
+    if (response.status === 201) {
+      toast("Email Sent Successfully");
+    }
+    else {
+      toast.error("Error Sending Email")
+    }
+    // Reset the form fields
+    setName('');
+    setEmail('');
+  };
+
   return (
     <div className='flex flex-col items-center bg-gray-900 w-full p-6 text-gray-500 mt-20'>
       <div className='w-full sm:w-[90%]'>
@@ -59,10 +81,27 @@ const Footer = () => {
           </div>
           <div className='flex flex-col items-center sm:items-start gap-4 mt-4 sm:mt-0'>
             <p className='text-center text-gray-400 text-sm sm:text-lg'>Stay updated with our latest news and offers:</p>
-            <form className='flex flex-col items-center sm:flex-row gap-2'>
-              <input type='text' placeholder='Enter your name' className='p-2 rounded bg-gray-800 text-white border border-gray-600 text-sm sm:text-lg focus:border-orange-500' />
-              <input type='email' placeholder='Enter your email' className='p-2 rounded bg-gray-800 text-white border border-gray-600 text-sm sm:text-lg focus:border-orange-500' />
-              <button type='submit' className='p-2 rounded bg-orange-500 text-white text-sm sm:text-lg'>Subscribe</button>
+            <form className='flex flex-col items-center sm:flex-row gap-2' onSubmit={handleSubscribe}>
+              <input
+                type='text'
+                placeholder='Enter your name'
+                className='p-2 rounded bg-gray-800 text-white border border-gray-600 text-sm sm:text-lg focus:border-orange-500'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                type='email'
+                placeholder='Enter your email'
+                className='p-2 rounded bg-gray-800 text-white border border-gray-600 text-sm sm:text-lg focus:border-orange-500'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button
+                type='submit'
+                className='p-2 rounded bg-orange-500 text-white text-sm sm:text-lg'
+              >
+                Subscribe
+              </button>
             </form>
           </div>
         </div>

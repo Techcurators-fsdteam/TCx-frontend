@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { URL } from '../api/url';
 import { useUser } from '../store/UserContext';
 
 const months = [
@@ -94,7 +95,7 @@ function WorkExperienceForm({ workExp, onClose }) {
 
     try {
       const url = `${URL}/profile/workExp`;
-      const method = workExp ? 'PATCH' : 'POST';
+      // const method = workExp ? 'PATCH' : 'POST';
 
       const response = await axios({
         method: "POST",

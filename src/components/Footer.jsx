@@ -50,22 +50,26 @@ const Footer = () => {
               <a href="#"><img src={e3} alt="Mail" className='w-8 h-8' /></a>
               <a href="#"><img src={e4} alt="Twitter" className='w-8 h-8' /></a>
             </div>
-            <p className='text-center sm:text-left text-sm sm:text-lg mt-4'>© 2024 TCx-Grow 100x. All rights reserved.</p>
-            <div className='flex flex-col md:flex-row gap-5 text-center sm:text-left mt-4 text-sm sm:text-lg'>
-              <p>Terms of Service</p>
-              <p>Privacy Policy</p>
-              <p>Cookies</p>
-            </div>
+            
           </div>
-          <div className='flex flex-col items-center sm:items-start gap-4 mt-4 sm:mt-0'>
-            <p className='text-center text-gray-400 text-sm sm:text-lg'>Stay updated with our latest news and offers:</p>
-            <form className='flex flex-col items-center sm:flex-row gap-2'>
+          <div className='flex flex-col items-center md:items-end gap-4 mt-4 sm:mt-0'>
+            <p className='text-right text-gray-400 text-sm sm:text-lg'>Stay updated with our latest news and offers:</p>
+            <form className='flex flex-col items-center md:items-end lg:flex-row gap-2'>
               <input type='text' placeholder='Enter your name' className='p-2 rounded bg-gray-800 text-white border border-gray-600 text-sm sm:text-lg focus:border-orange-500' />
               <input type='email' placeholder='Enter your email' className='p-2 rounded bg-gray-800 text-white border border-gray-600 text-sm sm:text-lg focus:border-orange-500' />
               <button type='submit' className='p-2 rounded bg-orange-500 text-white text-sm sm:text-lg'>Subscribe</button>
             </form>
           </div>
         </div>
+        <div className='flex flex-col justify-center md:flex-row md:justify-between'>
+        <p className='text-center sm:text-left text-sm sm:text-lg mt-4'>© 2024 TCx-Grow 100x. All rights reserved.</p>
+            <div className='flex flex-col md:flex-row gap-5 text-center  mt-4 text-sm sm:text-lg'>
+              <p>Terms of Service</p>
+              <p>Privacy Policy</p>
+              <p>Cookies</p>
+            </div>
+        </div>
+        
       </div>
     </div>
   );

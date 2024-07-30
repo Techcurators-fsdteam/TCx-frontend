@@ -179,7 +179,7 @@ function Learn() {
               </ScrollLink>
             </li>
 
-            <li className="py-4 learnNav sm:py-0 sm:px-4 md:px-0 hover:text-[#FF7C1D] transition-colors duration-300 cursor-pointer">
+            <li className="py-4 learnNav sm:py-0 sm:px-4 md:px-0 hover:text-[#FF7C1D] transition-colors duration=300 cursor-pointer">
               <ScrollLink to="projectsSection" smooth={true} duration={500} offset={-50}>
                 Live Projects
               </ScrollLink>
@@ -196,9 +196,9 @@ function Learn() {
 
       {/* Courses Section */}
       <div id="coursesSection" className="text-[#FF7C1D] flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20">
-        <div className="flex w-full max-w-screen-xl lg:px-0 px-8">
-          <div>
-            <p className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">Courses</p>
+        <div className=" w-[90%] lg:px-0 px-8 " >
+          <div >
+            <p className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4 text-start">Courses</p>
             <p className="text-white text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
               Learn how to implement and leverage Gen AI <br className="hidden sm:block" /> in your profession with these comprehensive courses.
             </p>
@@ -206,33 +206,32 @@ function Learn() {
         </div>
       </div>
 
-      <div className="text-black flex flex-col justify-center items-center text-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20">
-        <div className="flex flex-wrap gap-6 justify-center w-[90%] md:w-[80%] rounded-xl p-6 sm:p-8 md:p-10"
+      <div className="flex flex-col justify-center items-center text-center mt-10 sm:mt-12 md:mt-16 lg:mt-20">
+        <div className="flex flex-wrap gap-6 justify-center w-[90%] rounded-xl p-6 sm:p-8 md:p-10"
       style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           {courses?.slice(0, visibleCourses).map((course) => (
-            <div key={course.id} className="bg-gray-900 rounded-xl h-60 w-full sm:w-[45%] md:w-[30%] flex flex-col justify-between p-4 md:p-6">
+            <div key={course.id} className="bg-gray-900 overflow-hidden rounded-xl h-60 w-[80%] lg:w-[30%] flex flex-col justify-between p-4 md:p-6">
               <div className="flex items-center gap-4 text-white">
-              
-                <h2 className="text-sm lg:text-md text-left">{course.title}</h2>
+                <h2 className="text-sm lg:text-normal text-left">{course.title}</h2>
               </div>
               <p className="text-gray-300 text-left text-sm mt-2">
                 {course.desc.length > 80 ? course.desc.substring(0, 80) + "..." : course.desc}
               </p>
-              <div className="flex justify-evenly">
-                <a href={course.link} target="_blank" rel="noopener noreferrer" className="bg-gray-900 h-12 text-white border border-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4">
+              <div className="flex justify-between">
+                <a href={course.link} target="_blank" rel="noopener noreferrer" className="bg-gray-900 h-12 text-white border lg:text-sm border-white rounded-xl py-2 px-4 sm:py-2 sm:px-2 mt-4">
                   Learn now
                 </a>
                 <img
                   src={Sei}
                   alt={"Image Not Found"}
-                  className="w-12 h-12 md:w-20 md:h-20 object-cover"
+                  className="w-12 h-12 md:w-16 md:h-16 object-cover"
                 />
               </div>
             </div>
           ))}
           {visibleCourses < courses.length && (
             <button onClick={loadMoreCourses} className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-2">
-              load more
+              Load more
             </button>
           )}
         </div>
@@ -240,7 +239,7 @@ function Learn() {
 
       {/* Live Projects Section */}
       <div id="projectsSection" className="text-[#FF7C1D] flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20">
-        <div className="flex w-full max-w-screen-xl lg:px-0 px-8">
+        <div className="w-[90%] lg:px-0 px-8">
           <div>
             <p className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">Live Projects</p>
             <p className="text-white text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
@@ -250,24 +249,23 @@ function Learn() {
         </div>
       </div>
 
-      <div className="text-black flex flex-col justify-center items-center text-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20">
-        <div className="flex flex-wrap gap-6 justify-center w-[90%] md:w-[80%] rounded-xl p-6 sm:p-8 md:p-10"
+      <div className=" flex flex-col justify-center items-center text-center mt-10 sm:mt-12 md:mt-16 lg:mt-20">
+        <div className="flex flex-wrap gap-6 justify-center w-[90%] rounded-xl p-6 sm:p-8 md:p-10"
       style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           {projects?.map((course) => (
-            <div key={course.pid} className="bg-gray-900 rounded-xl h-60 w-full sm:w-[45%] md:w-[30%] flex flex-col justify-between p-4 md:p-6">
+            <div key={course.pid} className="bg-gray-900 overflow-hidden rounded-xl h-60 w-[80%] lg:w-[30%] flex flex-col justify-between p-4 md:p-6">
               <div className="flex items-center gap-4 text-white">
-              
                 <h2 className="text-sm lg:text-md text-left">{course.title}</h2>
               </div>
-              <div className="flex justify-evenly">
-              <button onClick={goToProjectPage(course.pid)} className="bg-gray-900 h-12 text-white border border-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4">
-                Learn now
-              </button>
-              <img
-                      src={Sei}
-                      alt={"Image Not Found"}
-                      className="w-12 h-12 md:w-20 md:h-20 object-cover"
-                    />
+              <div className="flex justify-between">
+                <button onClick={goToProjectPage(course.pid)} className="bg-gray-900 h-12 text-white border lg:text-sm border-white rounded-xl py-2 px-4 sm:py-2 sm:px-2 mt-4">
+                  Learn now
+                </button>
+                <img
+                  src={Sei}
+                  alt={"Image Not Found"}
+                  className="w-12 h-12 md:w-20 md:h-20 object-cover"
+                />
               </div>
             </div>
           ))}
@@ -281,7 +279,7 @@ function Learn() {
 
       {/* Practice Test Section */}
       <div id="testsSection" className="text-[#FF7C1D] flex justify-center w-full mt-10 sm:mt-12 md:mt-16 lg:mt-20 mb-10">
-        <div className="flex-row sm:flex w-full max-w-screen-xl flex-wrap lg:px-0 px-8">
+        <div className="flex-row sm:flex w-[90%] flex-wrap lg:px-0 px-8">
           <div className="flex-1">
             <p className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">Practice Test</p>
             <p className="text-white text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
@@ -295,11 +293,6 @@ function Learn() {
           </div>
         </div>
       </div>
-      {/* <div className="flex justify-center items-center">
-            <RouterLink to="/StudentDet" className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4 md:mt-0 self-center md:self-start">
-            Take Your Interview Test
-            </RouterLink>
-          </div> */}
       <Footer />
     </div>
   );

@@ -45,22 +45,22 @@ const Editor = () => {
 
   function handleBeforeUnload(e) {
     e.preventDefault();
-    e.returnValue = 'Are you sure you want to leave? Changes you made may not be saved.';
-    return 'Are you sure you want to leave? Changes you made may not be saved.';
+    e.returnValue = "Are you sure you want to leave? Changes you made may not be saved.";
+    return "Are you sure you want to leave? Changes you made may not be saved.";
   }
 
   const handleSubmit = async () => {
-    const parts = gradioLink.split('https://');
+    const parts = gradioLink.split("https://");
 
     if (parts.length === 2) {
       const domainPart = parts[1];
-      const domainParts = domainPart.split('.');
+      const domainParts = domainPart.split(".");
 
       if (
         domainParts.length === 3 &&
         /^[a-z0-9]+$/.test(domainParts[0]) &&
-        domainParts[1] === 'gradio' &&
-        domainParts[2].startsWith('live/')
+        domainParts[1] === "gradio" &&
+        domainParts[2].startsWith("live/")
       ) {
         try {
           const result = await submitProject(gradioLink, pid, user.username);
@@ -91,7 +91,7 @@ const Editor = () => {
           <div className="flex items-center justify-center w-full">
             <Navbar />
           </div>
-          <div className="flex justify-center items-center h-screen bg-black text-white">
+          <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start h-screen bg-black text-white">
             <Split
               sizes={[50, 50]}
               minSize={100}
@@ -105,17 +105,16 @@ const Editor = () => {
               className="flex w-full h-full"
             >
               <div className="flex flex-1 flex-col bg-gray-900 p-4 overflow-auto">
-                <div
-                  className="text-white mt-20 h-[80vh] overflow-y-scroll"
-                  dangerouslySetInnerHTML={{ __html: htmlContent }}
-                />
+                <div className="text-white mt-20 h-[60vh] lg:h-[80vh] overflow-y-scroll">
+                  <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
+                </div>
                 {submitted ? (
                   <p className="text-red-400 text-2xl self-center">
-                    *You have already Submitted the project
+                    *You have already submitted the project
                   </p>
                 ) : (
                   <div className="flex flex-col justify-start items-start">
-                    <div className="flex justify-between gap-6">
+                    <div className="flex flex-col sm:flex-row justify-between gap-6">
                       <label
                         className="text-white text-left rounded-xl p-4 text-xl"
                         htmlFor="gradioLink"
@@ -143,14 +142,7 @@ const Editor = () => {
               <div className="flex flex-1 flex-col items-center justify-center p-4">
                 <iframe
                   src={link}
-                  style={{
-                    width: "100%",
-                    height: "85vh",
-                    border: 0,
-                    borderRadius: "4px",
-                    overflow: "hidden",
-                    marginTop: "10vh",
-                  }}
+                  className="w-full h-[50vh] lg:h-[85vh] border-0 rounded-lg overflow-hidden mt-4 lg:mt-0"
                   title="Project View"
                   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
                   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"

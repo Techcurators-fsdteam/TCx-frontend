@@ -26,6 +26,7 @@ export default function Test(props) {
     campus,
     resume,
     linkedInProfile, interviewId, username } = testData;
+  console.log(testId)
   const [score, setScore] = useState(0);
   const { user, setAppData } = useUser();
   // console.log(user)
@@ -171,7 +172,7 @@ export default function Test(props) {
     else if (testId) {
       if (campus == true) {
         let answers = []
-        // console.log(user)
+        console.log(testId)
         for (let i = 0; i < ques.length; i++) {
           const questionId = ques[i]._id;
           const selectedOption = selectedAnswers[i];

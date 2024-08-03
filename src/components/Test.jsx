@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-// import Header from "./Header";
+import React, { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getQues, getQuestions, submitAnswers, submitInterviewTest } from "../api/axios";
 import { useUser } from "../store/UserContext";
 import BouncingDotsLoader from "./Loaders/Bouncing";
+import { toast } from "react-toastify";
 
 export default function Test(props) {
   const location = useLocation();
@@ -16,7 +16,9 @@ export default function Test(props) {
   const [clearDisabled, setClearDisabled] = useState(true);
   const [timeLeft, setTimeLeft] = useState(300); // 300 seconds (5 minutes)
   const [timerRunning, setTimerRunning] = useState(true);
-  // const { fName, lName, domain, experience, testId } = location.state || {};
+  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false); // Flag to prevent multiple submissions
+  const [initialLoad, setInitialLoad] = useState(true); // Flag to track initial load
 
   const testData = JSON.parse(localStorage.getItem('testData'));
   const { fName, lName, domain, experience, testId, fullName, contactNumber, emailId,
@@ -26,94 +28,62 @@ export default function Test(props) {
     campus,
     resume,
     linkedInProfile, interviewId, username } = testData;
-  console.log(testId)
-  const [score, setScore] = useState(0);
   const { user, setAppData } = useUser();
-  // console.log(user)
-  const [testid, setTestId] = useState();
-  const [loading, setLoading] = useState(false)
-
 
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') {
+      if (!initialLoad && document.visibilityState === 'hidden') {
         alert("Tab is no longer visible!");
-        handleFinalSubmit()
-      } else if (document.visibilityState === 'visible') {
-        console.log("Tab is in focus!");
-        // Perform tasks when the tab comes back into focus
+        handleFinalSubmit();
       }
     };
 
-    document.addEventListener('resize', function () {
-      alert('Window size has changed');
+    const handleResize = () => {
+      toast('Window size has changed');
       handleFinalSubmit();
-      // this.window.close()
-    });
+    };
 
-
-    // Add event listener for visibility change
+    // Add event listeners for visibility change and window resize
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener('resize', handleResize);
 
-    // Clean up the event listener when the component unmounts
+    // Clean up the event listeners when the component unmounts
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      document.removeEventListener('resize', function () {
-        alert('Window size has changed');
-        handleFinalSubmit();
-        this.window.close()
-      })
+      window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [initialLoad]);
 
   useEffect(() => {
     if (testId) {
-
       async function fetchData() {
         try {
           const data = await getQuestions(testId);
-          // console.log(data)
-          setQues(data.selectedQuestions)
-          setTimeLeft(data.duration * 60)
-          setTestId(data.testId)
+          setQues(data.selectedQuestions);
+          setTimeLeft(data.duration * 60);
           setSelectedAnswers(Array(data.selectedQuestions.length).fill(""));
-        }
-        catch (err) {
-          alert(err)
+          setInitialLoad(false); // Set initial load to false after data fetch
+        } catch (err) {
+          alert(err);
         }
       }
       fetchData();
-
-    }
-    else if (domain && experience) {
+    } else if (domain && experience) {
       async function fetchData() {
         try {
-          if (fName && lName && domain && experience) {
-            const data = await getQues({ fName, lName, domain, experience });
-            setQues(data.randomQuestions); // Assuming 'randomQuestions' is the array containing questions
-            setSelectedAnswers(Array(data.randomQuestions.length).fill(""));
-            // console.log(data.randomQuestions);
-          } else {
-            console.error("Missing required parameters:", {
-              fName,
-              lName,
-              domain,
-              experience,
-            });
-          }
+          const data = await getQues({ fName, lName, domain, experience });
+          setQues(data.randomQuestions); // Assuming 'randomQuestions' is the array containing questions
+          setSelectedAnswers(Array(data.randomQuestions.length).fill(""));
+          setInitialLoad(false); // Set initial load to false after data fetch
         } catch (error) {
           console.error("Error fetching data:", error);
         }
       }
-
       fetchData();
+    } else {
+      alert("Invalid Input");
     }
-    else {
-      alert("Invalid Input")
-    }
-
-  }, [fName, lName, domain, experience]);
-
+  }, [fName, lName, domain, experience, testId]);
 
   useEffect(() => {
     if (currIndex === ques.length - 1) {
@@ -123,23 +93,6 @@ export default function Test(props) {
     }
   }, [currIndex, ques]);
 
-  // Function to start the timer
-  const startTimer = () => {
-    setTimerRunning(true);
-  };
-
-  // Function to stop the timer
-  const stopTimer = () => {
-    setTimerRunning(false);
-  };
-
-  // Function to reset the timer
-  const resetTimer = () => {
-    setTimeLeft(300); // Reset to 300 seconds
-    setTimerRunning(false);
-  };
-
-  // Timer countdown effect
   useEffect(() => {
     let interval;
     if (timerRunning && timeLeft > 0) {
@@ -147,18 +100,19 @@ export default function Test(props) {
         setTimeLeft((prevTime) => prevTime - 1);
       }, 1000);
     } else if (timeLeft === 0) {
-      // Handle timer completion actions here
-      console.log("Timer expired!");
       handleFinalSubmit();
       setTimerRunning(false);
-      // You can add additional logic here, such as auto-submitting the quiz
     }
 
     return () => clearInterval(interval);
   }, [timerRunning, timeLeft]);
 
-  const handleFinalSubmit = async () => {
-    setLoading(true)
+  const handleFinalSubmit = useCallback(async () => {
+    if (submitted) return; // Prevent multiple submissions
+    setSubmitted(true);
+
+    setLoading(true);
+
     if (domain && experience) {
       let calculatedScore = 0;
       for (let i = 0; i < selectedAnswers.length; i++) {
@@ -168,18 +122,15 @@ export default function Test(props) {
       }
       setScore(calculatedScore);
       navigate("/result", { state: { fName, lName, score: calculatedScore } });
-    }
-    else if (testId) {
-      if (campus == true) {
-        let answers = []
-        console.log(testId)
-        for (let i = 0; i < ques.length; i++) {
-          const questionId = ques[i]._id;
-          const selectedOption = selectedAnswers[i];
-          const data = { questionId, selectedOption };
-          answers.push(data);
-        }
-        // console.log(answers)
+    } else if (testId) {
+      let answers = [];
+      for (let i = 0; i < ques.length; i++) {
+        const questionId = ques[i]._id;
+        const selectedOption = selectedAnswers[i];
+        answers.push({ questionId, selectedOption });
+      }
+
+      if (campus) {
         const response = await submitInterviewTest({
           fullName,
           contactNumber,
@@ -193,97 +144,67 @@ export default function Test(props) {
           answers,
           username,
           interviewId
-        })
+        });
         if (response.status === 201) {
-          window.opener.postMessage({ type: 'testCompleted' }, '*'); // Send message to parent window
-          window.close(); // Close the popup
+          window.opener.postMessage({ type: 'testCompleted' }, '*');
+          window.close();
         }
-      }
-      else {
-        let answers = []
-        for (let i = 0; i < ques.length; i++) {
-          const questionId = ques[i]._id;
-          const selectedOption = selectedAnswers[i];
-          const data = { questionId, selectedOption };
-          answers.push(data);
-        }
-        console.log(testId)
-        const result = await submitAnswers(testId, answers, `${fName} ${lName}`, username)
-        setAppData(result)
-        console.log(result)
-        const data = { ques: ques, answers: selectedAnswers, report: result }
-        // navigate('/testReport', { state:  })
-        window.opener.postMessage({ type: 'testCompleted', data }, '*'); // Send message to parent window
-        window.close(); // Close the popup
-
+      } else {
+        const result = await submitAnswers(testId, answers, `${fName} ${lName}`, username);
+        setAppData(result);
+        window.opener.postMessage({ type: 'testCompleted', data: { ques, answers: selectedAnswers, report: result } }, '*');
+        window.close();
       }
     }
-    setLoading(false)
-  };
 
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') {
-        console.log("Tab is no longer visible! Auto-submitting test...");
-        handleFinalSubmit(); // Auto-submit when the tab is no longer visible
-      }
-    };
-
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, [handleFinalSubmit]);
-
+    setLoading(false);
+  }, [submitted, selectedAnswers, ques, testId, domain, experience, fName, lName, campus, fullName, contactNumber, emailId, universityCollege, rollNo, branch, resume, linkedInProfile, username, interviewId, navigate, setAppData]);
 
   const next = () => {
     if (currIndex < ques.length - 1) {
       setCurrIndex(currIndex + 1);
     }
-    setClearDisabled(true); // Disable clear button when moving to the next question
+    setClearDisabled(true);
   };
 
   const prev = () => {
     if (currIndex > 0) {
       setCurrIndex(currIndex - 1);
     }
-    setClearDisabled(true); // Disable clear button when moving to the previous question
+    setClearDisabled(true);
   };
 
   const handleOptionChange = (index, selectedOption) => {
     const updatedSelectedAnswers = [...selectedAnswers];
     updatedSelectedAnswers[index] = selectedOption;
     setSelectedAnswers(updatedSelectedAnswers);
-    setClearDisabled(false); // Enable clear button when an option is selected
+    setClearDisabled(false);
   };
 
   const handleClearSelection = () => {
     setSelectedAnswers((prevAnswers) => {
       const updatedAnswers = [...prevAnswers];
-      updatedAnswers[currIndex] = ""; // Clear the selected answer
+      updatedAnswers[currIndex] = "";
       return updatedAnswers;
     });
-    setClearDisabled(true); // Disable clear button after clearing the answer
+    setClearDisabled(true);
   };
 
   const handleFullScreen = () => {
-    setTesting(false)
-    const elem = document.documentElement; // Reference to the document element
+    setTesting(false);
+    const elem = document.documentElement;
     if (elem.requestFullscreen) {
-      elem.requestFullscreen(); // Standard method
-    } else if (elem.mozRequestFullScreen) { /* Firefox */
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
       elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+    } else if (elem.webkitRequestFullscreen) {
       elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+    } else if (elem.msRequestFullscreen) {
       elem.msRequestFullscreen();
     }
   };
-  // handleFullScreen()
-
-
 
   const renderQuestion = (question, index) => {
-    // Conditional rendering: Only render if testId is truthy
     if (testId) {
       return (
         <div key={index}>
@@ -297,9 +218,9 @@ export default function Test(props) {
                   type="radio"
                   id={`option_${index}_${optionIndex}`}
                   name={`question_${index}`}
-                  value={option.optionText}
-                  checked={selectedAnswers[index] === option}
-                  onChange={() => handleOptionChange(index, option)}
+                  value={option.text}
+                  checked={selectedAnswers[index] === option.text}
+                  onChange={() => handleOptionChange(index, option.text)}
                 />
                 <label htmlFor={`option_${index}_${optionIndex}`} className="ml-2">
                   {option.text}
@@ -333,22 +254,22 @@ export default function Test(props) {
             ))}
           </div>
         </div>
-      ); // Return null if testId is falsy
+      );
     }
   };
 
-
   return (
     <>
-      {testing ? <div className="w-full h-full flex justify-center items-center">
-        <button onClick={handleFullScreen} className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md">
-          Start Test
-        </button>
-      </div> :
+      {testing ? (
+        <div className="w-full h-full flex justify-center items-center">
+          <button onClick={handleFullScreen} className="bg-[#FF7C1D] mx-5 text-white px-5 py-2 mt-3 h-fit border-gray-500 rounded-md">
+            Start Test
+          </button>
+        </div>
+      ) : (
         <>
-          {loading ? <BouncingDotsLoader /> :
+          {loading ? <BouncingDotsLoader /> : (
             <>
-              {/* <Header /> */}
               <div className="flex justify-center mt-24 w-full p-4">
                 <div className="w-full md:w-[80%] bg-white rounded-2xl p-20 relative">
                   <div className="absolute top-4 right-4">
@@ -413,8 +334,10 @@ export default function Test(props) {
                   )}
                 </div>
               </div>
-            </>}
-        </>}
+            </>
+          )}
+        </>
+      )}
     </>
   );
 }

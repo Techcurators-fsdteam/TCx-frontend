@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import building from '../assets/building.svg';
 import Navbar from './Navbar';
+import axios from 'axios';
 
 const JobDescription = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { job } = location.state || {};
+    const [jobDescriptionHTML, setJobDescriptionHTML] = useState('');
+
+    // useEffect(() => {
+    //     const fetchJobDescription = async () => {
+    //         try {
+    //             const response = await axios.get(`/api/job-description/${job.id}`);
+    //             setJobDescriptionHTML(response.data.html);
+    //         } catch (error) {
+    //             console.error('Error fetching job description:', error);
+    //         }
+    //     };
+
+    //     if (job) {
+    //         fetchJobDescription();
+    //     }
+    // }, [job]);
+    useEffect(()=>{
+        setJobDescriptionHTML(job.description)
+    },[job])
 
     if (!job) {
         return (
@@ -18,8 +38,7 @@ const JobDescription = () => {
     }
 
     const handleApplyClick = () => {
-        // console.log(job.testId)
-        navigate('/application', { state: { testId: job.testId,interviewId:job.interviewId } });
+        navigate('/application', { state: { testId: job.testId, interviewId: job.interviewId, jobName: job.title } });
     };
 
     return (
@@ -55,30 +74,15 @@ const JobDescription = () => {
                     </div>
                 </div>
                 <div className="flex-1 p-4 md:p-8 bg-gray-800 rounded-lg shadow-lg overflow-y-auto custom-scrollbar h-full md:h-auto max-h-screen">
-                    <h3 className="text-xl font-semibold mb-4">Profile Summary</h3>
-                    <p className="mb-4 font-light text-gray-300">{job.profileSummary || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'}</p>
-                    <h3 className="text-xl font-semibold mb-4">Job Description</h3>
-                    <p className="mb-4 font-light text-gray-300">{job.jobDescription || 'Duties include developing high-quality software design and architecture, identifying, prioritizing, and executing tasks in the software development life cycle, developing tools and applications by producing clean, efficient code, and automating tasks through appropriate tools and scripting. Reviewing and debugging code, performing validation and verification testing, collaborating with internal teams and vendors to fix and improve products, documenting development phases, and monitoring systems to ensure software is up-to-date with the latest technologies.'}</p>
-                    <h3 className="text-xl font-semibold mb-4">Job Location</h3>
-                    <p className="text-md text-gray-300 mb-4 font-light">{job.location || 'Remote'}</p>
-                    <h3 className="text-xl font-semibold mb-4">Salary</h3>
-                    <p className="text-md text-gray-300 mb-4 font-light">{job.salary || '$70,000 - $90,000 per year'}</p>
-                    <h3 className="text-xl font-semibold mb-4">Requirements</h3>
-                    <ul className="list-disc list-inside text-md font-light text-gray-300">
-                        {job.requirements ? job.requirements.map((req, index) => (
-                            <li key={index}>{req}</li>
-                        )) : (
-                            <>
-                                <li>Bachelor's degree in Computer Science</li>
-                                <li>3+ years of experience in software development</li>
-                                <li>Proficiency in React and Node.js</li>
-                            </>
-                        )}
-                    </ul>
+                    {jobDescriptionHTML ? (
+                        <div dangerouslySetInnerHTML={{ __html: jobDescriptionHTML }} />
+                    ) : (
+                        <p className="text-gray-300">Loading job description...</p>
+                    )}
                 </div>
             </div>
         </>
     );
-}
+};
 
 export default JobDescription;

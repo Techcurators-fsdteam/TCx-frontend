@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 
-const Testintro2 = () => {
+const Testintro2 = ({ onContinue, formData }) => {
   return (
     <>
       <div className="min-h-screen flex flex-col md:flex-row p-4 ">
@@ -11,31 +11,32 @@ const Testintro2 = () => {
             <img src={logo} alt="Logo" className="w-20 h-20 mb-4" />
           </Link>
           <div className="flex flex-grow flex-col justify-center items-start text-left w-full space-y-4">
-            <p className="text-gray-400 text-2xl">Hey, <span className="text-orange-500">Aman Verma</span></p>
-            <p className="text-white text-3xl md:text-5xl leading-tight">Welcome to the Software Engineer role certification Test</p>
-            <p className="text-gray-500 text-lg">Test Duration: 60 minutes</p>
-            <p className="text-gray-500 text-lg">No. of Questions: 10</p>
+            <p className="text-gray-400 text-2xl">Hey, <span className="text-orange-500">{formData.fullName}</span></p>
+            <p className="text-white text-3xl md:text-5xl leading-tight">Welcome to the {formData.jobTitle} Test</p>
+            <p className="text-gray-500 text-lg">Test Duration: 19 minutes</p>
+            <p className="text-gray-500 text-lg">No. of Questions: 20</p>
           </div>
         </div>
         <div className="flex flex-col justify-center items-start w-full md:w-1/2 bg-gray-900 p-4 md:pl-10 rounded-lg mt-4 md:mt-0">
           <p className="text-white mb-4 text-2xl md:text-5xl">Instructions:</p>
           <div className="text-gray-400 mb-6 space-y-2 text-left">
-            <p>1. The test consists of 10 questions.</p>
-            <p>2. The test is of 60 minutes.</p>
+            <p>1. The test consists of 20 questions.</p>
+            <p>2. The test is of 19 minutes.</p>
             <p>3. The test is of 100 marks.</p>
-            <p>4. Each question carries 10 marks.</p>
+            <p>4. Each question carries 5 marks.</p>
             <p>5. There is no negative marking.</p>
-            <p>6. The test will auto submit after 60 minutes.</p>
+            <p>6. The test will auto submit after 19 minutes.</p>
             <p>7. The test can be attempted only once.</p>
-            <p>8. The test will start as soon as you click on the start test button.</p>
+            <p>8. Yoi cannot change the answer once you click next</p>
+            <p>9. The test will start as soon as you click on the start test button.</p>
           </div>
           <div className="flex flex-col md:flex-row gap-4 w-full justify-start">
-            <button className="bg-orange-500 text-white p-2 rounded w-full md:w-auto">
+            <button onClick={onContinue} className="bg-orange-500 text-white p-2 rounded w-full md:w-auto">
               Continue
             </button>
-            <button className="border-2 border-orange-500 text-white p-2 rounded w-full md:w-auto">
+            {/* <button className="border-2 border-orange-500 text-white p-2 rounded w-full md:w-auto">
               Try sample test
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

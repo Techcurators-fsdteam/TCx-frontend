@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useUser } from '../store/UserContext';
+import Testintro2 from './Testintro2'; // Import the Testintro2 component
 
 function StudentForm() {
     const location = useLocation();
-    const { testId, interviewId } = location.state || {};
-    const {user}=useUser();
-    // console.log(testId)
+    const { testId, interviewId,jobTitle } = location.state || {};
+    const { user } = useUser();
+    const [showTestIntro, setShowTestIntro] = useState(false); // State to manage whether to show Testintro2
     const [formData, setFormData] = useState({
         fullName: '',
         contactNumber: '',
@@ -28,11 +29,11 @@ function StudentForm() {
             [name]: value
         }));
     };
+
     useEffect(() => {
         const handleMessage = (event) => {
             if (event.data.type === 'testCompleted') {
-                // console.log(event.data.data)
-                toast("Test Successfully Submitted")
+                toast("Test Successfully Submitted");
                 navigate('/', { state: { ...event.data.data } });
             }
         };
@@ -43,8 +44,6 @@ function StudentForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(formData);
-        // navigate('/next-page', { state: { formData, testId } });
         localStorage.setItem('testData', JSON.stringify({
             fullName: formData.fullName,
             contactNumber: formData.contactNumber,
@@ -58,9 +57,18 @@ function StudentForm() {
             testId: testId,
             interviewId,
             username: user.username,
+            jobTitle
         }));
-        window.open('/test', "Test Page", `width=${window.screen.width},height=${window.screen.height},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
+        setShowTestIntro(true); // Show Testintro2 component on form submission
     };
+
+    const handleContinue = () => {
+        window.open('/test', "Test Page", `width=${window.screen.width},height=${window.screen.height},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`);
+    };
+
+    if (showTestIntro) {
+        return <Testintro2 onContinue={handleContinue} formData={formData}/>;
+    }
 
     return (
         <div className="bg-gray-900 text-gray-400 p-10 min-h-screen flex justify-center items-center">

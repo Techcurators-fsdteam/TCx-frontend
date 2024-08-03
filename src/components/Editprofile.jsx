@@ -32,13 +32,12 @@ const countryCodes = [
   // You can add more codes as needed
 ];
 
-
 function EditProfileForm({ profile, onClose }) {
-  const { user, fetchUserDetails } = useUser()
-  // const [email, setEmail] = useState('');
+  const { user, fetchUserDetails } = useUser();
   const [phone, setPhone] = useState('');
   const [country, setCountry] = useState('');
-  const [state, setstate] = useState('');
+  const [state, setState] = useState('');
+  const [loading, setLoading] = useState(false); // State for loading indicator
 
   const handleCountryCodeChange = (event) => {
     const countryCode = event.target.value;
@@ -52,32 +51,28 @@ function EditProfileForm({ profile, onClose }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true); // Start loading indicator
 
     const data = {
       username: user.username,
       phone,
       location: `${state},${country}`,
-
     };
-
 
     try {
       const response = await axios.post(`${URL}/profile/profile`, data);
 
       if (response.status === 201) {
         console.log('Profile data updated successfully');
-
-
-        // Handle success (e.g., show a notification, redirect, etc.)
+        await fetchUserDetails();
+        onClose();
       } else {
         console.error('Failed to update profile data', response);
-        // Handle error (e.g., show a notification, etc.)
       }
-      await fetchUserDetails();
-      onClose();
     } catch (error) {
       console.error('Error updating profile:', error);
-      // Handle error (e.g., show a notification, etc.)
+    } finally {
+      setLoading(false); // Stop loading indicator
     }
   };
 
@@ -92,8 +87,6 @@ function EditProfileForm({ profile, onClose }) {
           </div>
 
           <form className='space-y-4' onSubmit={handleSubmit}>
-
-
             {/* Phone Number */}
             <div className='flex flex-col text-left'>
               <label className='text-white mb-2 text-xl' htmlFor='phone'>Phone Number</label>
@@ -107,21 +100,20 @@ function EditProfileForm({ profile, onClose }) {
                     <option key={code} value={code}>{code} {country}</option>
                   ))}
                 </select>
-                
               </div>
               <input
-                  type='tel'
-                  required
-                  id='phone'
-                  maxLength={10}
-                  className='flex-grow p-2 mt-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
-                  placeholder='Enter your phone number'
-                  value={phone}
-                  onChange={handlePhoneChange}
-                />
+                type='tel'
+                required
+                id='phone'
+                maxLength={10}
+                className='flex-grow p-2 mt-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
+                placeholder='Enter your phone number'
+                value={phone}
+                onChange={handlePhoneChange}
+              />
             </div>
 
-            {/* state */}
+            {/* State */}
             <div className='flex flex-col text-left'>
               <label className='text-white mb-2 text-xl' htmlFor='state'>State</label>
               <input
@@ -131,7 +123,7 @@ function EditProfileForm({ profile, onClose }) {
                 className='p-2 rounded-md bg-[#121418] text-white outline-none focus:ring-2 focus:ring-[#FF7C1D] placeholder:text-gray-700'
                 placeholder='Enter your state'
                 value={state}
-                onChange={(e) => setstate(e.target.value)}
+                onChange={(e) => setState(e.target.value)}
               />
             </div>
 
@@ -149,15 +141,14 @@ function EditProfileForm({ profile, onClose }) {
               />
             </div>
 
-
-
             {/* Submit Button */}
             <div className='flex justify-center mt-6'>
               <button
                 type='submit'
                 className='px-6 py-2 rounded-md bg-[#FF7C1D] text-white text-lg focus:outline-none hover:bg-[#FF6818] transition duration-200'
+                disabled={loading} // Disable button while loading
               >
-                Save
+                {loading ? 'Saving...' : 'Save'}
               </button>
             </div>
           </form>

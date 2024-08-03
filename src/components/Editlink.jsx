@@ -3,14 +3,14 @@ import axios from 'axios';
 import { useUser } from '../store/UserContext';
 import { URL } from '../api/url';
 
-function Editlink({onClose}) {
-  
+function Editlink({ onClose }) {
   const [links, setLinks] = useState({
     linkedin: '',
     github: '',
     portfolio: ''
   });
-  const {user,fetchUserDetails}=useUser()
+  const { user, fetchUserDetails } = useUser();
+  const [loading, setLoading] = useState(false); // State for loading indicator
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -34,6 +34,8 @@ function Editlink({onClose}) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loading indicator
+
     const linkArray = [];
 
     for (const [key, value] of Object.entries(links)) {
@@ -41,12 +43,10 @@ function Editlink({onClose}) {
         linkArray.push({ linkName: key, link: value });
       }
     }
-    const data={
-      username:user.username,
-      links:linkArray
-
-    }
-    // console.log(linkArray)
+    const data = {
+      username: user.username,
+      links: linkArray
+    };
 
     try {
       const response = await axios.post(`${URL}/profile/links`, data, {
@@ -55,13 +55,17 @@ function Editlink({onClose}) {
         },
       });
 
-      // Handle success (e.g., show a notification, update state)
-      // console.log('Response:', response.data);
-      await fetchUserDetails();
-      onClose();
+      if (response.status === 200 || response.status === 201) {
+        console.log('Links saved successfully');
+        await fetchUserDetails();
+        onClose();
+      } else {
+        console.error('Failed to save links', response);
+      }
     } catch (error) {
-      // Handle error (e.g., show a notification)
       console.error('Error posting links:', error);
+    } finally {
+      setLoading(false); // Stop loading indicator
     }
   };
 
@@ -81,7 +85,6 @@ function Editlink({onClose}) {
               <label className='text-white mb-2' htmlFor='linkedin'>LinkedIn</label>
               <input
                 type='url'
-                
                 id='linkedin'
                 value={links.linkedin}
                 onChange={handleChange}
@@ -95,7 +98,6 @@ function Editlink({onClose}) {
               <label className='text-white mb-2' htmlFor='github'>GitHub </label>
               <input
                 type='url'
-                
                 id='github'
                 value={links.github}
                 onChange={handleChange}
@@ -109,7 +111,6 @@ function Editlink({onClose}) {
               <label className='text-white mb-2' htmlFor='portfolio'>Portfolio</label>
               <input
                 type='url'
-                
                 id='portfolio'
                 value={links.portfolio}
                 onChange={handleChange}
@@ -123,8 +124,9 @@ function Editlink({onClose}) {
               <button
                 type='submit'
                 className='px-6 py-2 rounded-md bg-[#FF7C1D] text-white text-lg focus:outline-none hover:bg-[#FF6818] transition duration-200'
+                disabled={loading} // Disable button while loading
               >
-                Save
+                {loading ? 'Saving...' : 'Save'}
               </button>
             </div>
           </form>

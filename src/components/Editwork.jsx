@@ -11,7 +11,7 @@ const months = [
 const years = Array.from({ length: 51 }, (_, i) => new Date().getFullYear() - i); // Last 50 years
 
 function WorkExperienceForm({ workExp, onClose }) {
-  const { user,fetchUserDetails } = useUser();
+  const { user, fetchUserDetails } = useUser();
   const [expId, setExpId] = useState('');
   const [company, setCompany] = useState('');
   const [role, setRole] = useState('');
@@ -22,6 +22,7 @@ function WorkExperienceForm({ workExp, onClose }) {
   const [endYear, setEndYear] = useState('');
   const [description, setDescription] = useState('');
   const [currentlyWorking, setCurrentlyWorking] = useState(false);
+  const [loading, setLoading] = useState(false); // State for loading indicator
 
   useEffect(() => {
     if (workExp) {
@@ -76,6 +77,7 @@ function WorkExperienceForm({ workExp, onClose }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true); // Start loading indicator
 
     const workExperience = {
       expId: `${user.username} ${company} ${role}`, // Generate expId as per your requirement
@@ -89,14 +91,12 @@ function WorkExperienceForm({ workExp, onClose }) {
     };
 
     const data = {
-      username:user.username,
+      username: user.username,
       workExp: workExperience,
     };
 
     try {
       const url = `${URL}/profile/workExp`;
-      // const method = workExp ? 'PATCH' : 'POST';
-
       const response = await axios({
         method: "POST",
         url: url,
@@ -112,11 +112,11 @@ function WorkExperienceForm({ workExp, onClose }) {
         onClose();
       } else {
         console.error('Failed to save work experience data', response);
-        // Handle error (e.g., show a notification, etc.)
       }
     } catch (error) {
       console.error('Error saving work experience:', error);
-      // Handle error (e.g., show a notification, etc.)
+    } finally {
+      setLoading(false); // Stop loading indicator
     }
   };
 
@@ -264,8 +264,9 @@ function WorkExperienceForm({ workExp, onClose }) {
               <button
                 type='submit'
                 className='p-2 mt-4 w-[150px] rounded-md bg-[#FF7C1D] text-white text-lg font-semibold transition duration-300 hover:bg-opacity-80'
+                disabled={loading} // Disable button while loading
               >
-                {workExp ? 'Save Changes' : 'Add Experience'}
+                {loading ? 'Saving...' : (workExp ? 'Save Changes' : 'Add Experience')}
               </button>
             </div>
           </form>

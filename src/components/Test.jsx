@@ -387,7 +387,7 @@ export default function Test(props) {
                       ) : (
                         <div className="flex justify-between">
                           <button
-                            onClick={handleFullScreen}
+                            onClick={prev}
                             className="bg-[#8C8C8C] text-black px-5 py-2 mt-3 h-fit border-gray-500 rounded-md"
                           >
                             Previous

@@ -71,6 +71,7 @@ const JobDescription = () => {
                         <button onClick={handleApplyClick} className="bg-orange-500 hover:bg-orange-600 text-white font-normal py-2 px-6 rounded-lg focus:outline-none focus:shadow-outline text-lg">
                             Apply
                         </button>
+                        
                     </div>
                 </div>
                 <div className="flex-1 p-4 md:p-8 bg-gray-800 rounded-lg shadow-lg overflow-y-auto custom-scrollbar h-full md:h-auto max-h-screen">

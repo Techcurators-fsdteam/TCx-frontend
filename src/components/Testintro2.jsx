@@ -27,8 +27,8 @@ const Testintro2 = ({ onContinue, formData }) => {
             <p>5. There is no negative marking.</p>
             <p>6. The test will auto submit after 19 minutes.</p>
             <p>7. The test can be attempted only once.</p>
-            <p>8. Yoi cannot change the answer once you click next</p>
-            <p>9. The test will start as soon as you click on the start test button.</p>
+            {/* <p>8. You cannot change the answer once you click next</p> */}
+            <p>8. The test will start as soon as you click on the start test button.</p>
           </div>
           <div className="flex flex-col md:flex-row gap-4 w-full justify-start">
             <button onClick={onContinue} className="bg-orange-500 text-white p-2 rounded w-full md:w-auto">
@@ -38,6 +38,7 @@ const Testintro2 = ({ onContinue, formData }) => {
               Try sample test
             </button> */}
           </div>
+          <div className='text-sm mt-10 text-red-600'>*If you try to switch the tab, or if you change your display or anyhow the visibility of your test tab is hampered, the test will be auto submitted</div>
         </div>
       </div>
     </>

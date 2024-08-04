@@ -21,8 +21,8 @@ const Testintro2 = ({ onContinue, formData }) => {
           <p className="text-white mb-4 text-2xl md:text-5xl">Instructions:</p>
           <div className="text-gray-400 mb-6 space-y-2 text-left">
             <p>1. The test consists of 20 questions.</p>
-            <p>2. The test is of 19 minutes.</p>
-            <p>3. The test is of 100 marks.</p>
+            <p>2. The test duration is 19 minutes.</p>
+            <p>3. The total weightage of test is 100 marks.</p>
             <p>4. Each question carries 5 marks.</p>
             <p>5. There is no negative marking.</p>
             <p>6. The test will auto submit after 19 minutes.</p>
@@ -38,7 +38,7 @@ const Testintro2 = ({ onContinue, formData }) => {
               Try sample test
             </button> */}
           </div>
-          <div className='text-sm mt-10 text-red-600'>*If you try to switch the tab, or if you change your display or anyhow the visibility of your test tab is hampered, the test will be auto submitted</div>
+          <div className='text-sm mt-10 text-red-600'>*If you try to switch the tab, or if you change your display or anyhow the visibility of your test tab is hampered, the test will be auto submitted.</div>
         </div>
       </div>
     </>

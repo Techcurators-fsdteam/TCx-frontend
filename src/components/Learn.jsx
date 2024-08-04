@@ -245,7 +245,7 @@ function Learn() {
           <div>
             <p className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4">Live Projects</p>
             <p className="text-white text-lg sm:text-xl md:text-2xl leading-snug sm:leading-relaxed md:leading-loose">
-              Gain deeper insights with ai-driven analytics that <br className="hidden sm:block" /> provide a comprehensive view of candidate performance.
+              Gain deeper insights with AI-driven analytics that <br className="hidden sm:block" /> provide a comprehensive view of candidate performance.
             </p>
           </div>
         </div>
@@ -260,8 +260,8 @@ function Learn() {
                 <h2 className="text-sm lg:text-md text-left">{course.title}</h2>
               </div>
               <div className="flex justify-between">
-                <button disabled onClick={goToProjectPage(course.pid)} className="bg-gray-900 h-12 text-white border lg:text-sm border-white rounded-xl py-2 px-4 sm:py-2 sm:px-2 mt-4">
-                  Coming Soon..
+                <button onClick={goToProjectPage(course.pid)} className="bg-gray-900 h-12 text-white border lg:text-sm border-white rounded-xl py-2 px-4 sm:py-2 sm:px-2 mt-4">
+                  Learn Now
                 </button>
                 <img
                   src={Sei}

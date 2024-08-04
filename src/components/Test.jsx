@@ -9,6 +9,7 @@ export default function Test(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const [testing, setTesting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const [ques, setQues] = useState([]);
   const [currIndex, setCurrIndex] = useState(0);
   const [finish, setFinish] = useState(false);
@@ -146,8 +147,7 @@ export default function Test(props) {
           interviewId
         });
         if (response.status === 201) {
-          window.opener.postMessage({ type: 'testCompleted' }, '*');
-          window.close();
+          setSubmitted(true)
         }
       } else {
         const result = await submitAnswers(testId, answers, `${fName} ${lName}`, username);
@@ -203,6 +203,9 @@ export default function Test(props) {
       elem.msRequestFullscreen();
     }
   };
+  if(submitted){
+    return <TestSubmissionSuccess/>
+  }
 
   const renderQuestion = (question, index) => {
     if (testId) {
@@ -341,3 +344,32 @@ export default function Test(props) {
     </>
   );
 }
+
+
+
+
+
+function TestSubmissionSuccess() {
+  // const navigate = useNavigate();
+
+  const handleGoHome = () => {
+    window.opener.postMessage({ type: 'testCompleted' }, '*');
+          window.close();
+
+  };
+
+  return (
+    <div className="flex justify-center items-center h-screen bg-black">
+      <div className="text-center">
+        <h1 className="text-3xl text-white font-semibold mb-4">Your Test Has Been Submitted Successfully!</h1>
+        <button
+          onClick={handleGoHome}
+          className="bg-[#FF7C1D] hover:bg-[#FF7C1D] text-white font-bold py-2 px-4 rounded"
+        >
+          Go to Home Page
+        </button>
+      </div>
+    </div>
+  );
+}
+

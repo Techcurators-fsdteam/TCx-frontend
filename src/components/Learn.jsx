@@ -104,6 +104,8 @@ const courses = [
 ];
 
 function Learn() {
+  const [isDisabled, setIsDisabled] = useState(true); // Assume it starts disabled
+
   const [visibleCourses, setVisibleCourses] = useState(3);
   const [visibleLiveCourses, setVisibleLiveCourses] = useState(3);
   const [projects, setProjects] = useState([]);
@@ -208,7 +210,7 @@ function Learn() {
 
       <div className="flex flex-col justify-center items-center text-center mt-10 sm:mt-12 md:mt-16 lg:mt-20">
         <div className="flex flex-wrap gap-6 justify-center w-[90%] rounded-xl p-6 sm:p-8 md:p-10"
-      style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           {courses?.slice(0, visibleCourses).map((course) => (
             <div key={course.id} className="bg-gray-900 overflow-hidden rounded-xl h-60 w-[80%] lg:w-[30%] flex flex-col justify-between p-4 md:p-6">
               <div className="flex items-center gap-4 text-white">
@@ -251,15 +253,15 @@ function Learn() {
 
       <div className=" flex flex-col justify-center items-center text-center mt-10 sm:mt-12 md:mt-16 lg:mt-20">
         <div className="flex flex-wrap gap-6 justify-center w-[90%] rounded-xl p-6 sm:p-8 md:p-10"
-      style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+          style={{ backgroundImage: `url(${cardbg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           {projects?.map((course) => (
             <div key={course.pid} className="bg-gray-900 overflow-hidden rounded-xl h-60 w-[80%] lg:w-[30%] flex flex-col justify-between p-4 md:p-6">
               <div className="flex items-center gap-4 text-white">
                 <h2 className="text-sm lg:text-md text-left">{course.title}</h2>
               </div>
               <div className="flex justify-between">
-                <button onClick={goToProjectPage(course.pid)} className="bg-gray-900 h-12 text-white border lg:text-sm border-white rounded-xl py-2 px-4 sm:py-2 sm:px-2 mt-4">
-                  Learn now
+                <button disabled onClick={goToProjectPage(course.pid)} className="bg-gray-900 h-12 text-white border lg:text-sm border-white rounded-xl py-2 px-4 sm:py-2 sm:px-2 mt-4">
+                  Coming Soon..
                 </button>
                 <img
                   src={Sei}
@@ -287,9 +289,16 @@ function Learn() {
             </p>
           </div>
           <div className="flex">
-            <RouterLink to="/Practicetest1" className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4 md:mt-0 self-center md:self-start">
-              Take your test now
-            </RouterLink>
+            {
+              isDisabled ?
+                <span className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4 md:mt-0 self-center md:self-start opacity-50 cursor-not-allowed">
+                  Coming Soon..
+                </span>
+                :
+                <RouterLink to="/Practicetest1" className="bg-[#FF7C1D] text-white rounded-xl py-2 px-4 sm:py-3 sm:px-5 mt-4 md:mt-0 self-center md:self-start">
+                  Take your test now
+                </RouterLink>
+            }
           </div>
         </div>
       </div>

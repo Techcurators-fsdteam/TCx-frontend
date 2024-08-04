@@ -155,10 +155,11 @@ function Certify() {
                   </div>
                   <div className="flex items-center justify-between mt-4">
                     <button
+                    disabled
                       onClick={() => handleGetCertifiedClick(test.testId, test.testName)}
                       className="border border-white rounded-lg px-4 py-2 hover:bg-white hover:text-gray-900 transition-all"
                     >
-                      Get Certified
+                      Coming Soon..
                     </button>
                     <img src={Sei} alt="SEI Logo" className="w-12 h-12 md:w-20 md:h-20 object-cover" />
                   </div>

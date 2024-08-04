@@ -16,7 +16,7 @@ function StudentForm() {
     const [formData, setFormData] = useState({
         fullName: '',
         contactNumber: '',
-        emailId: '',
+        emailId: user.email,
         universityCollege: '',
         rollNo: '',
         branch: '',
@@ -99,20 +99,19 @@ function StudentForm() {
 
     const validateForm = () => {
         const newErrors = {};
-        // Check if each field is empty and set the error message
-        if (!formData.fullName) newErrors.fullName = 'Full Name is required';
-        if (!formData.contactNumber) newErrors.contactNumber = 'Contact Number is required';
-        if (!formData.emailId) newErrors.emailId = 'Email ID is required';
-        if (!formData.universityCollege) newErrors.universityCollege = 'University/College is required';
-        if (!formData.rollNo) newErrors.rollNo = 'Roll Number is required';
-        if (!formData.branch) newErrors.branch = 'Branch is required';
-        if (!formData.resume) newErrors.resume = 'Resume URL is required';
-        if (!formData.linkedInProfile) newErrors.linkedInProfile = 'LinkedIn Profile is required';
-    
+        if (!formData.fullName.trim()) newErrors.fullName = 'Full Name is required';
+        if (!formData.contactNumber.trim()) newErrors.contactNumber = 'Contact Number is required';
+        if (!formData.universityCollege.trim()) newErrors.universityCollege = 'University/College is required';
+        if (!formData.rollNo.trim()) newErrors.rollNo = 'Roll Number is required';
+        if (!formData.branch.trim()) newErrors.branch = 'Branch is required';
+        // if (!formData.resume.trim()) newErrors.resume = 'Resume URL is required';
+        // if (!formData.linkedInProfile.trim()) newErrors.linkedInProfile = 'LinkedIn Profile is required';
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-    
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -159,7 +158,7 @@ function StudentForm() {
                                 name="fullName"
                                 value={formData.fullName}
                                 onChange={handleChange}
-                               
+
                                 className={`shadow appearance-none border rounded-lg w-full py-4 px-5 bg-black text-white leading-tight focus:outline-none focus:shadow-outline ${errors.fullName ? 'border-red-500' : ''}`}
                             />
                             <label className="absolute -top-3.5 left-5 bg-black px-1 text-gray-400">
@@ -175,7 +174,7 @@ function StudentForm() {
                                 name="contactNumber"
                                 value={formData.contactNumber}
                                 onChange={handleChange}
-                              
+
                                 className={`shadow appearance-none border rounded-lg w-full py-4 px-5 bg-black text-white leading-tight focus:outline-none focus:shadow-outline ${errors.contactNumber ? 'border-red-500' : ''}`}
                             />
                             <label className="absolute -top-3.5 left-5 bg-black px-1 text-gray-400">
@@ -195,7 +194,7 @@ function StudentForm() {
                                 disabled
                                 value={user.email}
                                 onChange={handleChange}
-                              
+
                                 className={`shadow appearance-none border rounded-lg w-full py-4 px-5 bg-black text-grey leading-tight focus:outline-none focus:shadow-outline ${errors.emailId ? 'border-red-500' : ''}`}
                             />
                             <label className="absolute -top-3.5 left-5 bg-black px-1 text-gray-400">
@@ -210,7 +209,7 @@ function StudentForm() {
                                 name="universityCollege"
                                 value={formData.universityCollege}
                                 onChange={handleChange}
-                                
+
                                 className={`shadow appearance-none border rounded-lg w-full py-4 px-5 bg-black text-white leading-tight focus:outline-none focus:shadow-outline placeholder-gray-500 ${errors.universityCollege ? 'border-red-500' : ''}`}
                             >
                                 <option value="" disabled>Select your college</option>
@@ -234,7 +233,7 @@ function StudentForm() {
                                 name="rollNo"
                                 value={formData.rollNo}
                                 onChange={handleChange}
-                               
+
                                 className={`shadow appearance-none border rounded-lg w-full py-4 px-5 bg-black text-white leading-tight focus:outline-none focus:shadow-outline ${errors.rollNo ? 'border-red-500' : ''}`}
                             />
                             <label className="absolute -top-3.5 left-5 bg-black px-1 text-gray-400">
@@ -250,7 +249,7 @@ function StudentForm() {
                                 name="branch"
                                 value={formData.branch}
                                 onChange={handleChange}
-                              
+
                                 className={`shadow appearance-none border rounded-lg w-full py-4 px-5 bg-black text-white leading-tight focus:outline-none focus:shadow-outline ${errors.branch ? 'border-red-500' : ''}`}
                             />
                             <label className="absolute -top-3.5 left-5 bg-black px-1 text-gray-400">

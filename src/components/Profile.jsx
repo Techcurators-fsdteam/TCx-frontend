@@ -30,6 +30,7 @@ import ResumeUploadPage from "./Editresume";
 import WorkExperienceForm from "./Editwork";
 import Modal from "./Modal";
 import AddSkill from "./AddSkills";
+import Navbar from "./Navbar";
 
 function Profile() {
   const { user, fetchUserDetails } = useUser();
@@ -91,7 +92,8 @@ function Profile() {
         <video autoPlay muted loop playsInline className="video-tag" src={profileBG} />
 
       </div> */}
-      <div ref={starRef} className="h-fit starry-background flex justify-center text-center py-8">
+      <Navbar/>
+      <div ref={starRef} className="h-fit mt-10 starry-background flex justify-center text-center py-8">
         <div className="flex flex-wrap w-[90%] md:w-[80%] lg:w-[70%] z-10 xl:w-[70%] gap-4">
           {/* Left Profile Box */}
           <div className="w-full md:w-[45%] lg:w-[30%] mt-6 flex flex-col gap-4">

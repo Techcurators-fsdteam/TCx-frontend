@@ -46,7 +46,7 @@ function Login() {
         const expires = new Date();
         expires.setTime(expires.getTime() + (24 * 60 * 60 * 1000));
         document.cookie = `token=${res.data.accessToken}; expires=${expires.toUTCString()};  path=/`;
-        navigate("/");
+        navigate(-1);
       })
       .then(() => fetchUserDetails());
   }

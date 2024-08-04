@@ -27,6 +27,7 @@ import ts from "../assets/logos_transc.svg";
 import bg3 from "../assets/bg3.svg";
 import anm from "../assets/anm.webm";
 import Bento from "./Bento.jsx";
+import { useUser } from '../store/UserContext.jsx';
 
 const settings = {
   infinite: true,
@@ -119,6 +120,7 @@ const FadeInSection = ({ children }) => {
 // };
 
 function Hero() {
+  const {user}=useUser();
   useEffect(() => {
     AOS.init();
     AOS.refresh();
@@ -211,7 +213,7 @@ function Hero() {
           </div>
           <div>
             <Link
-              to='/login'
+              to={user?'/learn':'/login'}
               className="inline-block bg-[#D6FF3C] text-black rounded-full py-2 px-4 sm:py-3 sm:px-5 mt-6 md:mt-8 lg:mt-10 glare-effect"
             >
               Start Learning Today
@@ -518,7 +520,7 @@ function Hero() {
       </div>
 
 
-      
+
       <div className="bg-black">
         <div className="flex justify-center w-full mt-28 mb-20">
           <FadeInSection>
@@ -541,9 +543,15 @@ function Hero() {
 
         </div>
       </div>
-      <div  style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5),rgba(108, 71, 47,0.5),rgba(67, 46, 70,0.5),rgba(27, 21, 93,0.5),rgba(0,0,0,0.5))', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5),rgba(108, 71, 47,0.5),rgba(67, 46, 70,0.5),rgba(27, 21, 93,0.5),rgba(0,0,0,0.5))', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <Footercard />
       </div>
+      <a href="https://rabbitt.ai/19minutestosuccess" target="_blank" rel="noopener noreferrer">
+        <Marquee speed={60} gradient={false} className="w-full mt-10 py-4 text-center text-white bg-black text-2xl font-bold">
+          Congratulations 🎉 you are successful in your Treasure Hunt for Magical world. Here is your Entry Door
+        </Marquee>
+      </a>
+
       <Footer />
     </>
   );

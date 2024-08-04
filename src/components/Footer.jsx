@@ -8,6 +8,7 @@ import e4 from '../assets/x.svg';
 import { newsLetter } from '../api/axios';
 import { toast } from 'react-toastify';
 
+
 const Footer = () => {
 
   const [name, setName] = useState('');

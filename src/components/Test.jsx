@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 export default function Test(props) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [testing, setTesting] = useState(false)
+  const [testing, setTesting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ques, setQues] = useState([]);
   const [currIndex, setCurrIndex] = useState(0);
@@ -33,8 +33,8 @@ export default function Test(props) {
 
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (!initialLoad && document.visibilityState === 'hidden') {
-        alert("Tab is no longer visible!");
+      if (!initialLoad && document.visibilityState === 'hidden' && !submitted) {
+        // alert("Tab is no longer visible!");
         handleFinalSubmit();
       }
     };
@@ -53,7 +53,7 @@ export default function Test(props) {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.removeEventListener('resize', handleResize);
     };
-  }, [initialLoad]);
+  }, [initialLoad, submitted]);
 
   useEffect(() => {
     if (testId) {
@@ -147,7 +147,7 @@ export default function Test(props) {
           interviewId
         });
         if (response.status === 201) {
-          setSubmitted(true)
+          setSubmitted(true);
         }
       } else {
         const result = await submitAnswers(testId, answers, `${fName} ${lName}`, username);
@@ -203,8 +203,8 @@ export default function Test(props) {
       elem.msRequestFullscreen();
     }
   };
-  if(submitted){
-    return <TestSubmissionSuccess/>
+  if (submitted) {
+    return <TestSubmissionSuccess />;
   }
 
   const renderQuestion = (question, index) => {
@@ -345,17 +345,10 @@ export default function Test(props) {
   );
 }
 
-
-
-
-
 function TestSubmissionSuccess() {
-  // const navigate = useNavigate();
-
   const handleGoHome = () => {
     window.opener.postMessage({ type: 'testCompleted' }, '*');
-          window.close();
-
+    window.close();
   };
 
   return (
@@ -372,4 +365,3 @@ function TestSubmissionSuccess() {
     </div>
   );
 }
-

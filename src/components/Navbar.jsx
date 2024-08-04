@@ -11,7 +11,7 @@ function Navbar() {
   const tabs = [
     { name: "Learn", route: "/learn" },
     { name: "Certify", route: "/certify" },
-    { name: "Blog", route: "/editor" },  // Updated route for Blog
+    { name: "Blog", route: "" },  // Updated route for Blog
     { name: "Apply", route: "/apply" },
     // { name: 'Start Learning Today', route: '/start-learning' },
   ];

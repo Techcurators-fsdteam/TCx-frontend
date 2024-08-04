@@ -266,7 +266,7 @@ const NamePage = ({ testId, title }) => {
   const handleOpenModal = () => {
     if (fname && lname) {
       // navigate('/test', { state: { fName: fname, lName: lname, testId: testId } })
-      console.log(user.username)
+      // console.log(user.username)
       localStorage.setItem('testData', JSON.stringify({ fName: fname, lName: lname, testId: testId, username: user.username }));
       window.open('/test', "Test Page", `width=${window.screen.width},height=${window.screen.height},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`)
     }

@@ -5,7 +5,7 @@ export default function Result() {
     const location=useLocation()
     const {fName,lName,score}=location.state;
     
-    console.log(fName,lName,score)
+    // console.log(fName,lName,score)
   return (
     <>
       <div className="flex flex-col w-full items-center justify-center mt-24">

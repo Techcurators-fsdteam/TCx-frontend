@@ -17,9 +17,9 @@ const Footer = () => {
   const handleSubscribe = async (e) => {
     e.preventDefault();
     // Add your subscribe logic here, e.g., send data to the server
-    console.log('Subscribed with name:', name, 'and email:', email);
+    // console.log('Subscribed with name:', name, 'and email:', email);
     const response = await newsLetter(email, name)
-    console.log(response)
+    // console.log(response)
     if (response.status === 201) {
       toast("Email Sent Successfully");
     }

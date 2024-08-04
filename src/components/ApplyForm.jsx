@@ -28,7 +28,7 @@ function StudentForm() {
         const fetchRolls = async () => {
             try {
                 const response = await axios.get(`${URL}/apply/rolls`);
-                console.log(response);
+                // console.log(response);
                 setRolls(response.data)
                 // Assuming you want to do something with the response here
             } catch (error) {

@@ -93,7 +93,7 @@ export default function CertTest() {
         questionId: ques[index]._id,
         selectedOption: answer
       })), `${fName} ${lName}`);
-      console.log(results)
+      // console.log(results)
       navigate('/result', { state: { report: results } });
       setLoading(false);
     }

@@ -50,7 +50,7 @@ function Confirmpass({email,setEmail,isPasswordModalOpen,setPasswordModalOpen,se
       setLoading(true)
       console.log('sending reset password')
       const res=await ResetPassword(email,confirmPassword)
-      console.log(res)
+      // console.log(res)
       if(res.status==200){
         setLoading(false);
         setPasswordModalOpen(false);

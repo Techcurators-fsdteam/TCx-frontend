@@ -87,7 +87,7 @@ const Report = () => {
 
     // Image URL or base64 string
     const imageUrl = cert;
-    console.log(cert)
+    // console.log(cert)
 
     // Add image to PDF
     doc.addImage(imageUrl, 'JPEG', 10, 10, 480, 480);

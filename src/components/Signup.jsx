@@ -24,7 +24,7 @@ function SignUp() {
     const data = { email, username, password, firstName, lastName };
     signup(data)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         navigate("/login"); 
       })
       .catch((err) => {

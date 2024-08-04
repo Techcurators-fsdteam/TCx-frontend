@@ -53,7 +53,7 @@ export const getQuestions = async (testId) => {
 };
 
 export const submitAnswers = async (testId, answers, name, username) => {
-  console.log(username);
+  // console.log(username);
   try {
     const response = await apiClient.post("/certify/submit-answers", {
       testId,
@@ -121,7 +121,7 @@ export const submitProject = async (gradioLink, pid, username) => {
       pid,
       username,
     });
-    console.log(response);
+    // console.log(response);
     return response;
   } catch (error) {
     if (error.response) {
@@ -183,20 +183,7 @@ export const submitInterviewTest = async ({
   username,
   interviewId,
 }) => {
-  console.log(
-    fullName,
-    contactNumber,
-    emailId,
-    universityCollege,
-    rollNo,
-    branch,
-    resume,
-    linkedInProfile,
-    testId,
-    answers,
-    username,
-    interviewId
-  );
+ 
   try {
     const response = await apiClient.post("/apply/submitTest", {
       fullName,

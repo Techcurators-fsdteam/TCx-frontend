@@ -546,11 +546,11 @@ function Hero() {
       <div style={{ backgroundImage: 'linear-gradient(rgba(0,0,0,0.5),rgba(108, 71, 47,0.5),rgba(67, 46, 70,0.5),rgba(27, 21, 93,0.5),rgba(0,0,0,0.5))', backgroundSize: 'cover', backgroundPosition: 'center' }}>
         <Footercard />
       </div>
-      {/* <a href="https://rabbitt.ai/19minutestosuccess" target="_blank" rel="noopener noreferrer">
+      <a href="https://rabbitt.ai/19minutestosuccess" target="_blank" rel="noopener noreferrer">
         <Marquee speed={60} gradient={false} className="w-full mt-10 py-4 text-center text-white bg-black text-2xl font-bold">
           Congratulations 🎉 you are successful in your Treasure Hunt for Magical world. Here is your Entry Door
         </Marquee>
-      </a> */}
+      </a>
 
       <Footer />
     </>

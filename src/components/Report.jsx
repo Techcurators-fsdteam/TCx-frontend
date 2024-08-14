@@ -27,7 +27,7 @@ const Report = () => {
   // console.log(answers)
   const attemptedQuestions = answers.filter(answer => answer !== "").length;
   const correctQuestions = score/5;
-  console.log(correctQuestions)
+  // console.log(correctQuestions)
   const wrongQuestions = attemptedQuestions - correctQuestions;
   // const skippedQuestions = totalQuestions - attemptedQuestions;
   // const history=useHistory()
@@ -81,26 +81,39 @@ const Report = () => {
       window.removeEventListener('popstate', handleBackNavigation);
     };
   }, [location.pathname]);
+  
   const cert = report.certificateLink;
   // console.log(cert)
   const downloadPdf = () => {
-    // Create a new jsPDF instance
     const doc = new jsPDF({
       orientation: "portrait",
       unit: "px",
       format: [500, 500]
     });
 
-    // Image URL or base64 string
-    const imageUrl = cert;
-    // console.log(cert)
+    const imageUrl = cert; // Make sure this is a correct and accessible URL or a base64 string
 
-    // Add image to PDF
-    doc.addImage(imageUrl, 'JPEG', 10, 10, 480, 480);
+    // Verify that the imageUrl is correctly fetched and not undefined or null
+    console.log("Certificate Image URL:", imageUrl);
 
-    // Save the PDF
-    doc.save('download.pdf');
-  };
+    // Load image and ensure it is drawn only after fully loaded
+    if (imageUrl) {
+        var img = new Image();
+        img.onload = function() {
+            // Once the image is loaded, add it to the PDF
+            doc.addImage(img, 'JPEG', 10, 10, 480, 480);
+            doc.save('Certificate.pdf'); // Change the download name to something appropriate
+        };
+        img.onerror = function() {
+            console.error("Error loading the image");
+            alert("Failed to load the image for the certificate");
+        };
+        img.src = imageUrl;
+    } else {
+        alert("Invalid image URL or path");
+    }
+};
+
 
 
 

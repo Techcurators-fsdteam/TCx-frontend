@@ -457,7 +457,7 @@ export const CorporateForm = () => {
     return (
         <div className="bg-black text-gray-400 p-10 min-h-screen flex justify-center items-center">
             <form onSubmit={handleSubmit} className="w-full max-w-lg">
-                <h2 className="text-5xl text-white font-normal mb-8">Student Information</h2>
+                <h2 className="text-5xl text-white font-normal mb-8">User Information</h2>
 
                 <div className="flex flex-wrap -mx-4 mb-6">
                     <div className="w-full md:w-1/2 px-4 mb-6 md:mb-0 relative">

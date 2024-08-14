@@ -18,18 +18,19 @@ const Report = () => {
   console.log(testReport)
 
   const totalQuestions = ques.length;
+  const score = testReport.report.score;
   // console.log(answers)
   const attemptedQuestions = answers.filter(answer => answer !== "").length;
-  const correctQuestions = countCorrectAnswers(ques, answers);
+  const correctQuestions = score/5;
+  console.log(correctQuestions)
   const wrongQuestions = attemptedQuestions - correctQuestions;
   // const skippedQuestions = totalQuestions - attemptedQuestions;
-  const score = (correctQuestions / totalQuestions) * 100;
   // const history=useHistory()
   // console.log(report)
   function countCorrectAnswers(questions, answers) {
     return answers.reduce((acc, answer, index) => {
       const correctOption = questions[index].options.find(option => option.isCorrect);
-      if (correctOption && answer.text === correctOption.text) {
+      if (correctOption && answer === correctOption.text) {
         acc++;
       }
       return acc;
@@ -107,10 +108,10 @@ const Report = () => {
         <h2 className="text-2xl sm:text-xl font-semibold mb-4">Summary</h2>
         <p className="mb-2 text-lg sm:text-base">Total Questions: {totalQuestions}</p>
         <p className="mb-2 text-lg sm:text-base">Attempted Questions: {attemptedQuestions}</p>
-        <p className="mb-2 text-lg sm:text-base">Correct Questions: {correctQuestions}</p>
+        <p className="mb-2 text-lg sm:text-base">Correct Questions: {score/5}</p>
         <p className="mb-2 text-lg sm:text-base">Wrong Questions: {wrongQuestions}</p>
         <p className="mb-2 text-lg sm:text-base">Skipped Questions: {totalQuestions - attemptedQuestions}</p>
-        <p className="mb-2 text-lg sm:text-base">Score: {score.toFixed(2)}%</p>
+        <p className="mb-2 text-lg sm:text-base">Score: {score}%</p>
         <div className="flex flex-col sm:flex-row justify-center mt-10 space-y-4 sm:space-y-0 sm:space-x-4">
           {report.passed ? <button onClick={downloadPdf} className="bg-[#FF7C1D] text-xl sm:text-lg text-white px-5 py-3 h-fit border-2 border-orange-500 w-fit rounded-md">Claim your Certificate</button> : <Link to={'/'} className="bg-[#FF7C1D] text-xl sm:text-lg text-white px-5 py-3 h-fit border-2 border-orange-500 w-fit rounded-md">
             Continue to Home Page

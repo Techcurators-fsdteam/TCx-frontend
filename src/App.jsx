@@ -29,7 +29,7 @@ import CustomCursor from './components/CustomCursor'; // Import the Custom Curso
 import './index.css'; // Ensure this points to your CSS file
 import ProblemTable from './components/ProblemTable';
 import StudentDet from './components/StudentDet';
-import StudentForm from './components/ApplyForm';
+import StudentForm,{CorporateForm} from './components/ApplyForm';
 import JobDescription from './components/JobDescription';
 
 function App() {
@@ -67,6 +67,7 @@ function App() {
             <Route path='/apply' element={<ApplyPage/>}/>
             <Route path='/application' element={<StudentForm/>}/>
             <Route path='/job-description' element={<JobDescription/>}/>
+            <Route path='/genAI-test' element={<CorporateForm/>}/>
           </Routes>
         </Router>
       </GoogleOAuthProvider>

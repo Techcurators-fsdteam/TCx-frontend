@@ -59,6 +59,17 @@ function Certify() {
 
     navigate('/testIntro', { state: { testName, testId } });
   };
+  function handleGenAI(){
+    if (!user) {
+      alert("Please log in to proceed.");
+      navigate('/login');
+      return;
+    }
+
+    
+
+    navigate('/genAI-test', { state: { testName:"GenAITest", testId:"test013" } });
+  }
 
   return (
     <>
@@ -130,7 +141,7 @@ function Certify() {
           Give Our AI-Powered Test and <br />
           <span className="text-orange-500 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">Check Your AI Proficiency</span>
         </p>
-        <button className="mt-6 bg-white text-orange-500 border-2 border-orange-500 py-2 px-4 rounded-lg text-lg sm:text-xl">
+        <button onClick={handleGenAI} className="mt-6 bg-white text-orange-500 border-2 border-orange-500 py-2 px-4 rounded-lg text-lg sm:text-xl">
           Give Your Test Today
         </button>
       </div>

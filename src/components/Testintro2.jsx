@@ -12,7 +12,7 @@ const Testintro2 = ({ onContinue, formData }) => {
           </Link>
           <div className="flex flex-grow flex-col justify-center items-start text-left w-full space-y-4">
             <p className="text-gray-400 text-2xl">Hey, <span className="text-orange-500">{formData.fullName}</span></p>
-            <p className="text-white text-3xl md:text-5xl leading-tight">Welcome to the {formData.jobTitle} Test</p>
+            <p className="text-white text-3xl md:text-5xl leading-tight">Welcome to the {formData.jobTitle || formData.testName} Test</p>
             <p className="text-gray-500 text-lg">Test Duration: 19 minutes</p>
             <p className="text-gray-500 text-lg">No. of Questions: 20</p>
           </div>

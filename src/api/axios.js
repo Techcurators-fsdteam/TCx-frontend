@@ -219,3 +219,41 @@ export const newsLetter= async(email,name)=>{
     throw error;
   }
 }
+
+
+export const submitCorporateTest = async ({
+  fullName,
+  contactNumber,
+  emailId,
+  universityCollege,
+  organisation,
+  experience,
+  resume,
+  linkedInProfile,
+  testId,
+  answers,
+  testName,
+  username
+}) => {
+  try {
+    console.log()
+    const response = await apiClient.post("/certify/submit-corporate", {
+      fullName,
+      contactNumber,
+      emailId,
+      universityCollege,
+      organisation,
+      experience,
+      resume,
+      linkedInProfile,
+      testId,
+      answers,
+      testName,
+      username
+    });
+    return response;
+  } catch (error) {
+    console.error("Error submitting corporate test:", error);
+    throw error; // Rethrow to allow further error handling by the caller
+  }
+};

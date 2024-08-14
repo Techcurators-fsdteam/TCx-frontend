@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getQues, getQuestions, submitAnswers, submitInterviewTest } from "../api/axios";
+import { getQues, getQuestions, submitAnswers, submitInterviewTest, submitCorporateTest } from "../api/axios";
 import { useUser } from "../store/UserContext";
 import BouncingDotsLoader from "./Loaders/Bouncing";
 import { toast } from "react-toastify";
@@ -27,7 +27,7 @@ export default function Test(props) {
     rollNo,
     branch,
     campus,
-    resume,
+    resume, corporate, organisation,
     linkedInProfile, interviewId, username } = testData;
   const { user, setAppData } = useUser();
 
@@ -130,8 +130,52 @@ export default function Test(props) {
         const selectedOption = selectedAnswers[i];
         answers.push({ questionId, selectedOption });
       }
+      if (corporate) {
+        try {
+          // console.log({
+          //     fullName,
+          //     contactNumber,
+          //     emailId,
+          //     universityCollege,
+          //     organisation,
+          //     experience,
+          //     resume,
+          //     linkedInProfile,
+          //     testId,
+          //     answers,
+          //     username,
+          //     testName: "GenAI Test" // assuming testName is part of testData
+          //   })
+          // Assuming the corporate submission requires these specific fields
+          const response = await submitCorporateTest({
+            fullName,
+            contactNumber,
+            emailId,
+            universityCollege,
+            organisation,
+            experience,
+            resume,
+            linkedInProfile,
+            testId,
+            answers,
+            username,
+            testName: "GenAI Test" // assuming testName is part of testData
+          });
 
-      if (campus) {
+          if (response.status === 201) {
+            // setAppData(result);
+            window.opener.postMessage({ type: 'testCompleted', data: { ques, answers: selectedAnswers, report: response.data } }, '*');
+            window.close(); // Navigate to a corporate-specific result page
+          } else {
+            throw new Error('Failed to submit corporate test');
+          }
+        } catch (error) {
+          toast.error(`Error: ${error.message}`);
+          console.error("Error submitting corporate test:", error);
+          setSubmitted(false); // Allow retry
+        }
+      }
+      else if (campus) {
         const response = await submitInterviewTest({
           fullName,
           contactNumber,
@@ -158,7 +202,7 @@ export default function Test(props) {
     }
 
     setLoading(false);
-  }, [submitted, selectedAnswers, ques, testId, domain, experience, fName, lName, campus, fullName, contactNumber, emailId, universityCollege, rollNo, branch, resume, linkedInProfile, username, interviewId, navigate, setAppData]);
+  }, [submitted, selectedAnswers, ques, testId, domain, experience, fName, lName, campus, fullName, contactNumber, emailId, universityCollege, rollNo, branch, resume, organisation, experience, linkedInProfile, username, interviewId, navigate, setAppData]);
 
   const next = () => {
     if (currIndex < ques.length - 1) {
@@ -204,15 +248,30 @@ export default function Test(props) {
     }
   };
   if (submitted) {
-    return <TestSubmissionSuccess />;
+    if(campus){
+      return <TestSubmissionSuccess />;
+    }
+    else{
+      window.opener.postMessage({ type: 'testCompleted', data: { ques, answers: selectedAnswers, report: response.data } }, '*'); // Navigate to a corporate-specific result page
+    }
+    
   }
+
+  const renderTextWithNewLines = (text) => {
+    return text.split("\n").map((str, index) => (
+      <React.Fragment key={index}>
+        {str}
+        <br />
+      </React.Fragment>
+    ));
+  };
 
   const renderQuestion = (question, index) => {
     if (testId) {
       return (
         <div key={index}>
           <p className="text-black mb-4">
-            <span className="text-xl font-semibold">Question {index + 1}:</span> {question.questionText}
+            <span className="text-xl font-semibold">Question {index + 1}:</span> {renderTextWithNewLines(question.questionText)}
           </p>
           <div className="flex flex-col mb-4">
             {question.options.map((option, optionIndex) => (
@@ -237,7 +296,7 @@ export default function Test(props) {
       return (
         <div key={index}>
           <p className="text-black mb-4">
-            <span className="text-xl font-semibold">Question {index + 1}:</span> {question.question}
+            <span className="text-xl font-semibold">Question {index + 1}:</span> {renderTextWithNewLines(question.question)}
           </p>
           <div className="flex flex-col mb-4">
             {question.options.map((option, optionIndex) => (

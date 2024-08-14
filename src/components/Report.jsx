@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const Report = () => {
   const location = useLocation();
   const testReport = JSON.parse(localStorage.getItem('testReport'));
-
+  const [passed,setPassed]=useState(false);
   const { ques, answers, report } = testReport;
   const [showAnswers, setShowAnswers] = useState(false);
   const navigate = useNavigate()
@@ -19,6 +19,11 @@ const Report = () => {
 
   const totalQuestions = ques.length;
   const score = testReport.report.score;
+  useEffect(()=>{
+    if(score>75){
+      setPassed(true)
+    }
+  },[score])
   // console.log(answers)
   const attemptedQuestions = answers.filter(answer => answer !== "").length;
   const correctQuestions = score/5;
@@ -104,7 +109,7 @@ const Report = () => {
   return (
     <section className="flex flex-col items-center w-full p-4">
       <div className="w-full max-w-4xl bg-white p-6 rounded-lg m-4 text-center">
-        {report.passed ? <h1 className="text-xl">Congratulations on passing the test! 🎉 </h1> : <h1 className="text-xl font-semibold">Don't be discouraged! 💪 Keep pushing forward! 🌟</h1>}
+        {passed ? <h1 className="text-xl">Congratulations on passing the test! 🎉 </h1> : <h1 className="text-xl font-semibold">Don't be discouraged! 💪 Keep pushing forward! 🌟</h1>}
         <h2 className="text-2xl sm:text-xl font-semibold mb-4">Summary</h2>
         <p className="mb-2 text-lg sm:text-base">Total Questions: {totalQuestions}</p>
         <p className="mb-2 text-lg sm:text-base">Attempted Questions: {attemptedQuestions}</p>
@@ -113,7 +118,7 @@ const Report = () => {
         <p className="mb-2 text-lg sm:text-base">Skipped Questions: {totalQuestions - attemptedQuestions}</p>
         <p className="mb-2 text-lg sm:text-base">Score: {score}%</p>
         <div className="flex flex-col sm:flex-row justify-center mt-10 space-y-4 sm:space-y-0 sm:space-x-4">
-          {report.passed ? <button onClick={downloadPdf} className="bg-[#FF7C1D] text-xl sm:text-lg text-white px-5 py-3 h-fit border-2 border-orange-500 w-fit rounded-md">Claim your Certificate</button> : <Link to={'/'} className="bg-[#FF7C1D] text-xl sm:text-lg text-white px-5 py-3 h-fit border-2 border-orange-500 w-fit rounded-md">
+          {passed ? <button onClick={downloadPdf} className="bg-[#FF7C1D] text-xl sm:text-lg text-white px-5 py-3 h-fit border-2 border-orange-500 w-fit rounded-md">Claim your Certificate</button> : <Link to={'/'} className="bg-[#FF7C1D] text-xl sm:text-lg text-white px-5 py-3 h-fit border-2 border-orange-500 w-fit rounded-md">
             Continue to Home Page
           </Link>
           }

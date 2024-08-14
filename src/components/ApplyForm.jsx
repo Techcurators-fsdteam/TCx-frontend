@@ -376,7 +376,7 @@ export const CorporateForm = () => {
     useEffect(() => {
         const handleMessage = (event) => {
           if (event.data.type === 'testCompleted') {
-            console.log("hello");
+            
             // console.log(event.data.data)
             localStorage.setItem('testReport', JSON.stringify({ ...event.data.data }))
             console.log("Hello")

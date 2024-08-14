@@ -164,6 +164,7 @@ export default function Test(props) {
 
           if (response.status === 201) {
             // setAppData(result);
+            console.log(response.data)
             window.opener.postMessage({ type: 'testCompleted', data: { ques, answers: selectedAnswers, report: response.data } }, '*');
             window.close(); // Navigate to a corporate-specific result page
           } else {

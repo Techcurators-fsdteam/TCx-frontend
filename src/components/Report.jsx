@@ -15,7 +15,7 @@ const Report = () => {
   // console.log(testReport)
   // const { passed, certificateLink } = getAppData();
   // console.log(passed)
-
+  console.log(testReport)
 
   const totalQuestions = ques.length;
   // console.log(answers)
@@ -133,7 +133,7 @@ const Report = () => {
 };
 
 const RenderQuestion = ({ question, answers, index }) => {
-  const userAnswer = answers[index].text;
+  const userAnswer = answers[index].text || answers[index];
   const isCorrect = question.options.some(option => option.text === userAnswer && option.isCorrect);
 
   return (
@@ -166,7 +166,7 @@ const RenderQuestion = ({ question, answers, index }) => {
           </div>
         ))}
       </div>
-      {userAnswer === undefined && (
+      {userAnswer === "" && (
         <p className="text-lg sm:text-md font-semibold text-gray-500">
           *You skipped this question
         </p>

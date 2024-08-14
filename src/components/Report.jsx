@@ -117,9 +117,9 @@ const Report = () => {
             Continue to Home Page
           </Link>
           }
-          <button onClick={() => setShowAnswers(!showAnswers)} className="bg-white border-2 border-orange-500 text-xl sm:text-lg text-orange-500 px-4 py-3 h-fit w-fit rounded-md">
+          {/*<button onClick={() => setShowAnswers(!showAnswers)} className="bg-white border-2 border-orange-500 text-xl sm:text-lg text-orange-500 px-4 py-3 h-fit w-fit rounded-md">
             {showAnswers ? 'Hide Answers' : 'Review Answers'}
-          </button>
+          </button>*/}
         </div>
       </div>
       {showAnswers && (

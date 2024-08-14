@@ -416,7 +416,7 @@ export const CorporateForm = () => {
         if (!formData.universityCollege.trim()) newErrors.rollNo = 'University/College is required';
         if (!formData.experience.trim()) newErrors.experience = 'Experience is required';
         // if (!formData.resume.trim()) newErrors.resume = 'Resume URL is required';
-        // if (!formData.linkedInProfile.trim()) newErrors.linkedInProfile = 'LinkedIn Profile is required';
+        if (!formData.linkedInProfile.trim()) newErrors.linkedInProfile = 'LinkedIn Profile is required';
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -593,7 +593,8 @@ export const CorporateForm = () => {
                                 onChange={handleChange}
                                 className="shadow appearance-none border rounded-lg w-full py-4 px-5 bg-black text-white leading-tight focus:outline-none focus:shadow-outline"
                             />
-                            <label className="absolute -top-3.5 left-5 bg-black px-1 text-gray-400">LinkedIn Profile</label>
+                            <label className="absolute -top-3.5 left-5 bg-black px-1 text-gray-400">LinkedIn Profile <span className="text-gray-500">*</span></label>
+                            {errors.linkedInProfile && <p className="text-red-500 text-xs italic">{errors.linkedInProfile}</p>}
                         </div>
                     </div>
                 </div>

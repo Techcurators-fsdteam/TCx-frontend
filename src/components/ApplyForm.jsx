@@ -46,7 +46,7 @@ function StudentForm() {
 
     const navigate = useNavigate();
 
-    const colleges = ["Manipal University, Jaipur"];
+    const colleges = ["Uttranchal University, Dehradun"];
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -343,7 +343,7 @@ export const CorporateForm = () => {
 
     const navigate = useNavigate();
 
-    const colleges = ["Manipal University, Jaipur"];
+    const colleges = ["Uttaranchal University, Dehradun"];
 
     const handleChange = (e) => {
         const { name, value } = e.target;

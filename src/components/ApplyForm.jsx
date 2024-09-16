@@ -46,7 +46,7 @@ function StudentForm() {
 
     const navigate = useNavigate();
 
-    const colleges = ["Uttranchal University, Dehradun"];
+    const colleges = ["Uttaranchal University, Dehradun"];
 
     const handleChange = (e) => {
         const { name, value } = e.target;

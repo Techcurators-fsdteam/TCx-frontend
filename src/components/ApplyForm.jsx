@@ -46,7 +46,7 @@ function StudentForm() {
 
     const navigate = useNavigate();
 
-    const colleges = ["Uttaranchal University, Dehradun"];
+    const colleges = ["University of Petroleum and Energy Studies (UPES), Dehradun"];
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -343,7 +343,7 @@ export const CorporateForm = () => {
 
     const navigate = useNavigate();
 
-    const colleges = ["Uttaranchal University, Dehradun"];
+    const colleges = ["University of Petroleum and Energy Studies (UPES), Dehradun"];
 
     const handleChange = (e) => {
         const { name, value } = e.target;
